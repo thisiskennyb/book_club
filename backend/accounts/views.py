@@ -1,8 +1,12 @@
 from rest_framework.generics import CreateAPIView
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from django.core.serializers import serialize
 from django.contrib.auth.models import User
 from .serializers import SignupSerializer
 from rest_framework.permissions import AllowAny
 from .models import UserProfile
+import json
 
 # handles request and parses body for username and password
 class SignupView(CreateAPIView):
@@ -18,3 +22,21 @@ class SignupView(CreateAPIView):
             user = User.objects.create_user(username=username, password=password)
             user_profile = UserProfile(user=user)
             user_profile.save()
+
+class PageAmount(APIView):
+    
+    def get(self, request):
+        user_profile = UserProfile.objects.get(user=request.user)
+        pages_completed = user_profile.pages_completed
+        return Response({'pages_completed': pages_completed})
+    
+    def post(self, request):
+        user_profile = UserProfile.objects.get(user=request.user)
+        new_pages_completed = request.data.get('pages_completed')
+
+        if new_pages_completed is not None:
+            user_profile.pages_completed += new_pages_completed
+            user_profile.save()
+            return Response({'message': 'updated'})
+        else:
+            return Response({'error': 'Not updated'})
