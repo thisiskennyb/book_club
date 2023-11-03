@@ -14,7 +14,7 @@ async function basicFetch(url, payload) {
       },
       body: JSON.stringify(context)
     }
-    const body = await basicFetch(`${url}accounts/signup`,payload)
+    const body = await basicFetch(`${url}accounts/signup/`,payload)
     return body
   }
   
