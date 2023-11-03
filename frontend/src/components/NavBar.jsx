@@ -1,7 +1,7 @@
 export default function() {
 
     return(
-    <ul class="navbar">
+    <ul className="navbar">
         <li className="nav-item"><a href="home">Home</a></li>
         <li className="nav-item"><a href="about">About</a></li>
         <li className="nav-item"><a href="portfolio">Portfolio</a></li>
