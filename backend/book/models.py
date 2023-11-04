@@ -7,6 +7,7 @@ class Book(models.Model):
     pages = models.IntegerField()
     book_cover_id = models.CharField(null=True)
     open_library_id = models.CharField(default=None)
+
     
 
 
