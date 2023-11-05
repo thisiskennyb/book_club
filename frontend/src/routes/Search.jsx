@@ -1,9 +1,10 @@
 import { useState } from "react";
-
+import { saveToList } from "../api/backend_calls";
 export default function Search() {
 const [title, setTitle] = useState("");
 const [searchResults, setSearchResults] = useState([]);
 const [searchType, setSearchType] = useState("title"); // Default to searching by title
+
 
 const fetchBooks = async (context) => {
   let useableContext = context.title.replace(/ /g, "+")
@@ -35,6 +36,7 @@ const fetchBooks = async (context) => {
 
     if (apiJSON.docs) {
       console.log(apiJSON.docs)
+      
       setSearchResults(apiJSON.docs);
     }
   } catch (error) {
@@ -56,7 +58,11 @@ const handleSubmit = async (e) => {
   const context = { title };
   await fetchBooks(context);
 };
-
+const handleSave = (index, list, context) => {
+  
+  saveToList(context, list)
+  
+};
 
     return(<>
         <div>This is Search</div>
@@ -82,16 +88,31 @@ const handleSubmit = async (e) => {
         <button type="submit">Search</button>
       </form>
       <div>
-        <h2>Search Results:</h2>
-        <ul>
-          {searchResults.map((result, index) => (
-            <li key={index}>
-              Author: {result.author_name}, Title: {result.title}, Pages: {result.number_of_pages_median}
-              <img src={result.cover_i ? `https://covers.openlibrary.org/b/id/${result.cover_i}-M.jpg`:'/default_book.png'} alt="Book Cover" />
-            </li>
-          ))}
-        </ul>
-      </div>
+  <h2>Search Results:</h2>
+  <ul>
+    {searchResults.map((result, index) => (
+      <li style={{margin:"10px", display:"inline-block"}} key={index}>
+        <div style={{ border: '1px solid black', maxWidth:'150px', marginBottom: '10px' }}>
+          <img
+            src={result.cover_i ? `https://covers.openlibrary.org/b/id/${result.cover_i}-M.jpg` : '/default_book.png'}
+            alt="Book Cover"
+            style={{ maxWidth: '150px', marginRight: '10px' }}
+          />
+          <div>
+            <p>Author: {result.author_name}</p>
+            <p>Title: {result.title}</p>
+            <p>Pages: {result.number_of_pages_median}</p>
+            <p>Key: {result.key.split('/')[2]}</p>
+          </div>
+          <button onClick={() => handleSave(index, "to-be-read", {title:result.title, author:result.author_name, pages:result.number_of_pages_median,book_cover_id:result.cover_i, open_library_id:result.key.split('/')[2]})}>to-be-read</button>
+          <button onClick={() => handleSave(index, "completed", {title:result.title, author:result.author_name, pages:result.number_of_pages_median,book_cover_id:result.cover_i, open_library_id:result.key.split('/')[2]})}>completed</button>
+          
+          
+        </div>
+      </li>
+    ))}
+  </ul>
+</div>
    
     </>
     )
