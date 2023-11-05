@@ -1,6 +1,8 @@
 from rest_framework import serializers
 from .models import CompletedBook, TopFive, ToBeRead  
 from book.models import Book
+from book.serializers import BookSerializer
+
 class BookSerializer(serializers.ModelSerializer):
     class Meta:
         model = Book
@@ -23,6 +25,7 @@ class ToBeReadSerializer(serializers.ModelSerializer):
     class Meta:
         model = ToBeRead
         fields = '__all__'
+    book = BookSerializer(read_only=True)
 
 class CompletedBookPostSerializer(serializers.ModelSerializer):
     
