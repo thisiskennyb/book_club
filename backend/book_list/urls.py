@@ -6,6 +6,6 @@ urlpatterns = [
     path('top-five/', views.TopFiveView.as_view()),
     path('completed/', views.CompletedView.as_view()),
     path('completed/<int:pk>/', views.CompletedView.as_view()),
-    path('to-be-read/', views.ToBeReadView.as_view()),
-    path('to-be-read/<int:pk>/', views.ToBeReadView.as_view()),
+    # path('to-be-read/', views.ToBeReadView.as_view()),
+    # path('to-be-read/<int:pk>/', views.ToBeReadView.as_view()),
 ]
