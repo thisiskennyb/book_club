@@ -3,10 +3,10 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from django.shortcuts import get_object_or_404
 from rest_framework import status
-from .serializers import TopFiveSerializer, CompletedBookSerializer, ToBeReadSerializer, CompletedBookPostSerializer
+from .serializers import TopFiveSerializer, ToBeReadPostSerializer, CompletedBookSerializer, ToBeReadSerializer, CompletedBookPostSerializer
 from .models import ToBeRead, TopFive, CompletedBook
 from accounts.models import UserProfile
-
+from book.models import Book
 class BookListView(APIView):
     def get(self, request):
        user = request.user
@@ -28,37 +28,38 @@ class BookListView(APIView):
 
 
 
-class TopFiveView(APIView):
-    def post(self, request):
-        top_five = request.data
-        serializer = TopFiveSerializer(data=top_five)
-        if serializer.is_valid(raise_exception=True):
-            top_five_saved = serializer.save()
-        return Response({"result": "saved"})
+# class TopFiveView(APIView):
+#     def post(self, request):
+#         top_five = request.data
+#         serializer = TopFiveSerializer(data=top_five)
+#         if serializer.is_valid(raise_exception=True):
+#             top_five_saved = serializer.save()
+#         return Response({"result": "saved"})
 
 class CompletedView(APIView):
     def get(self, request):
         user = request.user
-        completed_books= CompletedBook.objects.filter(user_profile__user=user, recommended=True)
+        completed_books= CompletedBook.objects.filter(user_profile__user=user)
         # completed_books = CompletedBook.objects.all()
         completed_books_serializer = CompletedBookSerializer(completed_books, many=True)
         return Response(completed_books_serializer.data)
 
     def post(self, request):
-        completed_book = request.data
-        serializer = CompletedBookSerializer(data=completed_book)
+        # created a book in completed book if not already there
+        completed_books = request.data
+        bookID =request.data['book']['id']
+        completed_books['user_profile']=request.user.id
+        book = get_object_or_404(Book, open_library_id=completed_books['book']['open_library_id'])
+        book_present = CompletedBook.objects.filter(book=book, user_profile=request.user.id).exists()
+        if book_present:
+            return Response({"result":"book already completed"})
+        completed_books['book']=bookID
+        serializer = CompletedBookPostSerializer(data=completed_books)
+        if serializer.is_valid(raise_exception=True):
+            completed_books_saved = serializer.save()
+        return Response({"result":  "saved"})
 
-        if serializer.is_valid():
-            open_library_id = serializer.validated_data['book']['open_library_id']
-            book_present = CompletedBook.objects.filter(book__open_library_id=open_library_id).exists()
-            
-            if book_present:
-                return Response({"result": "Book already completed"})
 
-            serializer.save()
-            return Response({"result": "Book(s) saved"})
-        else:
-            return Response(serializer.errors, status=400)
     
     def delete(self, request, pk):
         user = request.user
@@ -69,27 +70,35 @@ class CompletedView(APIView):
  
 
 
-# class ToBeReadView(APIView):
-#     def post(self, request):
-#         tbr_book = request.data
-#         serializer = ToBeReadSerializer(data=tbr_book)
+class ToBeReadView(APIView):
+    def post(self, request):
+        # user_profile = request.user.id
+        tbr_book = request.data
+        print(tbr_book)
+        bookID =request.data['book']['id']
+        tbr_book['user_profile']=request.user.id
+        print(tbr_book)
+        book = get_object_or_404(Book, open_library_id=tbr_book['book']['open_library_id'])
+        print(book, "this is book")
+       
+        book_present = ToBeRead.objects.filter(book=book, user_profile=request.user.id).exists()
+        print(book_present)
 
-#         if serializer.is_valid():
-#             open_library_id = serializer.validated_data['book']['open_library_id']
-#             book_present = ToBeRead.objects.filter(book__open_library_id=open_library_id).exists()
-            
-#             if book_present:
-#                 return Response({"result": "Book already added"})
+        if book_present:
+            return Response({"result": "Book already added"})
+        tbr_book['book']=bookID
+        serializer = ToBeReadPostSerializer(data=tbr_book)
+        if serializer.is_valid(raise_exception=True):
+            serializer.save()
+        return Response({"result": "Book(s) saved"})
 
-#             serializer.save()
-#             return Response({"result": "Book(s) saved"})
-#         else:
-#             return Response(serializer.errors, status=400)
-#     def delete(self, request, pk):
-#         user = request.user
-#         book_tbr = get_object_or_404(ToBeRead, user_profile__user=user, pk=pk)
 
-#         book_tbr.delete()
-#         return Response({"result": "Book deleted"}, status=status.HTTP_204_NO_CONTENT)
+
+    def delete(self, request, pk):
+        user = request.user
+        book_tbr = get_object_or_404(ToBeRead, user_profile__user=user, pk=pk)
+
+        book_tbr.delete()
+        return Response({"result": "Book deleted"}, status=status.HTTP_204_NO_CONTENT)
     
 
