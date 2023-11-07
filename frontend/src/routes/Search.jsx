@@ -22,8 +22,8 @@ const handleSubmit = async (e) => {
   setSearchResults(results)
 };
 const handleSave = (index, list, context) => {
-  const book = context
-  saveToList(book, list)
+  const info = {"book":context}
+  saveToList(info, list)
   
 };
 
