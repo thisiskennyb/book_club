@@ -48,14 +48,12 @@ async function basicFetch(url, payload) {
 
   export const fetchBooks = async (context, searchType) => {
     let useableContext = context.title.replace(/ /g, "+")
-
     const payload = {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
         "Authorization": `Token ${localStorage.getItem("token")}`
       },}
-
     try {
       let url;
       if (searchType === "author") {
