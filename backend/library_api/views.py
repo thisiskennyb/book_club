@@ -6,7 +6,7 @@ class TitleView(APIView):
     def get(self, request):
         title = request.GET.get('title')
         result_page = request.GET.get('resultpage')
-        api_url = f"https://openlibrary.org/search.json?title={title}&limit=2&sort=editions&language=eng&page={result_page}"
+        api_url = f"https://openlibrary.org/search.json?title={title}&limit=10&sort=editions&language=eng&page={result_page}"
 
         try:
             # Send a GET request to the API
@@ -27,7 +27,7 @@ class TitleView(APIView):
 class AuthorView(APIView):
     def get(self, request):
         author = request.GET.get('author')
-        result_page = request.GET.get('result_page')
+        result_page = request.GET.get('resultpage')
         api_url = f"https://openlibrary.org/search.json?author={author}&limit=10&sort=editions&language=eng&page={result_page}"
 
         try:
@@ -49,7 +49,7 @@ class AuthorView(APIView):
 class SubjectView(APIView):
     def get(self, request):
         subject = request.GET.get('subject')
-        result_page = request.GET.get('result_page')
+        result_page = request.GET.get('resultpage')
         api_url = f"https://openlibrary.org/search.json?q={subject}&limit=10&sort=editions&language=eng&page={result_page}"
 
 

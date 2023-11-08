@@ -66,7 +66,7 @@ async function basicFetch(url, payload) {
         const subjects = context.title.split(' ');
         const formattedSubjects = subjects.map(subject => `subject:${subject}`);
         const subjectContext = formattedSubjects.join('+');
-        url = `http://localhost:8000/api/search/subject/?subject=${subjectContext}`
+        url = `http://localhost:8000/api/search/subject/?subject=${subjectContext}&resultpage=${result_page}`
       }
      
       const apiData = await fetch(url,payload);
