@@ -5,7 +5,7 @@ export default function Search() {
 const [title, setTitle] = useState("");
 const [searchResults, setSearchResults] = useState([]);
 const [searchType, setSearchType] = useState("title"); // Default to searching by title
-
+const [resultPage, setResultPage] = useState(1)
 const handleInputChange = (e) => {
   const { value } = e.target;
   setTitle(value);
@@ -26,14 +26,29 @@ function filterResults(results) {
     );
   });
 }
-
+const increasePage = () =>{
+  setResultPage(resultPage+1)
+}
+const handleNextPage = async () =>{
+increasePage()
+const context = { title };
+const results = await fetchBooks(context, searchType, resultPage);
+// const useableBooks = filterResults(results)
+// const tenBooks = useableBooks.slice(0)
+console.log(results, "nextPage")
+setSearchResults(results)
+}
+const handlePrevPage = () =>{
+setResultPage(resultPage -1)
+}
 const handleSubmit = async (e) => {
   e.preventDefault();
   const context = { title };
-  const results = await fetchBooks(context, searchType);
-  const useableBooks = filterResults(results)
-  const tenBooks = useableBooks.slice(0,10)
-  setSearchResults(tenBooks)
+  const results = await fetchBooks(context, searchType, resultPage);
+  // const useableBooks = filterResults(results)
+  // const tenBooks = useableBooks.slice(0)
+  console.log(results, "search")
+  setSearchResults(results)
 };
 const handleSave = (index, list, context) => {
   const info = {"book":context}
@@ -66,6 +81,8 @@ const handleSave = (index, list, context) => {
       </form>
       <div>
   <h2>Search Results:</h2>
+    <button onClick={handleNextPage}>next page</button>
+    {resultPage > 1?<button onClick={handlePrevPage}>prev page</button>:null}
   <ul>
     {searchResults.map((result, index) => (
       <li style={{margin:"10px", display:"inline-block"}} key={index}>
@@ -76,14 +93,13 @@ const handleSave = (index, list, context) => {
             style={{ maxWidth: '150px', marginRight: '10px' }}
           />
           <div>
-            <p>Author: {result.author_name}</p>
+            <p>Author: {result.author_name[0]}</p>
             <p>Title: {result.title}</p>
             <p>Pages: {result.number_of_pages_median}</p>
             <p>Key: {result.key.split('/')[2]}</p>
           </div>
           <button onClick={() => handleSave(index, "to-be-read", {title:result.title, author:result.author_name, pages:result.number_of_pages_median,book_cover_id:result.cover_i, open_library_id:result.key.split('/')[2]})}>to-be-read</button>
           <button onClick={() => handleSave(index, "completed", {title:result.title, author:result.author_name[0], pages:result.number_of_pages_median,book_cover_id:result.cover_i, open_library_id:result.key.split('/')[2]})}>completed</button>
-          
           
         </div>
       </li>

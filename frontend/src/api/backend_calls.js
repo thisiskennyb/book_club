@@ -46,7 +46,7 @@ async function basicFetch(url, payload) {
   }
 
 
-  export const fetchBooks = async (context, searchType) => {
+  export const fetchBooks = async (context, searchType, result_page) => {
     let useableContext = context.title.replace(/ /g, "+")
     const payload = {
       method: "GET",
@@ -57,9 +57,9 @@ async function basicFetch(url, payload) {
     try {
       let url;
       if (searchType === "author") {
-        url = `http://localhost:8000/api/search/author/?author=${useableContext}`;
+        url = `http://localhost:8000/api/search/author/?author=${useableContext}&resultpage=${result_page}`;
       } else if (searchType === "title") {
-        url = `http://localhost:8000/api/search/title/?title=${useableContext}`;
+        url = `http://localhost:8000/api/search/title/?title=${useableContext}&resultpage=${result_page}`;
       }
       else {
         console.log(context)

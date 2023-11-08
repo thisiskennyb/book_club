@@ -34,8 +34,8 @@ console.log(typeof profileInfo)
         {profileInfo['tbr'].map((book,index)=><p key={index}>{book['book']['title']}</p>)}
         </div>
         <div className="profileBorders">
-            top 5
-        {profileInfo['top_five'].map((book,index)=><p key={index}>{book['book']['title']}</p>)}
+            recommended
+        {profileInfo['recommended'].map((book,index)=><p key={index}>{book['book']['title']}</p>)}
         </div>
         </>):null}
         
