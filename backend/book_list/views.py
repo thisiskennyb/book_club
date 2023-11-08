@@ -13,13 +13,13 @@ class BookListView(APIView):
        
        tbr_books= ToBeRead.objects.filter(user_profile__user=user)
        tbr_serializer = ToBeReadSerializer(tbr_books, many=True)
-       top_five= TopFive.objects.filter(user_profile__user=user).order_by("ranking")
-       top_five_serializer = TopFiveSerializer(top_five, many=True)
+       recommended= CompletedBook.objects.filter(user_profile__user=user, recommended=True)
+       recommended_serializer = CompletedBookSerializer(recommended, many=True)
        completed_books= CompletedBook.objects.filter(user_profile__user=user)
        completed_books_serializer = CompletedBookSerializer(completed_books, many=True)
        data = {
            "tbr": tbr_serializer.data,
-           "top_five":top_five_serializer.data,
+           "recommended":recommended_serializer.data,
            "completed_books":completed_books_serializer.data
 
        }
@@ -59,7 +59,18 @@ class CompletedView(APIView):
         if serializer.is_valid(raise_exception=True):
             completed_books_saved = serializer.save()
         return Response({"result":  "saved"})
+    
+    def put(self, request, pk):
+        user = request.user
+        completed_book = get_object_or_404(CompletedBook, user_profile__user=user, pk=pk)
 
+        # Toggle the 'recommended' field value
+        completed_book.recommended = not completed_book.recommended
+        completed_book.save()
+
+        # Serialize the updated object and return it
+        serializer = CompletedBookSerializer(completed_book)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
     
     def delete(self, request, pk):
@@ -101,3 +112,9 @@ class ToBeReadView(APIView):
         return Response({"result": "Book deleted"}, status=status.HTTP_204_NO_CONTENT)
     
 
+    # def delete(self, request, pk):
+    #     user = request.user
+    #     completed_book = get_object_or_404(CompletedBook, user_profile__user=user, pk=pk)
+
+    #     completed_book.delete()
+    #     return Response({"result": "Book deleted"}, status=status.HTTP_204_NO_CONTENT)
