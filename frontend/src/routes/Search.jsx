@@ -15,11 +15,25 @@ const handleSearchTypeChange = (e) => {
   setSearchType(e.target.value);
 };
 
+function filterResults(results) {
+  return results.filter(item => {
+    return (
+      item.hasOwnProperty('author_name') &&
+      item.hasOwnProperty('title') &&
+      item.hasOwnProperty('number_of_pages_median') &&
+      item.hasOwnProperty('key') &&
+      item.hasOwnProperty('cover_i')
+    );
+  });
+}
+
 const handleSubmit = async (e) => {
   e.preventDefault();
   const context = { title };
   const results = await fetchBooks(context, searchType);
-  setSearchResults(results)
+  const useableBooks = filterResults(results)
+  const tenBooks = useableBooks.slice(0,10)
+  setSearchResults(tenBooks)
 };
 const handleSave = (index, list, context) => {
   const info = {"book":context}

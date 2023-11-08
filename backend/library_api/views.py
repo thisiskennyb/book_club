@@ -5,7 +5,8 @@ from django.http import JsonResponse
 class TitleView(APIView):
     def get(self, request):
         title = request.GET.get('title')
-        api_url = f"https://openlibrary.org/search.json?title={title}&limit=5&sort=editions&language=eng"
+        
+        api_url = f"https://openlibrary.org/search.json?title={title}&limit=30&sort=editions&language=eng"
 
         try:
             # Send a GET request to the API
