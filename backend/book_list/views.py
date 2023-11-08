@@ -45,11 +45,12 @@ class CompletedView(APIView):
         return Response(completed_books_serializer.data)
 
     def post(self, request):
-        # created a book in completed book if not already there
         completed_books = request.data
-        bookID =request.data['book']['id']
+        # bookID =request.data['book']['id']
         completed_books['user_profile']=request.user.id
-        book = get_object_or_404(Book, open_library_id=completed_books['book']['open_library_id'])
+        # book = get_object_or_404(Book, open_library_id=completed_books['book']['open_library_id'])
+        book = Book.get_or_create_book(completed_books)
+        bookID= book.pk
         book_present = CompletedBook.objects.filter(book=book, user_profile=request.user.id).exists()
         if book_present:
             return Response({"result":"book already completed"})
@@ -72,17 +73,15 @@ class CompletedView(APIView):
 
 class ToBeReadView(APIView):
     def post(self, request):
-        # user_profile = request.user.id
         tbr_book = request.data
-        print(tbr_book)
-        bookID =request.data['book']['id']
+        # bookID =request.data['book']['id']
         tbr_book['user_profile']=request.user.id
-        print(tbr_book)
-        book = get_object_or_404(Book, open_library_id=tbr_book['book']['open_library_id'])
-        print(book, "this is book")
+        # book = get_object_or_404(Book, open_library_id=tbr_book['book']['open_library_id'])
+        book = Book.get_or_create_book(tbr_book)
+        bookID= book.pk
        
         book_present = ToBeRead.objects.filter(book=book, user_profile=request.user.id).exists()
-        print(book_present)
+        
 
         if book_present:
             return Response({"result": "Book already added"})

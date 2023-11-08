@@ -1,25 +1,41 @@
 import { useEffect, useState } from "react"
-import { profilePage } from "../api/backend_calls";
+
 
 export default function Profile() {
-    const [profileInfo, setProfileInfo] = useState([])
+    const [profileInfo, setProfileInfo] = useState('')
+    const profilePage = async () => {
+        const payload = {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Token ${localStorage.getItem("token")}`
+          },}
+          let url=`http://localhost:8000/api/book-list`
+          const apiData = await fetch(url,payload);
+          const apiJSON = await apiData.json();
+          setProfileInfo(apiJSON)
+            return apiJSON
+        } 
+      
 useEffect(() => {
-    const profile =profilePage()
-    setProfileInfo(profile)
+    profilePage()
 }, []);
 console.log(profileInfo)
-
+console.log(typeof profileInfo)
     return(<>
         <div>This is profile</div>
-        {profileInfo.length>0 ?(<>
-        <div className="profileBorder">
-        {profileInfo['completed_books'].map((book,index)=><p key={index}>{book}</p>)}
+        {typeof profileInfo == "object" ?(<>
+        <div className="profileBorders">
+            completed
+        {profileInfo['completed_books'].map((book,index)=><p key={index}>{book['book']['title']}</p>)}
         </div>
-        <div className="profileBorder">
-        {profileInfo['tbr'].map((book,index)=><p key={index}>{book}</p>)}
+        <div className="profileBorders">
+            tbr
+        {profileInfo['tbr'].map((book,index)=><p key={index}>{book['book']['title']}</p>)}
         </div>
-        <div className="profileBorder">
-        {profileInfo['top_five'].map((book,index)=><p key={index}>{book}</p>)}
+        <div className="profileBorders">
+            top 5
+        {profileInfo['top_five'].map((book,index)=><p key={index}>{book['book']['title']}</p>)}
         </div>
         </>):null}
         
