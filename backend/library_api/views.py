@@ -5,8 +5,8 @@ from django.http import JsonResponse
 class TitleView(APIView):
     def get(self, request):
         title = request.GET.get('title')
-        
-        api_url = f"https://openlibrary.org/search.json?title={title}&limit=30&sort=editions&language=eng"
+        result_page = request.GET.get('resultpage')
+        api_url = f"https://openlibrary.org/search.json?title={title}&limit=2&sort=editions&language=eng&page={result_page}"
 
         try:
             # Send a GET request to the API
@@ -27,7 +27,8 @@ class TitleView(APIView):
 class AuthorView(APIView):
     def get(self, request):
         author = request.GET.get('author')
-        api_url = f"https://openlibrary.org/search.json?author={author}&limit=5&sort=editions&language=eng"
+        result_page = request.GET.get('result_page')
+        api_url = f"https://openlibrary.org/search.json?author={author}&limit=10&sort=editions&language=eng&page={result_page}"
 
         try:
             # Send a GET request to the API
@@ -48,7 +49,8 @@ class AuthorView(APIView):
 class SubjectView(APIView):
     def get(self, request):
         subject = request.GET.get('subject')
-        api_url = f"https://openlibrary.org/search.json?q={subject}&limit=5&sort=editions&language=eng"
+        result_page = request.GET.get('result_page')
+        api_url = f"https://openlibrary.org/search.json?q={subject}&limit=10&sort=editions&language=eng&page={result_page}"
 
 
         try:
