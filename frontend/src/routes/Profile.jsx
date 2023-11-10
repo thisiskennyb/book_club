@@ -27,7 +27,7 @@ console.log(typeof profileInfo)
         {typeof profileInfo == "object" ?(<>
         <div className="profileBorders">
             completed
-        {profileInfo['completed_books'].map((book,index)=><p key={index}>{book['book']['title']}</p>)}
+        {profileInfo['completed_books'].map((book,index)=><p key={index}>title: {book['book']['title']} rating:{book['user_rating']?book['user_rating']:"no"}</p>)}
         </div>
         <div className="profileBorders">
             tbr
@@ -38,7 +38,7 @@ console.log(typeof profileInfo)
         {profileInfo['recommended'].map((book,index)=><p key={index}>{book['book']['title']}</p>)}
         </div>
         </>):null}
-        
+        <button onClick={()=>{console.log(profileInfo.completed_books)}}>print</button>
     </>
     )
 }

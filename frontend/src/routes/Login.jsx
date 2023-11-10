@@ -1,4 +1,4 @@
-import { Button } from "@mui/material"
+
 import { useState } from 'react';
 import Form from "../components/Form";
 import { signup,login } from '../api/backend_calls';
@@ -27,8 +27,8 @@ const handleRegister = async(e) =>{
     return(<>
         <div>This is login</div>
         <Form handleInputChange={handleInputChange} formData={formData}   />
-        <Button onClick={handleLogin} variant="outlined">Login</Button>
-        <Button onClick={handleRegister} variant="outlined">Register</Button>
+        <button onClick={handleLogin} >Login</button>
+        <button onClick={handleRegister}>Register</button>
     </>
     )
 }

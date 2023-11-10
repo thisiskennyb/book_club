@@ -44,3 +44,33 @@
 .profileBorders{
   border:1px solid black;
 }
+
+@keyframes rise {
+  0% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  50% {
+    transform: translateY(-5px); /* Adjust the value for the desired rise height */
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+#searchBookCard{
+
+  transition: transform 0.3s ease;
+
+}
+#searchBookCard:hover{
+  animation: rise 0.5s ease ;
+}
+.detailedBookButtons{
+  text-align: center;
+  
+}
+#loading{
+  text-align: center;
+}
