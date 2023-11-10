@@ -78,7 +78,7 @@ export default function DetailedBookView({open, setOpen, bookInfo}){
                     {saveResponse.result}
                 </p>
                 <div>
-                    {isRatingsOpen?(<>
+                    {isRatingsOpen && saveResponse.result!=="Book already in completed list"?(<>
                     <BasicRating book_pk={saveResponse.pk}/>
                     </>) :null}
                 </div>
