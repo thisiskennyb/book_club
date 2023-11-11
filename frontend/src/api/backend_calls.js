@@ -103,3 +103,51 @@ async function basicFetch(url, payload) {
     }
   };
   
+  export const fetchDetailedBook = async (OLID) => {
+    const payload = {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Token ${localStorage.getItem("token")}`
+      },}
+
+      let url = `http://localhost:8000/api/search/detail/?OLID=${OLID}`;
+      const apiData = await fetch(url,payload);
+      const apiJSON = await apiData.json();
+      return apiJSON
+      
+  };
+
+  export const setRecommended = async (pk) => {
+    const payload = {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Token ${localStorage.getItem("token")}`
+      },
+      body:{}
+    }
+
+      let url = `http://localhost:8000/api/book-list/completed/${pk}/`;
+      const apiData = await fetch(url,payload);
+      const apiJSON = await apiData.json();
+      return apiJSON
+      
+  };
+
+  export const setRatings = async (pk, rating) => {
+    const payload = {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Token ${localStorage.getItem("token")}`
+      },
+      body: JSON.stringify({"rating": rating})
+    }
+
+      let url = `http://localhost:8000/api/book-list/completed/${pk}/`;
+      const apiData = await fetch(url,payload);
+      const apiJSON = await apiData.json();
+      return apiJSON
+      
+  };

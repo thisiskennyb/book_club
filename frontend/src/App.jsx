@@ -6,6 +6,7 @@ import Login from './routes/Login'
 import Profile from './routes/Profile'
 import Search from './routes/Search'
 import NavBar from './components/NavBar'
+import Logout from './components/Logout'
 
 function App() {
   const url="http://localhost:8000/api/"
@@ -43,6 +44,7 @@ function App() {
       <Route path="/" element={<Home />} />
       <Route path="/profile" element={<Profile />} />
       <Route path="/search" element={<Search />} />
+      <Route path="/logout" element={<Logout />} />
      </Routes>
      </Router>
      </div>

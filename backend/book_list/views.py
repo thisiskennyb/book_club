@@ -53,12 +53,12 @@ class CompletedView(APIView):
         bookID= book.pk
         book_present = CompletedBook.objects.filter(book=book, user_profile=request.user.id).exists()
         if book_present:
-            return Response({"result":"book already completed"})
+            return Response({"result":"Book already in completed list"})
         completed_books['book']=bookID
         serializer = CompletedBookPostSerializer(data=completed_books)
         if serializer.is_valid(raise_exception=True):
             completed_books_saved = serializer.save()
-        return Response({"result":  "saved"})
+        return Response({"result": f"{completed_books_saved.book.title} Added to completed list","pk":completed_books_saved.book.pk})
     
     def put(self, request, pk):
         user = request.user
@@ -71,6 +71,15 @@ class CompletedView(APIView):
         # Serialize the updated object and return it
         serializer = CompletedBookSerializer(completed_book)
         return Response(serializer.data, status=status.HTTP_200_OK)
+    
+    def patch(self, request, pk):
+        user = request.user
+        completed_book = get_object_or_404(CompletedBook, user_profile__user=user, pk=pk)
+        print(request.data)
+        completed_book.user_rating = request.data.get('rating')
+        completed_book.save()
+        
+        return Response({"result": "Book UpDated"})
 
     
     def delete(self, request, pk):
@@ -95,12 +104,12 @@ class ToBeReadView(APIView):
         
 
         if book_present:
-            return Response({"result": "Book already added"})
+            return Response({"result": "Book already in to be read list"})
         tbr_book['book']=bookID
         serializer = ToBeReadPostSerializer(data=tbr_book)
         if serializer.is_valid(raise_exception=True):
-            serializer.save()
-        return Response({"result": "Book(s) saved"})
+            completed_tbr_book = serializer.save()
+        return Response({"result": f"{completed_tbr_book.book.title} added to tbr list"})
 
 
 
