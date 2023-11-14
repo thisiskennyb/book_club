@@ -40,7 +40,7 @@ function App() {
     <Router>
       <NavBar />
      <Routes>
-      <Route path="/login" element={<Login url={url} handleInputChange={handleInputChange} formData={formData} handleToken={handleToken}/>} />
+      <Route path="/login" element={<Login handleInputChange={handleInputChange} formData={formData} handleToken={handleToken}/>} />
       <Route path="/" element={<Home />} />
       <Route path="/profile" element={<Profile />} />
       <Route path="/search" element={<Search />} />

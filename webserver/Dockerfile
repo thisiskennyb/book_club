@@ -6,17 +6,17 @@
 
 FROM node:lts-alpine as builder
 
-WORKDIR /book_club
+WORKDIR /frontend
 
 # These two lines will allow us to pass in an environment
 # variable when the image is *built* (not run).  For local
 # development, localhost; for production, your EC2's IP address
-ARG VITE_BASE_URL="http://localhost/api/"
+ARG VITE_BASE_URL=http://localhost/api/
 ENV VITE_BASE_URL=$VITE_BASE_URL
 
-COPY ./book_club/package.json .
+COPY ./frontend/package.json .
 RUN npm install
-COPY ./book_club .
+COPY ./frontend .
 RUN npm run build
 
 ###########################
@@ -31,7 +31,7 @@ RUN npm run build
 FROM nginx:alpine
 
 COPY ./webserver/default.conf /etc/nginx/conf.d/default.conf
-
+COPY --from=builder /frontend/dist /usr/share/nginx/html
 
 
 

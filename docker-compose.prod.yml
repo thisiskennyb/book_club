@@ -1,21 +1,23 @@
+#########################################
+# The "production" compose file builds 
+# on your EC2 instance
+#########################################
+
 version: "3"
 services:
   api:
-    build: ./backend
-    ports:
-      - "8000:8000"
+    image: $DOCKERHUB_UNAME/book_club_api-prod:$NEW_VERSION 
     environment:
       - SECRET_KEY=$SECRET_KEY
       - DEBUG=$DEBUG
       - DB_NAME=$POSTGRES_DB
       - DB_USER=$POSTGRES_USER
       - DB_PASS=$POSTGRES_PASSWORD
+      - API_KEY=$PCGS_API_KEY
     depends_on:
       - db
   nginx:
-    build: 
-      context: .
-      dockerfile: ./webserver/Dockerfile
+    image: $DOCKERHUB_UNAME/book_club_webserver-prod:$NEW_VERSION
     restart: always
     ports:
       - "80:80"

@@ -1,10 +1,11 @@
+const base_url = import.meta.env.VITE_BASE_URL
 async function basicFetch(url, payload) {
     const res = await fetch(url, payload)
     const body = await res.json()
     return body
   }
   
-  
+
   export async function signup(context, url) {
   
     const payload = {
@@ -14,7 +15,7 @@ async function basicFetch(url, payload) {
       },
       body: JSON.stringify(context)
     }
-    const body = await basicFetch(`${url}accounts/signup/`,payload)
+    const body = await basicFetch(`${base_url}accounts/signup/`,payload)
     return body
   }
   
@@ -26,12 +27,12 @@ async function basicFetch(url, payload) {
       },
       body: JSON.stringify(context)
     }
-    const body = await basicFetch(`${url}accounts/get-token`, payload)
+    const body = await basicFetch(`${base_url}accounts/get-token`, payload)
     return body.token
   }
 
   export async function saveToList(context, list) {
-    const endpoint= `http://localhost:8000/api/book-list/${list}/`
+    const endpoint= `${base_url}book-list/${list}/`
     const payload = {
       method: "POST",
       headers: {
@@ -57,16 +58,16 @@ async function basicFetch(url, payload) {
     try {
       let url;
       if (searchType === "author") {
-        url = `http://localhost:8000/api/search/author/?author=${useableContext}&resultpage=${result_page}`;
+        url = `${base_url}search/author/?author=${useableContext}&resultpage=${result_page}`;
       } else if (searchType === "title") {
-        url = `http://localhost:8000/api/search/title/?title=${useableContext}&resultpage=${result_page}`;
+        url = `${base_url}search/title/?title=${useableContext}&resultpage=${result_page}`;
       }
       else {
         console.log(context)
         const subjects = context.title.split(' ');
         const formattedSubjects = subjects.map(subject => `subject:${subject}`);
         const subjectContext = formattedSubjects.join('+');
-        url = `http://localhost:8000/api/search/subject/?subject=${subjectContext}&resultpage=${result_page}`
+        url = `${base_url}search/subject/?subject=${subjectContext}&resultpage=${result_page}`
       }
      
       const apiData = await fetch(url,payload);
@@ -90,7 +91,7 @@ async function basicFetch(url, payload) {
         "Authorization": `Token ${localStorage.getItem("token")}`
       },}
     try {
-      let url=`http://localhost:8000/api/book-list`
+      let url=`${base_url}book-list`
       const apiData = await fetch(url,payload);
       const apiJSON = await apiData.json();
   
@@ -111,7 +112,7 @@ async function basicFetch(url, payload) {
         "Authorization": `Token ${localStorage.getItem("token")}`
       },}
 
-      let url = `http://localhost:8000/api/search/detail/?OLID=${OLID}`;
+      let url = `${base_url}search/detail/?OLID=${OLID}`;
       const apiData = await fetch(url,payload);
       const apiJSON = await apiData.json();
       return apiJSON
@@ -128,7 +129,7 @@ async function basicFetch(url, payload) {
       body:{}
     }
 
-      let url = `http://localhost:8000/api/book-list/completed/${pk}/`;
+      let url = `${base_url}book-list/completed/${pk}/`;
       const apiData = await fetch(url,payload);
       const apiJSON = await apiData.json();
       return apiJSON
@@ -145,7 +146,7 @@ async function basicFetch(url, payload) {
       body: JSON.stringify({"rating": rating})
     }
 
-      let url = `http://localhost:8000/api/book-list/completed/${pk}/`;
+      let url = `${base_url}book-list/completed/${pk}/`;
       const apiData = await fetch(url,payload);
       const apiJSON = await apiData.json();
       return apiJSON
