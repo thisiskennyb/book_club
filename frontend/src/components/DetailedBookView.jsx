@@ -39,7 +39,29 @@ export default function DetailedBookView({open, setOpen, bookInfo}){
             setIsRatingsOpen(true)
             console.log(saveResponse)
         }
+        setOpen(false)
       };
+
+    // const handleSave = async (list, context) => {
+    //     const info = { "book": context };
+    //     const response = await saveToList(info, list);
+    //     setSaveResponse(response);
+    
+    //     if (list === "completed") {
+    //         setIsRatingsOpen(true);
+    //         console.log(saveResponse);
+    
+    //         // Show "successfully added" message for 2 seconds
+    //         setTimeout(() => {
+    //             setIsRatingsOpen(false);
+    //             setOpen(false);
+    //         }, 2000);
+    //     } else {
+    //         // If it's not the completed list, just close the window
+    //         setOpen(false);
+    //     }
+    // };
+    
 
     const getDescription = async () =>{
         if(open){

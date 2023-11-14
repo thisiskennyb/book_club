@@ -4,6 +4,8 @@ import React, { useEffect, useState } from "react"
 export default function Profile() {
     const [profileInfo, setProfileInfo] = useState('')
 
+    const base_url = import.meta.env.VITE_BASE_URL
+
     const profilePage = async () => {
         const payload = {
           method: "GET",
@@ -11,7 +13,7 @@ export default function Profile() {
             "Content-Type": "application/json",
             "Authorization": `Token ${localStorage.getItem("token")}`
           },}
-          let url=`http://localhost:8000/api/book-list`
+          let url=`${base_url}book-list`
           const apiData = await fetch(url,payload);
           const apiJSON = await apiData.json();
           setProfileInfo(apiJSON)
@@ -27,7 +29,7 @@ export default function Profile() {
                 },
             }
 
-            let url=`http://localhost:8000/api/book-list/completed/${completedBookId}/`
+            let url=`${base_url}book-list/completed/${completedBookId}/`
             const response = await fetch(url, payload);
             // console.log(bookInfo.open_library_id)
 
