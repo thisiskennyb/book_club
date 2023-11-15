@@ -9,7 +9,7 @@ import NavBar from './components/NavBar'
 import Logout from './components/Logout'
 
 function App() {
-  const url="http://localhost:8000/api/"
+  
   
   const [formData, setFormData] = useState({ username: '', password: '' });
   const [userToken, setUserToken] = useState(null)
@@ -38,13 +38,13 @@ function App() {
     <div className="app-container">
       
     <Router>
-      <NavBar />
+      <NavBar userToken={userToken}/>
      <Routes>
       <Route path="/login" element={<Login handleInputChange={handleInputChange} formData={formData} handleToken={handleToken}/>} />
       <Route path="/" element={<Home />} />
       <Route path="/profile" element={<Profile />} />
       <Route path="/search" element={<Search />} />
-      <Route path="/logout" element={<Logout />} />
+      <Route path="/logout" element={<Logout setUserToken={setUserToken}/>} />
      </Routes>
      </Router>
      </div>

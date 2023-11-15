@@ -20,12 +20,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-# SECRET_KEY = 'django-insecure-l-d%n8!jz^$1c@&47e8--m6!@7n6e$p_=y&05922^eib1g=7&5'
-SECRET_KEY = os.getenv("SECRET_KEY") 
+SECRET_KEY = 'django-insecure-l-d%n8!jz^$1c@&47e8--m6!@7n6e$p_=y&05922^eib1g=7&5'
+# SECRET_KEY = os.getenv("SECRET_KEY") 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-# DEBUG = True
-DEBUG =  True if os.getenv("DEBUG") == "True" else False
+DEBUG = True
+# DEBUG =  True if os.getenv("DEBUG") == "True" else False
 
 
 
@@ -89,8 +89,8 @@ DATABASES = {
 "NAME": "book_db",
 "USER": "postgres",
 "PASSWORD": "postgres",
-"HOST": "db",
-"PORT": 5432, 
+"HOST": "localhost",
+"PORT": 5454, 
 }
 }
 

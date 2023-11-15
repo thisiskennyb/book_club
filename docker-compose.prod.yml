@@ -13,7 +13,6 @@ services:
       - DB_NAME=$POSTGRES_DB
       - DB_USER=$POSTGRES_USER
       - DB_PASS=$POSTGRES_PASSWORD
-      - API_KEY=$PCGS_API_KEY
     depends_on:
       - db
   nginx:

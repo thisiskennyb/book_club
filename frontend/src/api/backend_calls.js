@@ -1,4 +1,5 @@
-const base_url = import.meta.env.VITE_BASE_URL
+// const base_url = import.meta.env.VITE_BASE_URL
+const base_url = "http://localhost:8000/api/"
 async function basicFetch(url, payload) {
     const res = await fetch(url, payload)
     const body = await res.json()
@@ -6,7 +7,7 @@ async function basicFetch(url, payload) {
   }
   
 
-  export async function signup(context, url) {
+  export async function signup(context) {
   
     const payload = {
       method: "POST",
@@ -19,7 +20,7 @@ async function basicFetch(url, payload) {
     return body
   }
   
-  export async function login(context, url) {
+  export async function login(context) {
     const payload = {
       method: "POST",
       headers: {

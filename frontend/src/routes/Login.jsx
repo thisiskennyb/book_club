@@ -5,12 +5,12 @@ import { signup,login } from '../api/backend_calls';
 import { useNavigate } from 'react-router-dom';
 
 
-export default function Login({handleInputChange, url, formData, handleToken}) {
+export default function Login({handleInputChange, formData, handleToken}) {
 const [responseMsg, setResponseMsg] = useState("")
 const navigate = useNavigate();
 const handleLogin = async(e) =>{
     const context = {username: formData.username, password: formData.password}
-    const token = await login(context, url)
+    const token = await login(context)
     if(!token) {
       setResponseMsg("Error logging in")
     } else {
@@ -20,7 +20,7 @@ const handleLogin = async(e) =>{
 }  
 const handleRegister = async(e) =>{
     const context = {username: formData.username, password: formData.password}
-    const response = await signup(context, url)
+    const response = await signup(context)
     setResponseMsg(response.username)
 }  
 
