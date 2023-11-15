@@ -4,7 +4,10 @@ import { fetchBooks } from "../api/backend_calls";
 import DetailedBookView from "../components/DetailedBookView";
 import SearchBookCard from "../components/SearchBookCard"
 
+import CircularProgress from '@mui/material/CircularProgress';
+
 export default function Search() {
+  const [booksLoaded, setBooksLoaded] = useState(true)
   const [open, setOpen] = useState(false);
   const [title, setTitle] = useState("");
   const [searchResults, setSearchResults] = useState([]);
@@ -66,6 +69,8 @@ export default function Search() {
   const handleSubmit = async (e) => {
     setLastPage(false)
     setNoResults(false)
+    setBooksLoaded(false)
+    setIsSearchPressed(false)
     e.preventDefault();
 
     const context = { title };
@@ -77,6 +82,7 @@ export default function Search() {
     setSearchResults(tenBooks)
     setResultPage(1)
     setIsSearchPressed(true)
+    setBooksLoaded(true)
   };
 
 
@@ -112,9 +118,9 @@ export default function Search() {
   {lastPage ? "no more results":null}
   {noResults ? "no results matching your query":null}
   <ul>
-    {searchResults.map((result, index) => (
+    {booksLoaded ? searchResults.map((result, index) => (
       <SearchBookCard key={index} result={result} index={index} handleOpen={handleOpen}/>
-    ))}
+    )):<CircularProgress/>}
   </ul>
 </div>
    
