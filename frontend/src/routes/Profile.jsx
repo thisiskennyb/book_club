@@ -3,9 +3,8 @@ import React, { useEffect, useState } from "react"
 
 export default function Profile() {
     const [profileInfo, setProfileInfo] = useState('')
-
-    const base_url = import.meta.env.VITE_BASE_URL
-
+    // const base_url = import.meta.env.VITE_BASE_URL
+    const base_url = "http://localhost:8000/api/"
     const profilePage = async () => {
         const payload = {
           method: "GET",
@@ -63,7 +62,7 @@ console.log(typeof profileInfo)
                   title: {book["book"]["title"]} rating:{" "}
                   {book["user_rating"] ? book["user_rating"] : "no"}
                 </p>
-                <button onClick={() => handleDelete(book["book"]["id"])}>
+                <button onClick={() => handleDelete(book["id"])}>
                   Delete
                 </button>
               </div>
