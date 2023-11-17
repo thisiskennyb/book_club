@@ -5,6 +5,7 @@ import Home from './routes/Home'
 import Login from './routes/Login'
 import Profile from './routes/Profile'
 import Search from './routes/Search'
+import BookClub from './routes/BookClub'
 import NavBar from './components/NavBar'
 import Logout from './components/Logout'
 import OthersProfile from './routes/OthersProfile'
@@ -34,6 +35,7 @@ function App() {
     });
   };
   return (
+
 <>
     <div className="app-container">
       

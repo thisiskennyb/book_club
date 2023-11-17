@@ -26,4 +26,6 @@ urlpatterns = [
     path('api/search/', include("library_api.urls")),
 
     path('api/book-list/', include("book_list.urls")),
+
+    path('api/book-club/', include("book_club.urls"))
 ]

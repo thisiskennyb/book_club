@@ -7,8 +7,10 @@ export default function({userToken}) {
         <li className="nav-item"><a href="search">Search</a></li>
         {/* <li className="nav-item"><a href="about">About</a></li> */}
         {/* <li className="nav-item"><a href="contact">Contact</a></li> */}
+        <li className="nav-item"><a href="BookClub">Book Club</a></li>
         <li className="nav-item"><a href="login">Login</a></li>
         <li className="nav-item"><a href="logout">LogOut</a></li>
+        
     </ul>
     )
 }
