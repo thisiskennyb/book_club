@@ -146,12 +146,10 @@ export default function DetailedBookView({open, setOpen, bookInfo}){
                 otherUsersSameBook.map((others,index)=><p key={index}><a href={`othersProfile/${others.user.username}`}>{others.user.username}</a></p>)
                 :null}
         {/* what displays until book loads */}
-        </>):(<div id="loading"><CircularProgress/>
+        </>)}</>):(<div id="loading"><CircularProgress/>
         Loading Book Info</div>)}
         
             </Box>
         </Modal>
-    </>
-    
-    )
+    </>)
 }
