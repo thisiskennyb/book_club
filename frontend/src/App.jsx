@@ -5,6 +5,7 @@ import Home from './routes/Home'
 import Login from './routes/Login'
 import Profile from './routes/Profile'
 import Search from './routes/Search'
+import BookClub from './routes/BookClub'
 import NavBar from './components/NavBar'
 import Logout from './components/Logout'
 
@@ -34,20 +35,21 @@ function App() {
     });
   };
   return (
-<>
-    <div className="app-container">
-      
-    <Router>
-      <NavBar userToken={userToken}/>
-     <Routes>
-      <Route path="/login" element={<Login handleInputChange={handleInputChange} formData={formData} handleToken={handleToken}/>} />
-      <Route path="/" element={<Home />} />
-      <Route path="/profile" element={<Profile />} />
-      <Route path="/search" element={<Search />} />
-      <Route path="/logout" element={<Logout setUserToken={setUserToken}/>} />
-     </Routes>
-     </Router>
-     </div>
+    <>
+      <div className="app-container">
+        
+      <Router>
+          <NavBar userToken={userToken}/>
+        <Routes>
+          <Route path="/login" element={<Login handleInputChange={handleInputChange} formData={formData} handleToken={handleToken}/>} />
+          <Route path="/" element={<Home />} />
+          <Route path="/bookclub" element={<BookClub />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/search" element={<Search />} />
+          <Route path="/logout" element={<Logout setUserToken={setUserToken}/>} />
+        </Routes>
+      </Router>
+      </div>
     </>
   )
 }
