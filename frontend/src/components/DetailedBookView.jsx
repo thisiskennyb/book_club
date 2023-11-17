@@ -4,13 +4,14 @@ import { Box } from '@mui/material';
 import CircularProgress from '@mui/material/CircularProgress';
 import { saveToList } from "../api/backend_calls";
 import { useEffect, useState } from 'react';
-import { fetchDetailedBook } from '../api/backend_calls';
+import { fetchDetailedBook, fetchOtherUsersSameBook } from '../api/backend_calls';
 import BasicRating from './Rating';
 
 export default function DetailedBookView({open, setOpen, bookInfo}){
 
     const [saveResponse, setSaveResponse] = useState({result:null})
     const [bookDetails, setBookDetails] = useState(false)
+    const [otherUsersSameBook, setOtherUsersSameBook] = useState(false)
     const [isRatingsOpen, setIsRatingsOpen] = useState(false)
     const [isAdded, setIsAdded] = useState(false)
     const style = {
@@ -31,7 +32,9 @@ export default function DetailedBookView({open, setOpen, bookInfo}){
         setBookDetails(false)
         setSaveResponse({result:null})
         setIsRatingsOpen(false)
+        setOtherUsersSameBook(false)
         setIsAdded(false);
+
     };
 
     const handleSave = async (list, context) => {
@@ -51,7 +54,11 @@ export default function DetailedBookView({open, setOpen, bookInfo}){
             }, 2000)
             // console.log(saveResponse)
         }
-        
+
+        // setOpen(false)
+        handleClose()
+
+      
       };
 
     // const handleSave = async (list, context) => {
@@ -81,10 +88,16 @@ export default function DetailedBookView({open, setOpen, bookInfo}){
         setBookDetails(apiJSON)
     }}
 
+    const getOtherUsers= async () =>{
+        if(open){
+        const apiJSON = await fetchOtherUsersSameBook(bookInfo.open_library_id)   
+        setOtherUsersSameBook(apiJSON.other_readers)
+    }}
  
 
     useEffect(() => {
         getDescription()
+        getOtherUsers()
     }, [open]);
 
 
@@ -127,12 +140,15 @@ export default function DetailedBookView({open, setOpen, bookInfo}){
                     </button>
                     <button onClick={handleClose}>close</button>
                 </div>
-                </> 
-                )}
+
+                {otherUsersSameBook?
+                typeof otherUsersSameBook==="string"?<p>{otherUsersSameBook}</p>:
+                otherUsersSameBook.map((others,index)=><p key={index}><a href={`othersProfile/${others.user.username}`}>{others.user.username}</a></p>)
+                :null}
         {/* what displays until book loads */}
         </>):(<div id="loading"><CircularProgress/>
         Loading Book Info</div>)}
-           
+        
             </Box>
         </Modal>
     </>

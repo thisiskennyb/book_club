@@ -7,7 +7,7 @@ import Profile from './routes/Profile'
 import Search from './routes/Search'
 import NavBar from './components/NavBar'
 import Logout from './components/Logout'
-
+import OthersProfile from './routes/OthersProfile'
 function App() {
   
   
@@ -45,6 +45,7 @@ function App() {
       <Route path="/profile" element={<Profile />} />
       <Route path="/search" element={<Search />} />
       <Route path="/logout" element={<Logout setUserToken={setUserToken}/>} />
+      <Route path="/othersProfile/:username" element={<OthersProfile />} />
      </Routes>
      </Router>
      </div>

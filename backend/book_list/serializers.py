@@ -1,7 +1,13 @@
 from rest_framework import serializers
 from .models import CompletedBook, TopFive, ToBeRead  
+from accounts.models import UserProfile
 from book.models import Book
+from django.contrib.auth.models import User
 
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ('username',)
 
 class BookSerializer(serializers.ModelSerializer):
     class Meta:
@@ -38,3 +44,9 @@ class ToBeReadPostSerializer(serializers.ModelSerializer):
     class Meta:
         model = ToBeRead
         fields = '__all__'
+
+class OthersCompletedSerializer(serializers.ModelSerializer):
+    user = UserSerializer()
+    class Meta:
+        model = UserProfile
+        fields = ('user',)

@@ -24,6 +24,7 @@ class Book(models.Model):
             'title': book_data['book']['title'],
             'pages': book_data['book']['pages'],
             'book_cover_id': book_data['book']['book_cover_id'],
+        
         })
         return book
 

@@ -88,7 +88,7 @@ export default function Search() {
 
     return(<>
     <DetailedBookView open={open} setOpen={setOpen} bookInfo={clickedBook}/>
-        <div>This is Search</div>
+        <h1>Find your next literary adventure</h1>
   
       <form onSubmit={handleSubmit}>
         <div id="title">
@@ -112,7 +112,7 @@ export default function Search() {
       </form>
       <div>
     {resultPage > 1 ? <button onClick={handlePrevPage}>prev page</button>:null}
-    {!lastPage ? <button onClick={handleNextPage}>next page</button>:null}
+    {!lastPage && isSearchPressed? <button onClick={handleNextPage}>next page</button>:null}
     {isSearchPressed?(<><h2>Search Results: </h2>
     <h3>Page: {resultPage}</h3></>):null}
   {lastPage ? "no more results":null}
