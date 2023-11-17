@@ -39,6 +39,27 @@ export default function Profile() {
                 console.error("Not deleted")
             }
         }
+
+        const tbrDelete = async (tbrBookId) => {
+          const payload = {
+              method: "DELETE",
+              headers: {
+                  "Content-Type": "application/json",
+                  "Authorization": `Token ${localStorage.getItem("token")}`
+              },
+          }
+
+          let url=`${base_url}book-list/to-be-read/${tbrBookId}/`
+          const response = await fetch(url, payload);
+          // console.log(bookInfo.open_library_id)
+
+          if (response.status === 204) {
+              console.log("Book deleted")
+          profilePage()
+          } else {
+              console.error("Not deleted")
+          }
+      }
       
 useEffect(() => {
     profilePage()
@@ -68,10 +89,19 @@ console.log(typeof profileInfo)
               </div>
             ))}
           </div>
+
         <div className="profileBorders">
             tbr
-        {profileInfo['tbr'].map((book,index)=><p key={index}>{book['book']['title']}</p>)}
+        {profileInfo['tbr'].map((book,index)=> (
+        <div key={index}>  
+          <p> title: {book['book']['title']}</p>
+          <button onClick={() => tbrDelete(book["id"])}>
+            Delete
+          </button>
         </div>
+          ))}
+        </div>
+
         <div className="profileBorders">
             recommended
         {profileInfo['recommended'].map((book,index)=><p key={index}>{book['book']['title']}</p>)}
