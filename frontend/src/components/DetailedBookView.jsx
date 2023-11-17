@@ -75,7 +75,7 @@ export default function DetailedBookView({open, setOpen, bookInfo}){
     const getOtherUsers= async () =>{
         if(open){
         const apiJSON = await fetchOtherUsersSameBook(bookInfo.open_library_id)   
-        setOtherUsersSameBook(apiJSON)
+        setOtherUsersSameBook(apiJSON.other_readers)
     }}
  
 
@@ -118,9 +118,14 @@ export default function DetailedBookView({open, setOpen, bookInfo}){
                     <button onClick={() => handleSave("completed", bookInfo)}>completed</button>
                     <button onClick={handleClose}>close</button>
                 </div>
+                {otherUsersSameBook?
+                typeof otherUsersSameBook==="string"?<p>{otherUsersSameBook}</p>:
+                otherUsersSameBook.map((others,index)=><p key={index}><a href={`othersProfile/${others.user.username}`}>{others.user.username}</a></p>)
+                :null}
         {/* what displays until book loads */}
         </>):(<div id="loading"><CircularProgress/>
         Loading Book Info</div>)}
+        
             </Box>
         </Modal>
     

@@ -130,10 +130,13 @@ class ToBeReadView(APIView):
 
 class OthersCompletedView(APIView):
     def get(self, request, OLID):
-        print(OLID)
-        book = get_object_or_404(Book, open_library_id=OLID)
-        other_readers = CompletedBook.objects.filter(book=book)\
-            .values('user_profile')\
-            .distinct()
+        try:
+            book = Book.objects.get(open_library_id=OLID)
+        except Book.DoesNotExist:
+            return Response({'other_readers': 'Be the first to read this'}, status=status.HTTP_200_OK)
+        user_profiles = CompletedBook.objects.filter(book=book).values('user_profile').distinct()
+        user_profiles_data = UserProfile.objects.filter(id__in=user_profiles)
+        serializer = OthersCompletedSerializer(user_profiles_data, many=True)
+        serialized_data = serializer.data
 
-        return Response({'other_readers': other_readers})
+        return Response({'other_readers': serialized_data})
