@@ -1,3 +1,4 @@
+import * as React from 'react';
 import Modal from '@mui/material/Modal';
 import { Box } from '@mui/material';
 import CircularProgress from '@mui/material/CircularProgress';
@@ -12,6 +13,7 @@ export default function DetailedBookView({open, setOpen, bookInfo}){
     const [bookDetails, setBookDetails] = useState(false)
     const [otherUsersSameBook, setOtherUsersSameBook] = useState(false)
     const [isRatingsOpen, setIsRatingsOpen] = useState(false)
+    const [isAdded, setIsAdded] = useState(false)
     const style = {
         position: 'absolute',
         top: '50%',
@@ -31,18 +33,32 @@ export default function DetailedBookView({open, setOpen, bookInfo}){
         setSaveResponse({result:null})
         setIsRatingsOpen(false)
         setOtherUsersSameBook(false)
+        setIsAdded(false);
+
     };
 
     const handleSave = async (list, context) => {
         const info = {"book":context}
         const response = await saveToList(info, list)
         setSaveResponse(response)
-        if(list==="completed"){
+
+        if(list==="completed" || list==="to-be-read"){
+            // setTimeout(() => {
+            //     alert("Successfully added")
+            // }, 1000)
+            setIsAdded(true)
             setIsRatingsOpen(true)
-            console.log(saveResponse)
+            setTimeout(() => {
+                setIsAdded(false);
+                setOpen(false);
+            }, 2000)
+            // console.log(saveResponse)
         }
+
         // setOpen(false)
         handleClose()
+
+      
       };
 
     // const handleSave = async (list, context) => {
@@ -87,9 +103,14 @@ export default function DetailedBookView({open, setOpen, bookInfo}){
 
     return (<>
         <Modal open={open} onClose={handleClose} aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description">
+
             <Box sx={style}> 
             {/* checking for book details makes everything pop at the same time */}
             {bookDetails?(<>
+                {isAdded ? (
+                    <div>Successfully Added</div>
+                ) : (
+                <>
                 <h2>{bookInfo.title}</h2>
                 <h4>{bookInfo.author}</h4>
                 {/* description */}
@@ -115,9 +136,11 @@ export default function DetailedBookView({open, setOpen, bookInfo}){
                 </div>
                 <div className='detailedBookButtons'>
                     <button onClick={() => handleSave("to-be-read", bookInfo)}>to-be-read</button>
-                    <button onClick={() => handleSave("completed", bookInfo)}>completed</button>
+                    <button onClick={() => handleSave("completed", bookInfo)}>completed
+                    </button>
                     <button onClick={handleClose}>close</button>
                 </div>
+
                 {otherUsersSameBook?
                 typeof otherUsersSameBook==="string"?<p>{otherUsersSameBook}</p>:
                 otherUsersSameBook.map((others,index)=><p key={index}><a href={`othersProfile/${others.user.username}`}>{others.user.username}</a></p>)
@@ -128,6 +151,7 @@ export default function DetailedBookView({open, setOpen, bookInfo}){
         
             </Box>
         </Modal>
+    </>
     
-    </>)
+    )
 }
