@@ -38,3 +38,7 @@ class ToBeReadPostSerializer(serializers.ModelSerializer):
     class Meta:
         model = ToBeRead
         fields = '__all__'
+
+class OthersCompletedSerializer(serializers.ModelSerializer):
+    class Meta:
+        fields = '__all__'

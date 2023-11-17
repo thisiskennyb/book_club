@@ -8,4 +8,5 @@ urlpatterns = [
     path('completed/<int:pk>/', views.CompletedView.as_view()),
     path('to-be-read/', views.ToBeReadView.as_view()),
     path('to-be-read/<int:pk>/', views.ToBeReadView.as_view()),
+    path('others-completed/<int:OLID>', views.OthersCompletedView.as_view()),
 ]

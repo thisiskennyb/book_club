@@ -3,7 +3,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from django.shortcuts import get_object_or_404
 from rest_framework import status
-from .serializers import TopFiveSerializer, ToBeReadPostSerializer, CompletedBookSerializer, ToBeReadSerializer, CompletedBookPostSerializer
+from .serializers import TopFiveSerializer, ToBeReadPostSerializer, CompletedBookSerializer, ToBeReadSerializer, CompletedBookPostSerializer, OthersCompletedSerializer
 from .models import ToBeRead, TopFive, CompletedBook
 from accounts.models import UserProfile
 from book.models import Book
@@ -127,3 +127,13 @@ class ToBeReadView(APIView):
 
     #     completed_book.delete()
     #     return Response({"result": "Book deleted"}, status=status.HTTP_204_NO_CONTENT)
+
+class OthersCompletedView(APIView):
+    def get(self, request, OLID):
+        print(OLID)
+        book = get_object_or_404(Book, open_library_id=OLID)
+        other_readers = CompletedBook.objects.filter(book=book)\
+            .values('user_profile')\
+            .distinct()
+
+        return Response({'other_readers': other_readers})

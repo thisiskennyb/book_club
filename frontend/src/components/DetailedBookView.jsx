@@ -3,13 +3,14 @@ import { Box } from '@mui/material';
 import CircularProgress from '@mui/material/CircularProgress';
 import { saveToList } from "../api/backend_calls";
 import { useEffect, useState } from 'react';
-import { fetchDetailedBook } from '../api/backend_calls';
+import { fetchDetailedBook, fetchOtherUsersSameBook } from '../api/backend_calls';
 import BasicRating from './Rating';
 
 export default function DetailedBookView({open, setOpen, bookInfo}){
 
     const [saveResponse, setSaveResponse] = useState({result:null})
     const [bookDetails, setBookDetails] = useState(false)
+    const [otherUsersSameBook, setOtherUsersSameBook] = useState(false)
     const [isRatingsOpen, setIsRatingsOpen] = useState(false)
     const style = {
         position: 'absolute',
@@ -29,6 +30,7 @@ export default function DetailedBookView({open, setOpen, bookInfo}){
         setBookDetails(false)
         setSaveResponse({result:null})
         setIsRatingsOpen(false)
+        setOtherUsersSameBook(false)
     };
 
     const handleSave = async (list, context) => {
@@ -39,7 +41,8 @@ export default function DetailedBookView({open, setOpen, bookInfo}){
             setIsRatingsOpen(true)
             console.log(saveResponse)
         }
-        setOpen(false)
+        // setOpen(false)
+        handleClose()
       };
 
     // const handleSave = async (list, context) => {
@@ -69,10 +72,16 @@ export default function DetailedBookView({open, setOpen, bookInfo}){
         setBookDetails(apiJSON)
     }}
 
+    const getOtherUsers= async () =>{
+        if(open){
+        const apiJSON = await fetchOtherUsersSameBook(bookInfo.open_library_id)   
+        setOtherUsersSameBook(apiJSON)
+    }}
  
 
     useEffect(() => {
         getDescription()
+        getOtherUsers()
     }, [open]);
 
 

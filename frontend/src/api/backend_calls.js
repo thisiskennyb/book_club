@@ -153,3 +153,18 @@ async function basicFetch(url, payload) {
       return apiJSON
       
   };
+
+  export const fetchOtherUsersSameBook = async (OLID) => {
+    const payload = {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Token ${localStorage.getItem("token")}`
+      },}
+
+      let url = `${base_url}book-list/others-completed/?OLID=${OLID}`;
+      const apiData = await fetch(url,payload);
+      const apiJSON = await apiData.json();
+      return apiJSON
+      
+  };
