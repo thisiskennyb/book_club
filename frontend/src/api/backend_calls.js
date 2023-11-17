@@ -83,8 +83,13 @@ async function basicFetch(url, payload) {
     }
   };
 
-  export const profilePage = async () => {
-
+  export const profilePage = async (pk=none) => {
+    if(pk===none){
+      const profilepk= ''
+    }
+    else {
+      const profilepk=`/${pk}`
+    }
     const payload = {
       method: "GET",
       headers: {
@@ -92,7 +97,7 @@ async function basicFetch(url, payload) {
         "Authorization": `Token ${localStorage.getItem("token")}`
       },}
     try {
-      let url=`${base_url}book-list`
+      let url=`${base_url}book-list${profilepk}`
       const apiData = await fetch(url,payload);
       const apiJSON = await apiData.json();
   
