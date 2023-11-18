@@ -3,10 +3,10 @@ from book.models import Book
 from django.contrib.auth.models import User
 
 class BookClub(models.Model):
-    members = models.ManyToManyField(User, related_name='book_club_members', null=True)
+    members = models.ManyToManyField(User, related_name='book_club_members')
     book = models.ForeignKey(Book, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='created_book_clubs')
-
+    name = models.CharField(max_length=50)
     # @staticmethod
     # def create_book_club(request, ol_id):
     #     user = request.user

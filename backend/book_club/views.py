@@ -3,7 +3,8 @@ from rest_framework.views import APIView
 from django.shortcuts import get_object_or_404
 from rest_framework import status
 from .models import BookClub
-from .serializers import BookClubSerializer
+from .serializers import BookClubSerializer, BookClubPostSerializer
+from book.models import Book
 
 class BookClubView(APIView):
     def get(self, request):
@@ -19,8 +20,15 @@ class BookClubView(APIView):
             return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
         
     def post(self, request):
-        book_club = request.data
-        serializer = BookClubSerializer(data=book_club)
-        if serializer.is_valid(raise_exception=True):
+        print(request.data)
+        user_id = request.user.id
+        book_club_data = request.data
+        book_club_data['user'] = user_id
+        print(book_club_data)
+        serializer = BookClubPostSerializer(data=book_club_data)
+        if serializer.is_valid():
             book_club_saved = serializer.save()
-        return Response({"result": f"{book_club_saved.book} saved"})
+            return Response({"result": f"{book_club_saved.book} saved"})
+        else:
+            errors = serializer.errors  
+            return Response(errors, status=status.HTTP_400_BAD_REQUEST)
