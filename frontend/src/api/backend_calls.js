@@ -188,14 +188,46 @@ async function basicFetch(url, payload) {
     return apiJSON
   }
 
-  export const getAllBookClubs = async () =>{
+  export const getAllBookClubs = async (pk = null) =>{
+    let bookClubPk = ''
+    if(pk !==null){
+      bookClubPk = `${pk}`
+    }
     const payload = {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
         "Authorization": `Token ${localStorage.getItem("token")}`
       },}
-    let url = `${base_url}book-club/`;
+    let url = `${base_url}book-club/${bookClubPk}`;
+    const apiData = await fetch(url,payload);
+    const apiJSON = await apiData.json();
+    return apiJSON
+  }
+
+  export const modifyClub = async (clubPk, modifier) =>{
+    const context= {modifier}
+    const payload = {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Token ${localStorage.getItem("token")}`
+      },
+      body: JSON.stringify(context),
+    }
+    let url = `${base_url}book-club/${clubPk}`;
+    const apiData = await fetch(url,payload);
+    const apiJSON = await apiData.json();
+    return apiJSON
+  }
+  export const getAllMyClubs = async () =>{
+    const payload = {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Token ${localStorage.getItem("token")}`
+      },}
+    let url = `${base_url}book-club/myclubs`;
     const apiData = await fetch(url,payload);
     const apiJSON = await apiData.json();
     return apiJSON

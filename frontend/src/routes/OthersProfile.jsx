@@ -19,6 +19,7 @@ export default function OthersProfile() {
     return (
         <>
             <p>Other profile</p>
+            <h3>books completed</h3>
             {profileInfo && profileInfo.completed_books.map((book, index) => (
                 <p key={index}>{book.book.title}</p>
             ))}
