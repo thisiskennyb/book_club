@@ -47,7 +47,7 @@ function App() {
       <Route path="/profile" element={<Profile />} />
       <Route path="/search" element={<Search />} />
       <Route path="/logout" element={<Logout setUserToken={setUserToken}/>} />
-      <Route path="/othersProfile/:username" element={<OthersProfile />} />
+      <Route path="/othersProfile/:userPK" element={<OthersProfile />} />
      </Routes>
      </Router>
      </div>
