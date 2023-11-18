@@ -89,7 +89,7 @@ return (
         </label>
         </p>
 
-        {bookClubs &&
+        {bookClubs && bookClubs.result &&
           bookClubs.result.filter((club)=>
             (searchType==="name"? club["name"]:club['book']['title']).toLowerCase()
             .includes(searchAllClubs.toLowerCase()))
