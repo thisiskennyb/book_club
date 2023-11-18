@@ -25,8 +25,8 @@ export default function Navbar({ userToken }) {
             {userToken ? <li className="nav-item"><Link to="/profile">Profile</Link></li> : null}
             <li className="nav-item"><Link to="/search">Search</Link></li>
             <li className="nav-item"><Link to="/BookClub">Book Club</Link></li>
-            <li className="nav-item"><Link to="/login">Login</Link></li>
-            <li className="nav-item"><Link to="/logout">Logout</Link></li>
+            {!userToken ?<li className="nav-item"><Link to="/login">Login</Link></li>:
+            <li className="nav-item"><Link to="/logout">Logout</Link></li>}
         </ul>
     );
 }

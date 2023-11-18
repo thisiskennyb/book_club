@@ -1,82 +1,105 @@
 import { useState, useEffect } from "react"
-import { createBookClub, profilePage, getAllBookClubs } from "../api/backend_calls"
-
-
+import { createBookClub, profilePage, getAllBookClubs, getAllMyClubs } from "../api/backend_calls"
+import CreateBookClubComponent from "../components/CreateBookClub";
+import SelectedBookClub from "../components/SelectedBookClub";
 export default function BookClub() {
-  const [profileInfo, setProfileInfo] = useState(false);
-  const [selectedOption, setSelectedOption] = useState('completed_books')
-  const [bookPk, setBookPk] = useState(false)
   const [bookClubs, setBookClubs] = useState(false)
-  const [bookClubName, setBookClubName] = useState('')
   const [bookClubSelected, setBookClubSelected] = useState(false)
-  const handleCreateBookClub = ()=>{
-    createBookClub(bookPk, bookClubName)
-  }
-  const handleOptionChange = (e) => {
-    setSelectedOption(e.target.value); 
-  };
-  const handleSelectChange = (e) => {
-    setBookPk(e.target.value); 
-  };
-  const handleBookClubNameChange = (e) =>{
-    setBookClubName(e.target.value)
-  }
-  useEffect(() => {
-      const fetchProfileInfo = async () => {
-          const profile = await profilePage();
-          setProfileInfo(profile);
-         
-      };
+  const [creatingBookClub, setCreatingBookClub] = useState(false)
+  const [myClubs, setMyClubs] = useState(false)
+  const [searchAllClubs, setSearchAllClubs] = useState('')
+  const [searchType, setSearchType] = useState('name')
+ 
 
-      fetchProfileInfo();
-  }, []);
+  const handleClubClick = (club) =>{
+    setBookClubSelected(club)
+    console.log(club)
+  }
+
+  const toggleCreatingBookClub = () =>{
+    setCreatingBookClub(!creatingBookClub)
+  }
+
+  const handleSearchClubsChange = (e) =>{
+    setSearchAllClubs(e.target.value)
+  }
+  const handleOptionChange = (e) =>{
+    setSearchType(e.target.value)
+  }
   useEffect(() => {
     const fetchBookClubs = async () => {
-        const bookClubsEntries = await getAllBookClubs();
+        const bookClubsEntries = await getAllBookClubs()
         setBookClubs(bookClubsEntries);
    
     };
+    const fetchAllMyClubs = async () => {
+      const myBookClubsEntries = await getAllMyClubs()
+      setMyClubs(myBookClubsEntries);
+ 
+  };
+    fetchAllMyClubs()
+    fetchBookClubs()
+}, [bookClubSelected, creatingBookClub])
 
-    fetchBookClubs();
-}, []);
+return (
+  <>
+    {bookClubSelected ? (
+      <SelectedBookClub bookClubSelected={bookClubSelected} setBookClubSelected={setBookClubSelected}/>
+    ) : (
+      <>
+        <div>Welcome to your Book Club</div>
+        <button onClick={() => toggleCreatingBookClub()}>
+          Create Book Club
+        </button>
+        
+        {creatingBookClub && <CreateBookClubComponent toggleCreatingBookClub={toggleCreatingBookClub}/>}
+        
+        <h3>
+          my books clubs
+        </h3>
+        {myClubs &&
+          myClubs.result.map((club, index) => (
+            <div onClick={() => handleClubClick(club)} key={index}>
+              Club name: {club['name']} // // book name: {club['book']['title']}
+        </div>
+        ))}
+        <h3>
+          all books clubs
+        </h3>
+        <h3>
 
-  return(<>
-      <div>Welcome to your Book Club</div>
-      <h3>create a book club</h3>
-      <p>from list
+        Search Clubs: <input type="text" value={searchAllClubs} onChange={handleSearchClubsChange} placeholder="Enter club name"/>
+          </h3>
+        <p>search by: 
         <label>
           <input type="radio" 
-          name="clubStatus" 
-          value="completed_books" 
-          checked={selectedOption === 'completed_books'} 
+          name="searchtype" 
+          value="name" 
+          checked={searchType === 'name'} 
           onChange={handleOptionChange}/>
-          Completed
+          Club name
         </label>
         <label>
           <input type="radio" 
-          name="clubStatus" 
-          value="tbr" 
-          checked={selectedOption === 'tbr'} 
+          name="searchtype" 
+          value="title" 
+          checked={searchType === 'title'} 
           onChange={handleOptionChange}/>
-          TBR
+          book title
         </label>
         </p>
-        <label>
-        book: 
-        <select onChange={handleSelectChange}>
-        <option value="" >- Select a book -</option>
-        {profileInfo && profileInfo[selectedOption].map((book,index)=>(
-          <option value={book.book.id} key={index}>{book['book']['title']}</option>
+
+        {bookClubs &&
+          bookClubs.result.filter((club)=>
+            (searchType==="name"? club["name"]:club['book']['title']).toLowerCase()
+            .includes(searchAllClubs.toLowerCase()))
+            .map((club, index) => (
+              <div onClick={() => handleClubClick(club)} key={index}>
+                Club name: {club['name']} // // book name: {club['book']['title']}
+              </div>
           ))}
-        </select>
-          </label>
-          <br />
-        <label>book club name
-          <input onChange={handleBookClubNameChange}/>
-        </label>
-      <button onClick={()=>{handleCreateBookClub()}}>create club</button>
-      <button onClick={()=>console.log(bookClubName)}>print</button>
-      {bookClubs && bookClubs.result.map((club, index)=>(<p key={index}>{club['name']}</p>))}
+        <button onClick={() => console.log(myClubs)}>Print</button>
+      </>
+    )}
   </>
-  )
-}
+)}
