@@ -5,13 +5,13 @@ from django.shortcuts import get_object_or_404
 from rest_framework import status
 from .serializers import TopFiveSerializer, ToBeReadPostSerializer, CompletedBookSerializer, ToBeReadSerializer, CompletedBookPostSerializer, OthersCompletedSerializer
 from .models import ToBeRead, TopFive, CompletedBook
-from accounts.models import UserProfile
+from accounts.models import UserProfile, User
 from book.models import Book
 class BookListView(APIView):
     def get(self, request, pk=None):
        user = request.user
        if pk is not None:
-           user=pk
+           user= User.objects.get(pk=pk)
        tbr_books= ToBeRead.objects.filter(user_profile__user=user)
        tbr_serializer = ToBeReadSerializer(tbr_books, many=True)
        recommended= CompletedBook.objects.filter(user_profile__user=user, recommended=True)

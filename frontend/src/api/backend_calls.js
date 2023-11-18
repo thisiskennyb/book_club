@@ -83,12 +83,10 @@ async function basicFetch(url, payload) {
     }
   };
 
-  export const profilePage = async (pk=none) => {
-    if(pk===none){
-      const profilepk= ''
-    }
-    else {
-      const profilepk=`/${pk}`
+  export const profilePage = async (pk=null) => {
+    let profilepk = ''
+    if(pk!==null){
+      profilepk=`/${pk}`
     }
     const payload = {
       method: "GET",
