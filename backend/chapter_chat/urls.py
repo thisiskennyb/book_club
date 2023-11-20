@@ -27,5 +27,7 @@ urlpatterns = [
 
     path('api/book-list/', include("book_list.urls")),
 
-    path('api/book-club/', include("book_club.urls"))
+    path('api/book-club/', include("book_club.urls")),
+
+    path('api/top-five/', include("top_five.urls"))
 ]
