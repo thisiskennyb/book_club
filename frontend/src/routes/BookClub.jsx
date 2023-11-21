@@ -9,7 +9,7 @@ export default function BookClub() {
   const [myClubs, setMyClubs] = useState(false)
   const [searchAllClubs, setSearchAllClubs] = useState('')
   const [searchType, setSearchType] = useState('name')
- 
+  const [myID, setMyID] = useState(false)
 
   const handleClubClick = (club) =>{
     setBookClubSelected(club)
@@ -30,7 +30,7 @@ export default function BookClub() {
     const fetchBookClubs = async () => {
         const bookClubsEntries = await getAllBookClubs()
         setBookClubs(bookClubsEntries);
-   
+        setMyID(bookClubsEntries.myid)
     };
     const fetchAllMyClubs = async () => {
       const myBookClubsEntries = await getAllMyClubs()
@@ -44,7 +44,7 @@ export default function BookClub() {
 return (
   <>
     {bookClubSelected ? (
-      <SelectedBookClub bookClubSelected={bookClubSelected} setBookClubSelected={setBookClubSelected}/>
+      <SelectedBookClub myID={myID} bookClubSelected={bookClubSelected} setBookClubSelected={setBookClubSelected}/>
     ) : (
       <>
         <div>Welcome to your Book Club</div>
@@ -53,9 +53,17 @@ return (
         </button>
         
         {creatingBookClub && <CreateBookClubComponent toggleCreatingBookClub={toggleCreatingBookClub}/>}
-        
         <h3>
-          my books clubs
+          books clubs i made
+        </h3>
+        {bookClubs &&
+          bookClubs.result.filter(club=>club['user']===myID).map((club, index) => (
+            <div onClick={() => handleClubClick(club)} key={index}>
+              Club name: {club['name']} // // book name: {club['book']['title']}
+        </div>
+        ))}
+        <h3>
+          book clubs im a member of
         </h3>
         {myClubs &&
           myClubs.result.map((club, index) => (

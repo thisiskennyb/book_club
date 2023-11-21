@@ -310,3 +310,70 @@ export const tbrDelete = async (tbrBookId) => {
   let url=`${base_url}book-list/to-be-read/${tbrBookId}/`
   const response = await fetch(url, payload);
 }
+export const getBookClubMessageBoard = async (clubPk) =>{
+  
+  const payload = {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": `Token ${localStorage.getItem("token")}`
+    },}
+  let url = `${base_url}book-club/message-board/${clubPk}`;
+  const apiData = await fetch(url,payload);
+  const apiJSON = await apiData.json();
+  return apiJSON
+}
+
+export const addClubMessage = async (clubPk, message) =>{
+  const context ={"message":message}
+  const payload = {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": `Token ${localStorage.getItem("token")}`
+    },
+    body: JSON.stringify(context),
+  }
+  let url = `${base_url}book-club/message-board/${clubPk}`;
+  const apiData = await fetch(url,payload);
+  const apiJSON = await apiData.json();
+  return apiJSON
+}
+
+export const deleteMessage = async (messagePk) =>{
+
+  const payload = {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": `Token ${localStorage.getItem("token")}`
+    },
+  }
+  let url = `${base_url}book-club/message-board/${messagePk}`;
+  const apiData = await fetch(url,payload);
+  if (apiData.ok) {
+    return { success: true }; 
+  } else {
+    return { success: false, status: apiData.status }; 
+  }
+
+}
+
+export const deleteMyClub = async (clubPk) =>{
+
+  const payload = {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": `Token ${localStorage.getItem("token")}`
+    },
+  }
+  let url = `${base_url}book-club/${clubPk}`;
+  const apiData = await fetch(url,payload);
+  if (apiData.ok) {
+    return { success: true }; 
+  } else {
+    return { success: false, status: apiData.status }; 
+  }
+ 
+}
