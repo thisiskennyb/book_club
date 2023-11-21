@@ -84,7 +84,7 @@ async function basicFetch(url, payload) {
   };
 
   export const profilePage = async (pk=null) => {
-    let profilepk = ''
+    let profilepk = '/'
     if(pk!==null){
       profilepk=`/${pk}`
     }
@@ -263,19 +263,50 @@ async function basicFetch(url, payload) {
     return apiJSON
   }
 
-  // export const createBookClub = async (bookPk, bookClubName) =>{
-  //   console.log(bookClubName)
-  //   const context= {"book":bookPk, "name":bookClubName}
-  //   const payload = {
-  //     method: "POST",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //       "Authorization": `Token ${localStorage.getItem("token")}`
-  //     },
-  //     body: JSON.stringify(context)
-  //     ,}
-  //   let url = `${base_url}book-club/`;
-  //   const apiData = await fetch(url,payload);
-  //   const apiJSON = await apiData.json();
-  //   return apiJSON
-  // }
+export const deleteFromList = async (completedBookId) => {
+    const payload = {
+        method: "DELETE",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Token ${localStorage.getItem("token")}`
+        },
+    }
+
+    let url=`${base_url}book-list/completed/${completedBookId}/`
+    const response = await fetch(url, payload);
+    // console.log(bookInfo.open_library_id)
+
+    if (response.status === 204) {
+        console.log("Book deleted")
+    profilePage()
+    } else {
+        console.error("Not deleted")
+    }
+}
+
+export const deleteCompletedBook = async (completedBookId) => {
+  const payload = {
+      method: "DELETE",
+      headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Token ${localStorage.getItem("token")}`
+      },
+  }
+
+  let url=`${base_url}book-list/completed/${completedBookId}/`
+  const response = await fetch(url, payload);
+  return response
+}
+
+export const tbrDelete = async (tbrBookId) => {
+  const payload = {
+      method: "DELETE",
+      headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Token ${localStorage.getItem("token")}`
+      },
+  }
+
+  let url=`${base_url}book-list/to-be-read/${tbrBookId}/`
+  const response = await fetch(url, payload);
+}
