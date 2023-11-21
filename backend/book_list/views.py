@@ -144,6 +144,6 @@ class OthersCompletedView(APIView):
             else:
                 return Response({'other_readers': 'Be the first to read this'}, status=status.HTTP_200_OK)
         except Book.DoesNotExist:
-            return Response({'other_readers': 'Book not found'}, status=status.HTTP_404_NOT_FOUND)
+            return Response({'other_readers': 'Be the first to read this'}, status=status.HTTP_200_OK)
         except Exception as e:
             return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)

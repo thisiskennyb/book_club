@@ -8,10 +8,10 @@ export default function CreateBookClubComponent({toggleCreatingBookClub}){
     const [bookPk, setBookPk] = useState(false)
     const [bookClubName, setBookClubName] = useState('')
     
-    const handleCreateBookClub = ()=>{
-        createBookClub(bookPk, bookClubName)
+    const handleCreateBookClub = async ()=>{
+        const createdClub = await createBookClub(bookPk, bookClubName)
         toggleCreatingBookClub()
-       
+        return createdClub
       }
       const handleOptionChange = (e) => {
         setSelectedOption(e.target.value); 
