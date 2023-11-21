@@ -25,6 +25,7 @@ export default function Profile() {
   const handleListChange = async (book, bookId) => {
           console.log(book)
           const moveBook = await saveToList(book, "completed");
+          handleCompletedBookClick(moveBook.pk)
           const deleteTheBook = await tbrDelete(bookId)
           setJankyToggle(!jankyToggle)
 
