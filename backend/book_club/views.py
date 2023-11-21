@@ -64,6 +64,12 @@ class MyBookClubsView(APIView):
         serializer = BookClubSerializer(book_club_data, many=True)
         return Response({"result": serializer.data})
     
+class MemberBookClubView(APIView):
+    def get(self, request, pk):
+        book_club_data = BookClub.objects.filter(members=pk)
+        serializer = BookClubSerializer(book_club_data, many=True)
+        return Response({"result": serializer.data})
+    
 class BookClubMessageBoard(APIView):
     def get(self, request, pk):
         

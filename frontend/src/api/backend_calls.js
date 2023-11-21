@@ -234,21 +234,33 @@ async function basicFetch(url, payload) {
   }
 
 
-  export const getPagesCompleted = async () =>{
+  export const getPagesCompleted = async (userID) =>{
     const payload = {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
         "Authorization": `Token ${localStorage.getItem("token")}`
       },}
-    let url = `${base_url}accounts/pages`;
+    let url = `${base_url}accounts/page-amount/`;
     const apiData = await fetch(url,payload);
     const apiJSON = await apiData.json();
     return apiJSON
-  }  
+  } 
+  
+  export const getUserPagesCompleted = async (userID) =>{
+    const payload = {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Token ${localStorage.getItem("token")}`
+      },}
+    let url = `${base_url}accounts/page-amount/${userID}`;
+    const apiData = await fetch(url,payload);
+    const apiJSON = await apiData.json();
+    return apiJSON
+  }
 
   export const updatePagesCompleted = async (context) =>{
-    // const context = {"pages_completed": 5}
     const payload = {
       method: "POST",
       headers: {
@@ -257,7 +269,22 @@ async function basicFetch(url, payload) {
       },
       body: JSON.stringify(context)
       ,}
-    let url = `${base_url}accounts/pages/`;
+    let url = `${base_url}accounts/page-amount/`;
+    const apiData = await fetch(url,payload);
+    const apiJSON = await apiData.json();
+    return apiJSON
+  }
+
+  export const decreasePagesCompleted = async (context) =>{
+    const payload = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Token ${localStorage.getItem("token")}`
+      },
+      body: JSON.stringify(context)
+      ,}
+    let url = `${base_url}accounts/page-decrease/`;
     const apiData = await fetch(url,payload);
     const apiJSON = await apiData.json();
     return apiJSON
@@ -377,3 +404,17 @@ export const deleteMyClub = async (clubPk) =>{
   }
  
 }
+
+export const getMemberClubs = async (memberPK) =>{
+  const payload = {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": `Token ${localStorage.getItem("token")}`
+    },}
+  let url = `${base_url}book-club/clubs/${memberPK}`;
+  const apiData = await fetch(url,payload);
+  const apiJSON = await apiData.json();
+  return apiJSON
+} 
+
