@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"
-import { getPagesCompleted, saveToList, profilePage, deleteCompletedBook, tbrDelete } from "../api/backend_calls"
+import { getPagesCompleted, saveToList, profilePage, deleteCompletedBook, tbrDelete, updatePagesCompleted, decreasePagesCompleted } from "../api/backend_calls"
 import ReadOnlyRating from "../components/readOnlyRating"
 import ChangeRating from "../components/ChangeRating"
 
@@ -12,8 +12,9 @@ export default function Profile() {
     // const base_url = import.meta.env.VITE_BASE_URL
     const base_url = "http://localhost:8000/api/"
   
-  const handleDelete = async (completedBookId) => {   
+  const handleDelete = async (completedBookId, book) => {   
           const deleteBook = await deleteCompletedBook(completedBookId)
+          const updatePagesRead = await decreasePagesCompleted({"pages": parseInt(book.book.pages)});
           setJankyToggle(!jankyToggle)
         }
 
@@ -23,13 +24,16 @@ export default function Profile() {
         }
 
   const handleListChange = async (book, bookId) => {
-          console.log(book)
+          console.log(book.book.pages)
+          const updatePagesRead = await updatePagesCompleted({"pages_completed": parseInt(book.book.pages)});
           const moveBook = await saveToList(book, "completed");
           handleCompletedBookClick(moveBook.pk)
           const deleteTheBook = await tbrDelete(bookId)
           setJankyToggle(!jankyToggle)
 
   }
+
+  
 
   const handleClose = () =>{
     setOpen(false)
@@ -42,11 +46,17 @@ export default function Profile() {
 
   useEffect(() => {
     const fetchPagesRead = async () => {
-      const totalPagesRead = await getPagesCompleted()
-      setTotalPages(totalPagesRead)
-    }
-    fetchPagesRead()
-  }, [])
+      try {
+        // If userPK is available, use it for fetching a specific user's pages
+        const pagesRead = await getPagesCompleted();
+        setTotalPages(pagesRead.pages_completed);
+      } catch (error) {
+        console.error('Error fetching pages read:', error);
+      }
+    };
+  
+    fetchPagesRead();
+  }, [jankyToggle]);
 
 useEffect(() => {
   const getProfile = async () => {
@@ -62,7 +72,8 @@ useEffect(() => {
     return(<>
         {selectedBook &&<ChangeRating handleClose={handleClose} open={open} book_pk={selectedBook} setOpen={setOpen}/>}
         <div>This is profile</div>
-        {totalPages ? (<div>Total Pages{totalPages.pages_completed}</div>) : (<div></div>)}
+        {/* {totalPages ? (<div>Total Pages{totalPages.pages_completed}</div>) : (<div></div>)} */}
+        <div>Total Pages: {totalPages !== null ? totalPages : 'Loading...'}</div>
         {typeof profileInfo == "object" ?(<>
         <div className="profileBorders">
             completed
@@ -73,7 +84,7 @@ useEffect(() => {
                   book list pk: {book["id"]} title: {book["book"]["title"]} rating:{" "}
                   {book["user_rating"] ? <ReadOnlyRating value={book["user_rating"]}/> : "not yet rated"}
                 </div>
-                <button onClick={() => handleDelete(book["id"])}>
+                <button onClick={() => handleDelete(book["id"], book)}>
                   Delete
                 </button>
               </div>
