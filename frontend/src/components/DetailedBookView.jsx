@@ -1,249 +1,3 @@
-// import * as React from 'react';
-// import Modal from '@mui/material/Modal';
-// import { Box } from '@mui/material';
-// import CircularProgress from '@mui/material/CircularProgress';
-// import { saveToList } from "../api/backend_calls";
-// import { useEffect, useState } from 'react';
-// import { fetchDetailedBook, fetchOtherUsersSameBook } from '../api/backend_calls';
-// import BasicRating from './Rating';
-
-// export default function DetailedBookView({open, setOpen, bookInfo, onClose}){
-
-//     const [saveResponse, setSaveResponse] = useState({result:null})
-//     const [bookDetails, setBookDetails] = useState(false)
-//     const [otherUsersSameBook, setOtherUsersSameBook] = useState(false)
-//     const [isRatingsOpen, setIsRatingsOpen] = useState(false)
-//     const [isAdded, setIsAdded] = useState(false)
-//     const style = {
-//         position: 'absolute',
-//         top: '50%',
-//         left: '50%',
-//         transform: 'translate(-50%, -50%)',
-//         width: 400,
-//         bgcolor: 'background.paper',
-//         border: '2px solid #FFFF',
-//         boxShadow: 24,
-//         p: 4,
-//       };
-
-//     const handleClose = () => {
-//         setOpen(false)
-//         // clears it out so you dont get old popup info
-//         setBookDetails(false)
-//         setSaveResponse({result:null})
-//         setIsRatingsOpen(false)
-//         setOtherUsersSameBook(false)
-//         setIsAdded(false);
-
-//     };
-
-//     // const handleSave = async (list, context) => {
-//     //     const info = {"book":context}
-//     //     const response = await saveToList(info, list)
-//     //     setSaveResponse(response)
-
-//     //     if(list==="completed" || list==="to-be-read"){
-//     //         // setTimeout(() => {
-//     //         //     alert("Successfully added")
-//     //         // }, 1000)
-//     //         setIsAdded(true)
-//     //         setIsRatingsOpen(true)
-//     //         setTimeout(() => {
-//     //             setIsAdded(false);
-//     //             setOpen(false);
-//     //         }, 2000)
-//     //         // console.log(saveResponse)
-//     //     }
-
-//     //     // setOpen(false)
-//     //     handleClose()
-
-      
-//     //   };
-
-//     //   const handleSave = async (list, context) => {
-//     //     const info = { "book": context };
-//     //     const response = await saveToList(info, list);
-//     //     setSaveResponse(response);
-    
-//     //     if (list === "completed" || list === "to-be-read") {
-//     //         setIsAdded(true);
-    
-//     //         setTimeout(() => {
-//     //             setIsAdded(false);
-//     //             setOpen(false);
-//     //         }, 2000);
-//     //     }
-    
-//     //     handleClose();
-//     // };
-
-//     const handleSave = async (list, context) => {
-//         const info = { "book": context };
-//         const response = await saveToList(info, list);
-//         setSaveResponse(response);
-    
-//         if (list === "to-be-read") {
-//             setIsAdded(true);
-    
-//             setTimeout(() => {
-//                 setIsAdded(false);
-//                 handleClose(); // Close the modal
-//                 onClose(); // Trigger the callback to close the modal in the parent component
-//             }, 2000);
-//         }
-
-//         else if (list === "completed") {
-//             setIsAdded(true);
-//             setIsRatingsOpen(true)
-    
-//             // setTimeout(() => {
-//             //     setIsAdded(false);
-//             //     handleClose(); // Close the modal
-//             //     onClose(); // Trigger the callback to close the modal in the parent component
-//             // }, 2000);
-//         }
-//     };
-    
-      
-
-    
-
-//     const getDescription = async () =>{
-//         if(open){
-//         const apiJSON = await fetchDetailedBook(bookInfo.open_library_id)   
-//         setBookDetails(apiJSON)
-//     }}
-
-//     const getOtherUsers= async () =>{
-//         if(open){
-//         const apiJSON = await fetchOtherUsersSameBook(bookInfo.open_library_id)   
-//         console.log(apiJSON)
-//         setOtherUsersSameBook(apiJSON.other_readers)
-//     }}
- 
-
-//     useEffect(() => {
-//         getDescription()
-//         getOtherUsers()
-//     }, [open]);
-
-
-//     return (<>
-//         <Modal open={open} onClose={handleClose} aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description">
-
-//             <Box sx={style}> 
-//             {/* checking for book details makes everything pop at the same time */}
-//             {bookDetails?(<>
-    
-    
-//                 {isAdded && isRatingsOpen == false ? (
-//                     <div>Successfully Added</div>
-//                 ) : (
-//                 <>
-//                 <div>howdy there</div>
-//                 <h2>{bookInfo.title}</h2>
-//                 <h4>{bookInfo.author}</h4>
-//                 {/* description */}
-//                 <p>
-//                     {/* checks for description */}
-//                     {bookDetails.description ? 
-//                     // some results are in value some are not, checks if value exists
-//                     bookDetails.description.value ? 
-//                     // if there is a value it prints it
-//                     bookDetails.description.value : 
-//                     // if there was a description but no value prints description
-//                     bookDetails.description:
-//                     // if there was no description
-//                     "no description available"}
-//                 </p>
-//                 <p>
-//                     {saveResponse.result}
-//                 </p>
-//                 {/* <div>
-//                     {isRatingsOpen && saveResponse.result!=="Book already in completed list"?(<>
-//                     <BasicRating book_pk={saveResponse.pk}/>
-//                     </>) :null}
-
-
-//                 </div> */}
-//                 <div className='detailedBookButtons'>
-//                     <button onClick={() => handleSave("to-be-read", bookInfo)}>to-be-read</button>
-//                     <button onClick={() => handleSave("completed", bookInfo)}>completed
-//                     </button>
-//                     <button onClick={handleClose}>close</button>
-//                 </div>
-
-//                 {otherUsersSameBook?
-//                 typeof otherUsersSameBook==="string"?<p>{otherUsersSameBook}</p>:
-//                 otherUsersSameBook.map((others,index)=><p key={index}><a href={`othersProfile/${others.user.pk}`}>{others.user.username}</a></p>)
-//                 :null}
-
-//         {/* what displays until book loads */}
-//         </>)}
-
-// {/* Experiment block starts here */}
-//         {isAdded && isRatingsOpen == true ? (
-//                     <>
-//                     <BasicRating book_pk={saveResponse.pk}/>
-//                     </>
-//                 ) : (
-//                 <>
-//                 <h2>{bookInfo.title}</h2>
-//                 <h4>{bookInfo.author}</h4>
-//                 {/* description */}
-//                 <p>
-//                     {/* checks for description */}
-//                     {bookDetails.description ? 
-//                     // some results are in value some are not, checks if value exists
-//                     bookDetails.description.value ? 
-//                     // if there is a value it prints it
-//                     bookDetails.description.value : 
-//                     // if there was a description but no value prints description
-//                     bookDetails.description:
-//                     // if there was no description
-//                     "no description available"}
-//                 </p>
-//                 <p>
-//                     {saveResponse.result}
-//                 </p>
-//                 {/* <div>
-//                     {isRatingsOpen && saveResponse.result!=="Book already in completed list"?(<>
-//                     <BasicRating book_pk={saveResponse.pk}/>
-//                     </>) :null}
-
-
-//                 </div> */}
-//                 <div className='detailedBookButtons'>
-//                     <button onClick={() => handleSave("to-be-read", bookInfo)}>to-be-read</button>
-//                     <button onClick={() => handleSave("completed", bookInfo)}>completed
-//                     </button>
-//                     <button onClick={handleClose}>close</button>
-//                 </div>
-
-//                 {otherUsersSameBook?
-//                 typeof otherUsersSameBook==="string"?<p>{otherUsersSameBook}</p>:
-//                 otherUsersSameBook.map((others,index)=><p key={index}><a href={`othersProfile/${others.user.pk}`}>{others.user.username}</a></p>)
-//                 :null}
-//         {/* what displays until book loads */}
-//         </>)}
-//  {/* Experiment block ends here      */}
-        
-        
-        
-        
-//         </>
-//         )
-//         :
-//         (
-//         <div id="loading"><CircularProgress/>
-//         Loading Book Info</div>)}
-        
-//             </Box>
-//         </Modal>
-//     </>)
-// }
-
 import * as React from 'react';
 import Modal from '@mui/material/Modal';
 import { Box } from '@mui/material';
@@ -252,7 +6,7 @@ import { saveToList } from "../api/backend_calls";
 import { useEffect, useState } from 'react';
 import { fetchDetailedBook, fetchOtherUsersSameBook, updatePagesCompleted } from '../api/backend_calls';
 import BasicRating from './Rating';
-
+import ReadOnlyRating from './readOnlyRating';
 export default function DetailedBookView({ open, setOpen, bookInfo, onClose }) {
   const [saveResponse, setSaveResponse] = useState({ result: null });
   const [bookDetails, setBookDetails] = useState(false);
@@ -270,15 +24,6 @@ export default function DetailedBookView({ open, setOpen, bookInfo, onClose }) {
     boxShadow: 24,
     p: 4,
   };
-
-
-//   useEffect(() => {
-//     const postPages = async () => {
-//         const updateStuff = await updatePagesCompleted()
-//         console.log("is it")
-//     }
-//     postPages()
-//   },[])
 
   const handleClose = () => {
     setOpen(false);
@@ -298,25 +43,15 @@ export default function DetailedBookView({ open, setOpen, bookInfo, onClose }) {
 
     if (list === "to-be-read") {
       setIsAdded(true);
-
       setTimeout(() => {
-        setIsAdded(false);
-        // setIsRatingsOpen(list === "completed"); // Open ratings only if the list is "completed"
         handleClose();
-        onClose();
       }, 2000);
     }
 
     else if (list === "completed") {
         setIsAdded(true);
         const updatePagesRead = await updatePagesCompleted({"pages_completed": parseInt(context.pages)});
-  
-        setTimeout(() => {
-          setIsAdded(false);
-          setIsRatingsOpen(true); // Open ratings only if the list is "completed"
-          handleClose();
-          onClose();
-        }, 2000);
+        setIsRatingsOpen(true); // Open ratings only if the list is "completed"
       }
   };
 
@@ -340,7 +75,6 @@ export default function DetailedBookView({ open, setOpen, bookInfo, onClose }) {
     getOtherUsers();
   }, [open]);
 
-
 return (
     <>
       <Modal open={open} onClose={handleClose} aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description">
@@ -352,7 +86,8 @@ return (
               ) : (
                 <>
                   {isRatingsOpen ? (
-                    <div>Ratings Added</div>
+                    
+                    <BasicRating handleClose={handleClose} book_pk={saveResponse.pk}/>
                   ) : (
                     <>
                       <h2>{bookInfo.title}</h2>
@@ -375,7 +110,7 @@ return (
                           <p>{otherUsersSameBook}</p>
                         ) : (
                           otherUsersSameBook.map((others, index) => (
-                            <p key={index}><a href={`othersProfile/${others.user.pk}`}>{others.user.username}</a></p>
+                            <p key={index}><a href={`othersProfile/${others.user.pk}`}>{others.user.username}</a> <ReadOnlyRating value={others.user_rating} /></p>
                           ))
                         )
                         : null}

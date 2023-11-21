@@ -4,10 +4,6 @@ from accounts.models import UserProfile
 from book.models import Book
 from django.contrib.auth.models import User
 
-class UserSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = User
-        fields = ('pk','username')
 
 class BookSerializer(serializers.ModelSerializer):
     class Meta:
@@ -45,8 +41,15 @@ class ToBeReadPostSerializer(serializers.ModelSerializer):
         model = ToBeRead
         fields = '__all__'
 
-class OthersCompletedSerializer(serializers.ModelSerializer):
-    user = UserSerializer()
+
+class UserSerializer(serializers.ModelSerializer):
     class Meta:
-        model = UserProfile
-        fields = ('user',)
+        model = User
+        fields = ('pk', 'username')
+
+class OthersCompletedSerializer(serializers.ModelSerializer):
+    user = UserSerializer(source='user_profile.user', read_only=True)  # Use source to access UserProfile's user
+
+    class Meta:
+        model = CompletedBook
+        fields = ('user', 'user_rating') 
