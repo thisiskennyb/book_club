@@ -2,9 +2,7 @@ import { getAllBookClubs } from "../api/backend_calls"
 import {useState, useEffect} from "react"
 import { modifyClub, deleteMyClub} from "../api/backend_calls"
 import ClubMessageBoard from "./ClubMessageBoard"
-import { useNavigate } from "react-router-dom"
 export default function SelectedBookClub({myID, bookClubSelected, setBookClubSelected}){
-    const navigate = useNavigate();
     const [clubInfo, setClubInfo] = useState(false)
     const [memberChange, setMemberChange] = useState(false)
     
@@ -16,7 +14,6 @@ export default function SelectedBookClub({myID, bookClubSelected, setBookClubSel
 
     const deleteClub = async () =>{
         const result = await deleteMyClub(bookClubSelected.id)
-       
         setBookClubSelected(false)
         return result
     }

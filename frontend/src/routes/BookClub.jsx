@@ -52,7 +52,7 @@ return (
           Create Book Club
         </button>
         
-        {creatingBookClub && <CreateBookClubComponent toggleCreatingBookClub={toggleCreatingBookClub}/>}
+        {creatingBookClub ? <CreateBookClubComponent toggleCreatingBookClub={toggleCreatingBookClub}/>:(<>
         <h3>
           books clubs i made
         </h3>
@@ -109,5 +109,6 @@ return (
         <button onClick={() => console.log(myClubs)}>Print</button>
       </>
     )}
+          </>)}
   </>
 )}
