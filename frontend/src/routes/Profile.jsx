@@ -1,43 +1,17 @@
 import React, { useEffect, useState } from "react"
 import { getPagesCompleted, saveToList, profilePage, deleteCompletedBook, tbrDelete } from "../api/backend_calls"
-
+import ReadOnlyRating from "../components/readOnlyRating"
+import ChangeRating from "../components/ChangeRating"
 
 export default function Profile() {
     const [profileInfo, setProfileInfo] = useState('')
     const [totalPages, setTotalPages] = useState(null)
     const [jankyToggle, setJankyToggle] = useState(false)
+    const [open, setOpen] = useState(false)
+    const [selectedBook, setSelectedBook] = useState(false)
     // const base_url = import.meta.env.VITE_BASE_URL
     const base_url = "http://localhost:8000/api/"
   
-  useEffect(() => {
-    const profilePage = async () => {
-      const payload = {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": `Token ${localStorage.getItem("token")}`
-        },}
-        let url=`${base_url}book-list`
-        const apiData = await fetch(url,payload);
-        const apiJSON = await apiData.json();
-        setProfileInfo(apiJSON)
-          return apiJSON
-      } 
-profilePage()
-
-  },[jankyToggle])
-
-
-  useEffect(() => {
-    const fetchPagesRead = async () => {
-      const totalPagesRead = await getPagesCompleted()
-      setTotalPages(totalPagesRead)
-    }
-    fetchPagesRead()
-  }, [])
-          
-    
-
   const handleDelete = async (completedBookId) => {   
           const deleteBook = await deleteCompletedBook(completedBookId)
           setJankyToggle(!jankyToggle)
@@ -56,54 +30,48 @@ profilePage()
 
   }
 
+  const handleClose = () =>{
+    setOpen(false)
+    setSelectedBook(false)
+  }
+  const handleCompletedBookClick = (book_pk) =>{
+      setSelectedBook(book_pk)
+      setOpen(true)
+  }
 
+  useEffect(() => {
+    const fetchPagesRead = async () => {
+      const totalPagesRead = await getPagesCompleted()
+      setTotalPages(totalPagesRead)
+    }
+    fetchPagesRead()
+  }, [])
 
-      //   const tbrDelete = async (tbrBookId) => {
-      //     const payload = {
-      //         method: "DELETE",
-      //         headers: {
-      //             "Content-Type": "application/json",
-      //             "Authorization": `Token ${localStorage.getItem("token")}`
-      //         },
-      //     }
-
-      //     let url=`${base_url}book-list/to-be-read/${tbrBookId}/`
-      //     const response = await fetch(url, payload);
-      //     // console.log(bookInfo.open_library_id)
-
-      //     if (response.status === 204) {
-      //         console.log("Book deleted")
-      //       setJankyToggle(!jankyToggle)
-      //     } else {
-      //         console.error("Not deleted")
-      //     }
-      // }
-      
 useEffect(() => {
-    profilePage()
-}, []);
-// console.log(profileInfo)
-// console.log(typeof profileInfo)
+  const getProfile = async () => {
+  const apiJSON = await profilePage();
+  setProfileInfo(apiJSON)
+  return apiJSON
+  }
 
-// console.log(profileInfo["completed_books"][0]["book"])
+    getProfile()
+}, [jankyToggle, open]);
+
 
     return(<>
+        {selectedBook &&<ChangeRating handleClose={handleClose} open={open} book_pk={selectedBook} setOpen={setOpen}/>}
         <div>This is profile</div>
         {totalPages ? (<div>Total Pages{totalPages.pages_completed}</div>) : (<div></div>)}
         {typeof profileInfo == "object" ?(<>
         <div className="profileBorders">
             completed
-        {/* {profileInfo['completed_books'].map((book,index)=><p key={index}>title: {book['book']['title']} rating:{book['user_rating']?book['user_rating']:"no"}</p>)}
-        
-        <button onClick={() => handleDelete(book['book']['id'])}>delete</button>
-        
-        </div> */}
+
          {profileInfo["completed_books"].map((book, index) => (
-              <div key={index}>
-                <p>
-                  pk: {book["id"]} title: {book["book"]["title"]} rating:{" "}
-                  {book["user_rating"] ? book["user_rating"] : "no"}
-                </p>
+              <div>
+                <div key={index} onClick={()=>{handleCompletedBookClick(book["id"])}}>
+                  book list pk: {book["id"]} title: {book["book"]["title"]} rating:{" "}
+                  {book["user_rating"] ? <ReadOnlyRating value={book["user_rating"]}/> : "not yet rated"}
+                </div>
                 <button onClick={() => handleDelete(book["id"])}>
                   Delete
                 </button>
