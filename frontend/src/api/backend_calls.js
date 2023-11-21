@@ -232,3 +232,50 @@ async function basicFetch(url, payload) {
     const apiJSON = await apiData.json();
     return apiJSON
   }
+
+
+  export const getPagesCompleted = async () =>{
+    const payload = {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Token ${localStorage.getItem("token")}`
+      },}
+    let url = `${base_url}accounts/pages`;
+    const apiData = await fetch(url,payload);
+    const apiJSON = await apiData.json();
+    return apiJSON
+  }  
+
+  export const updatePagesCompleted = async (context) =>{
+    // const context = {"pages_completed": 5}
+    const payload = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Token ${localStorage.getItem("token")}`
+      },
+      body: JSON.stringify(context)
+      ,}
+    let url = `${base_url}accounts/pages/`;
+    const apiData = await fetch(url,payload);
+    const apiJSON = await apiData.json();
+    return apiJSON
+  }
+
+  // export const createBookClub = async (bookPk, bookClubName) =>{
+  //   console.log(bookClubName)
+  //   const context= {"book":bookPk, "name":bookClubName}
+  //   const payload = {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //       "Authorization": `Token ${localStorage.getItem("token")}`
+  //     },
+  //     body: JSON.stringify(context)
+  //     ,}
+  //   let url = `${base_url}book-club/`;
+  //   const apiData = await fetch(url,payload);
+  //   const apiJSON = await apiData.json();
+  //   return apiJSON
+  // }
