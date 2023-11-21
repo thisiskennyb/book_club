@@ -97,7 +97,7 @@ console.log(totalPages)
          {profileInfo["completed_books"].map((book, index) => (
               <div key={index}>
                 <p>
-                  title: {book["book"]["title"]} rating:{" "}
+                  pk: {book["id"]} title: {book["book"]["title"]} rating:{" "}
                   {book["user_rating"] ? book["user_rating"] : "no"}
                 </p>
                 <button onClick={() => handleDelete(book["id"])}>

@@ -54,12 +54,13 @@ class CompletedView(APIView):
         bookID= book.pk
         book_present = CompletedBook.objects.filter(book=book, user_profile=request.user.id).exists()
         if book_present:
-            return Response({"result":"Book already in completed list"})
+            legacy_book = get_object_or_404(CompletedBook, book=book, user_profile=request.user.id)
+            return Response({"result":"Book already in completed list","pk":legacy_book.pk})
         completed_books['book']=bookID
         serializer = CompletedBookPostSerializer(data=completed_books)
         if serializer.is_valid(raise_exception=True):
             completed_books_saved = serializer.save()
-        return Response({"result": f"{completed_books_saved.book.title} Added to completed list","pk":completed_books_saved.book.pk})
+        return Response({"result": f"{completed_books_saved.book.title} Added to completed list","pk":completed_books_saved.pk})
     
     def put(self, request, pk):
         user = request.user
@@ -75,6 +76,7 @@ class CompletedView(APIView):
     
     def patch(self, request, pk):
         user = request.user
+        print(pk)
         completed_book = get_object_or_404(CompletedBook, user_profile__user=user, pk=pk)
         print(request.data)
         completed_book.user_rating = request.data.get('rating')
@@ -129,15 +131,19 @@ class ToBeReadView(APIView):
     #     completed_book.delete()
     #     return Response({"result": "Book deleted"}, status=status.HTTP_204_NO_CONTENT)
 
+
 class OthersCompletedView(APIView):
     def get(self, request, OLID):
         try:
             book = Book.objects.get(open_library_id=OLID)
+            completed_books = CompletedBook.objects.filter(book=book)
+            if completed_books.exists():  
+                serializer = OthersCompletedSerializer(completed_books, many=True)
+                serialized_data = serializer.data
+                return Response({'other_readers': serialized_data})
+            else:
+                return Response({'other_readers': 'Be the first to read this'}, status=status.HTTP_200_OK)
         except Book.DoesNotExist:
-            return Response({'other_readers': 'Be the first to read this'}, status=status.HTTP_200_OK)
-        user_profiles = CompletedBook.objects.filter(book=book).values('user_profile').distinct()
-        user_profiles_data = UserProfile.objects.filter(id__in=user_profiles)
-        serializer = OthersCompletedSerializer(user_profiles_data, many=True)
-        serialized_data = serializer.data
-
-        return Response({'other_readers': serialized_data})
+            return Response({'other_readers': 'Book not found'}, status=status.HTTP_404_NOT_FOUND)
+        except Exception as e:
+            return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
