@@ -7,7 +7,9 @@ import { useEffect, useState } from 'react';
 import { fetchDetailedBook, fetchOtherUsersSameBook, updatePagesCompleted } from '../api/backend_calls';
 import BasicRating from './Rating';
 import ReadOnlyRating from './readOnlyRating';
-export default function DetailedBookView({ open, setOpen, bookInfo, onClose }) {
+
+
+export default function DetailedBookView({ open, setOpen, bookInfo, onClose, buttons }) {
   const [saveResponse, setSaveResponse] = useState({ result: null });
   const [bookDetails, setBookDetails] = useState(false);
   const [otherUsersSameBook, setOtherUsersSameBook] = useState(false);
@@ -100,8 +102,15 @@ return (
                           : "no description available"}
                       </p>
                       <div className='detailedBookButtons'>
+                        {buttons ? (
+                        <>                        
                         <button onClick={() => handleSave("to-be-read", bookInfo)}>to-be-read</button>
                         <button onClick={() => handleSave("completed", bookInfo)}>completed</button>
+                        </>
+                        ):(
+                          <></>
+                        )}
+
                         <button onClick={handleClose}>close</button>
                       </div>
   
