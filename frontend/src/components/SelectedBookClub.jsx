@@ -2,13 +2,16 @@ import { getAllBookClubs } from "../api/backend_calls"
 import {useState, useEffect} from "react"
 import { modifyClub, deleteMyClub} from "../api/backend_calls"
 import ClubMessageBoard from "./ClubMessageBoard"
+import { Link } from 'react-router-dom';
 export default function SelectedBookClub({myID, bookClubSelected, setBookClubSelected}){
     const [clubInfo, setClubInfo] = useState(false)
     const [memberChange, setMemberChange] = useState(false)
-    
+    const [isMember, setIsMember] = useState(false)
+    const [isOwner, setIsOwner] = useState(false)
     const sendModifyClubRequest = async (modification) =>{
         const apiJSON = await modifyClub(bookClubSelected.id, modification)
         setMemberChange(!memberChange)
+
         return apiJSON
     }
 
@@ -17,7 +20,18 @@ export default function SelectedBookClub({myID, bookClubSelected, setBookClubSel
         setBookClubSelected(false)
         return result
     }
-
+    const checkPermissions = () =>{
+        setIsMember(false)
+        setIsOwner(false)
+        const equalMyID = (element) => element['id']===myID
+        if(clubInfo['result']['user']===myID){
+            setIsOwner(true)
+            setIsMember(true)
+        }
+        else if(clubInfo['result']['members'].some(equalMyID)){
+            setIsMember(true)
+        }
+    }
     useEffect(() => {
         const fetchBookClubs = async () => {
             const bookClubEntries = await getAllBookClubs(bookClubSelected.id);
@@ -26,8 +40,12 @@ export default function SelectedBookClub({myID, bookClubSelected, setBookClubSel
         };
 
         fetchBookClubs();
-    }, [memberChange]);
+    }, [memberChange, isMember, isOwner]);
     console.log(clubInfo)
+    useEffect(() => {
+        if(clubInfo){
+            checkPermissions()}
+    }, [clubInfo]);
     return(<>
     {clubInfo && <div>
 
@@ -42,17 +60,17 @@ export default function SelectedBookClub({myID, bookClubSelected, setBookClubSel
     {clubInfo.result.book.author}
     <br />
     <h4>members:</h4>
-    {clubInfo.result.members.map((member, index)=><p key={index}><a href={`othersProfile/${member['id']}`}>{member['username']}</a></p>)}
+    {clubInfo.result.members.map((member, index)=><p onClick={()=>{setBookClubSelected(false)}} key={index}><Link to={`/othersProfile/${member['id']}`}>{member['username']}</Link></p>)}
     <br />
     {clubInfo && clubInfo['member'] ? 
     <button onClick={()=>sendModifyClubRequest("leave")}>leave club</button>
     :
     <button onClick={()=>sendModifyClubRequest("join")}>join club</button>
     }
-    {clubInfo&&clubInfo.result.user===myID?<button onClick={deleteClub}>delete club</button>:null}
+    {clubInfo&&isOwner?<button onClick={deleteClub}>delete club</button>:null}
     <button onClick={()=>{setBookClubSelected(false)}}>back</button>
     </div>}
     
-    <ClubMessageBoard clubPk={bookClubSelected.id} />
+    <ClubMessageBoard isMember={isMember} myID={myID} isOwner={isOwner} clubPk={bookClubSelected.id} />
     </>)
 }

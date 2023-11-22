@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from "react"
-import { getPagesCompleted, saveToList, profilePage, deleteCompletedBook, tbrDelete, updatePagesCompleted, decreasePagesCompleted } from "../api/backend_calls"
+import { getPagesCompleted, saveToList, profilePage, deleteCompletedBook, tbrDelete, updatePagesCompleted, decreasePagesCompleted, toggleRecommend } from "../api/backend_calls"
 import ReadOnlyRating from "../components/readOnlyRating"
 import ChangeRating from "../components/ChangeRating"
+import RecommendIcon from '@mui/icons-material/Recommend';
+import ThumbUpIcon from '@mui/icons-material/ThumbUp';
+import DetailedBookView from "../components/DetailedBookView";
 
 export default function Profile() {
     const [profileInfo, setProfileInfo] = useState('')
@@ -9,6 +12,7 @@ export default function Profile() {
     const [jankyToggle, setJankyToggle] = useState(false)
     const [open, setOpen] = useState(false)
     const [selectedBook, setSelectedBook] = useState(false)
+    const [clickedBook, setClickedBook] = useState({})
     // const base_url = import.meta.env.VITE_BASE_URL
     const base_url = "http://localhost:8000/api/"
   
@@ -39,9 +43,22 @@ export default function Profile() {
     setOpen(false)
     setSelectedBook(false)
   }
+
   const handleCompletedBookClick = (book_pk) =>{
       setSelectedBook(book_pk)
       setOpen(true)
+  }
+
+  const handleOpen = (book) => {
+    
+    setClickedBook(book)
+    setOpen(true);
+  }
+
+  const handleRecommend = async (bookID) => {
+    console.log("balls")
+    const recommendBook = await toggleRecommend(bookID)
+    setJankyToggle(!jankyToggle)
   }
 
   useEffect(() => {
@@ -70,6 +87,8 @@ useEffect(() => {
 
 
     return(<>
+    <DetailedBookView open={open} setOpen={setOpen}  buttons={false} onClose={() => setOpen(false)} bookInfo={clickedBook}/>
+
         {selectedBook &&<ChangeRating handleClose={handleClose} open={open} book_pk={selectedBook} setOpen={setOpen}/>}
         <div>This is profile</div>
         {/* {totalPages ? (<div>Total Pages{totalPages.pages_completed}</div>) : (<div></div>)} */}
@@ -79,14 +98,28 @@ useEffect(() => {
             completed
 
          {profileInfo["completed_books"].map((book, index) => (
-              <div>
-                <div key={index} onClick={()=>{handleCompletedBookClick(book["id"])}}>
+              <div key={index}>
+                <div onClick={() => handleOpen(book.book)}>
+                {/* setOpen={setOpen} onClose={() => setOpen(false)} */}
                   book list pk: {book["id"]} title: {book["book"]["title"]} rating:{" "}
+                  </div>
+                  <div onClick={()=>{handleCompletedBookClick(book["id"]) }}>
                   {book["user_rating"] ? <ReadOnlyRating value={book["user_rating"]}/> : "not yet rated"}
-                </div>
+                  </div>
                 <button onClick={() => handleDelete(book["id"], book)}>
                   Delete
                 </button>
+                {book.recommended ? (
+                <>
+                <ThumbUpIcon onClick={() => handleRecommend(book["id"])}/>
+                </>
+                ):(
+                <>
+                <RecommendIcon onClick={() => handleRecommend(book["id"])}/>
+                </>
+                )}
+                
+                
               </div>
             ))}
           </div>
