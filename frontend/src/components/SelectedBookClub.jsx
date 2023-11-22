@@ -2,6 +2,7 @@ import { getAllBookClubs } from "../api/backend_calls"
 import {useState, useEffect} from "react"
 import { modifyClub, deleteMyClub} from "../api/backend_calls"
 import ClubMessageBoard from "./ClubMessageBoard"
+import { Link } from 'react-router-dom';
 export default function SelectedBookClub({myID, bookClubSelected, setBookClubSelected}){
     const [clubInfo, setClubInfo] = useState(false)
     const [memberChange, setMemberChange] = useState(false)
@@ -59,7 +60,7 @@ export default function SelectedBookClub({myID, bookClubSelected, setBookClubSel
     {clubInfo.result.book.author}
     <br />
     <h4>members:</h4>
-    {clubInfo.result.members.map((member, index)=><p key={index}><a href={`othersProfile/${member['id']}`}>{member['username']}</a></p>)}
+    {clubInfo.result.members.map((member, index)=><p onClick={()=>{setBookClubSelected(false)}} key={index}><Link to={`/othersProfile/${member['id']}`}>{member['username']}</Link></p>)}
     <br />
     {clubInfo && clubInfo['member'] ? 
     <button onClick={()=>sendModifyClubRequest("leave")}>leave club</button>
