@@ -5,8 +5,9 @@ import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
+import {Link} from 'react-router-dom';
 
-export default function Home() {
+export default function Home({ userToken }) {
   return (
     <React.Fragment>
       <CssBaseline />
@@ -43,6 +44,23 @@ export default function Home() {
               </Typography>
               {/* Divider under "Start Here" */}
               <Divider sx={{ width: '80%', mt: 1, mb: 1 }} />
+              
+              <ul>
+                {/* <button>Search</button> */}
+                {userToken? (
+                <>
+                  <li className="nav-item">
+                    <Link to="/search">Search</Link>
+                  </li>
+                </>
+                ) : (
+                <>
+                  <li className="nav-item">
+                    <Link to="/login">Search</Link>
+                  </li>
+                </>
+                  )}
+              </ul>
             </Box>
           </Grid>
         </Grid>
