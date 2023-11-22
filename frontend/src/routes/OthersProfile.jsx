@@ -1,6 +1,7 @@
 import { useParams } from 'react-router-dom';
 import { profilePage, getMemberClubs, getUserPagesCompleted } from '../api/backend_calls';
 import { useEffect, useState } from 'react';
+import ReadOnlyRating from '../components/readOnlyRating';
 
 export default function OthersProfile() {
     const [profileInfo, setProfileInfo] = useState(null);
@@ -25,7 +26,7 @@ export default function OthersProfile() {
 
         fetchProfileInfo();
     }, []);
-
+    console.log(profileInfo)
     return (
         <>
             {userInfo ? (
@@ -35,7 +36,7 @@ export default function OthersProfile() {
             </>) : (<p>Loading...</p>)}
             <h3>books completed</h3>
             {profileInfo && profileInfo.completed_books.map((book, index) => (
-                <p key={index}>{book.book.title}</p>
+                <p key={index}>{book.book.title} <ReadOnlyRating value={book.user_rating}/></p>
             ))}
             <h3>To Be Read</h3>
             {profileInfo && profileInfo.tbr.map((book, index) => (
