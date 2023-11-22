@@ -44,7 +44,7 @@ function App() {
       <NavBar userToken={userToken}/>
      <Routes>
       <Route path="/login" element={<Login handleInputChange={handleInputChange} formData={formData} handleToken={handleToken}/>} />
-      <Route path="/" element={<Home />} />
+      <Route path="/" element={<Home userToken={userToken}/>} />
       <Route path="/profile" element={<Profile />} />
       <Route path="/search" element={<Search />} />
       <Route path="/BookClub" element={<BookClub />} />
