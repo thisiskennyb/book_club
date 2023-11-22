@@ -418,3 +418,17 @@ export const getMemberClubs = async (memberPK) =>{
   return apiJSON
 } 
 
+
+export const toggleRecommend = async (bookID) => {
+  const payload = {
+      method: "PUT",
+      headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Token ${localStorage.getItem("token")}`
+      },
+  }
+
+  let url=`${base_url}book-list/completed/${bookID}/`
+  console.log(url)
+  const response = await fetch(url, payload);
+}

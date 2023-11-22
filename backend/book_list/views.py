@@ -16,7 +16,7 @@ class BookListView(APIView):
        tbr_serializer = ToBeReadSerializer(tbr_books, many=True)
        recommended= CompletedBook.objects.filter(user_profile__user=user, recommended=True)
        recommended_serializer = CompletedBookSerializer(recommended, many=True)
-       completed_books= CompletedBook.objects.filter(user_profile__user=user)
+       completed_books= CompletedBook.objects.filter(user_profile__user=user).order_by("date_finished")
        completed_books_serializer = CompletedBookSerializer(completed_books, many=True)
        data = {
            "tbr": tbr_serializer.data,
