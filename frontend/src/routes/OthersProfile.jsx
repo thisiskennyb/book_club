@@ -32,7 +32,7 @@ export default function OthersProfile() {
         };
 
         fetchProfileInfo();
-    }, []);
+    }, [clubSelected]);
     console.log(userInfo)
     if(clubSelected){
         return <SelectedBookClub myID={myID} bookClubSelected={clubSelected} setBookClubSelected={setClubSelected}/>
