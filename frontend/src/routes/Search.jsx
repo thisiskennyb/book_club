@@ -87,7 +87,7 @@ export default function Search() {
 
 
     return(<>
-    <DetailedBookView open={open} setOpen={setOpen} bookInfo={clickedBook} onClose={() => setOpen(false)}/>
+    <DetailedBookView open={open} buttons={true} setOpen={setOpen} bookInfo={clickedBook} onClose={() => setOpen(false)}/>
         <h1>Find your next literary adventure</h1>
   
       <form onSubmit={handleSubmit}>
