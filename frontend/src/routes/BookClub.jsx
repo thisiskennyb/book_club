@@ -56,7 +56,7 @@ return (
         <h3>
           books clubs i made
         </h3>
-        {bookClubs &&
+        {bookClubs && bookClubs.result &&
           bookClubs.result.filter(club=>club['user']===myID).map((club, index) => (
             <div onClick={() => handleClubClick(club)} key={index}>
               Club name: {club['name']} // // book name: {club['book']['title']}
