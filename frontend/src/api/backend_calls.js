@@ -419,6 +419,21 @@ export const getMemberClubs = async (memberPK) =>{
 } 
 
 
+export const getLeaderboard = async (userID) =>{
+  const payload = {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": `Token ${localStorage.getItem("token")}`
+    },}
+  let url = `${base_url}accounts/leaderboard/`;
+  const apiData = await fetch(url,payload);
+  const apiJSON = await apiData.json();
+  return apiJSON
+} 
+
+
+
 export const toggleRecommend = async (bookID) => {
   const payload = {
       method: "PUT",
@@ -432,3 +447,4 @@ export const toggleRecommend = async (bookID) => {
   console.log(url)
   const response = await fetch(url, payload);
 }
+
