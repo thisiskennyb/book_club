@@ -6,6 +6,7 @@ import { saveToList } from "../api/backend_calls";
 import { useEffect, useState } from 'react';
 import { fetchDetailedBook, fetchOtherUsersSameBook, updatePagesCompleted } from '../api/backend_calls';
 import BasicRating from './Rating';
+import ReadOnlyRating from './readOnlyRating';
 
 import { Link } from 'react-router-dom';
 
@@ -120,7 +121,7 @@ return (
                           <p>{otherUsersSameBook}</p>
                         ) : (
                           otherUsersSameBook.map((others, index) => (
-                            <p key={index}><Link to={`/othersProfile/${member['id']}`}>{others.user.username}</Link><ReadOnlyRating value={others.user_rating} /></p>
+                            <p key={index}><Link to={`/othersProfile/${others.user.pk}`}>{others.user.username}</Link><ReadOnlyRating value={others.user_rating} /></p>
                           ))
                         )
                         : null}
