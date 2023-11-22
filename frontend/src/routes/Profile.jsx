@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react"
-import { getPagesCompleted, saveToList, profilePage, deleteCompletedBook, tbrDelete, updatePagesCompleted, decreasePagesCompleted } from "../api/backend_calls"
+import { getPagesCompleted, saveToList, profilePage, deleteCompletedBook, tbrDelete, updatePagesCompleted, decreasePagesCompleted, toggleRecommend } from "../api/backend_calls"
 import ReadOnlyRating from "../components/readOnlyRating"
 import ChangeRating from "../components/ChangeRating"
+import RecommendIcon from '@mui/icons-material/Recommend';
+import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 
 export default function Profile() {
     const [profileInfo, setProfileInfo] = useState('')
@@ -42,6 +44,12 @@ export default function Profile() {
   const handleCompletedBookClick = (book_pk) =>{
       setSelectedBook(book_pk)
       setOpen(true)
+  }
+
+  const handleRecommend = async (bookID) => {
+    console.log("balls")
+    const recommendBook = await toggleRecommend(bookID)
+    setJankyToggle(!jankyToggle)
   }
 
   useEffect(() => {
@@ -87,6 +95,17 @@ useEffect(() => {
                 <button onClick={() => handleDelete(book["id"], book)}>
                   Delete
                 </button>
+                {book.recommended ? (
+                <>
+                <ThumbUpIcon onClick={() => handleRecommend(book["id"])}/>
+                </>
+                ):(
+                <>
+                <RecommendIcon onClick={() => handleRecommend(book["id"])}/>
+                </>
+                )}
+                
+                
               </div>
             ))}
           </div>
