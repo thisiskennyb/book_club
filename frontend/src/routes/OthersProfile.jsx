@@ -16,6 +16,7 @@ export default function OthersProfile() {
         setClubSelected(club)
     }
     useEffect(() => {
+       
         const fetchProfileInfo = async () => {
             const profile = await profilePage(userPK);
             const clubs = await getMemberClubs(userPK)
@@ -31,16 +32,21 @@ export default function OthersProfile() {
         };
 
         fetchProfileInfo();
-    }, []);
+    }, [clubSelected]);
     console.log(userInfo)
-    return (
+    if(clubSelected){
+        return <SelectedBookClub myID={myID} bookClubSelected={clubSelected} setBookClubSelected={setClubSelected}/>
+    }
+    else
+        return (
         <>
-            {clubSelected ? <SelectedBookClub myID={myID} bookClubSelected={clubSelected} setBookClubSelected={setClubSelected}/>:
-            userInfo ? (
+            {userInfo ? (
             <>    
             <p>{userInfo.username}'s profile</p>
             <div>pages completed:{userInfo.pages_completed}</div>
             </>) : (<p>Loading...</p>)}
+
+
             <h3>books completed</h3>
             {profileInfo && profileInfo.completed_books.map((book, index) => (
                 <p key={index}>{book.book.title} <ReadOnlyRating value={book.user_rating}/></p>
@@ -53,7 +59,7 @@ export default function OthersProfile() {
             {clubInfo && clubInfo.result.map((club, index) => (
                 <div onClick={()=>{handleClubClick(club)}} key={index}>{club.name}</div>
             ))}
-
+            
             
             
             
