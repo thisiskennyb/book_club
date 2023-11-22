@@ -27,10 +27,11 @@ class SignupView(CreateAPIView):
 class PageAmount(APIView):
 
     def get(self, request, pk=None):
+        myid = request.user.id
         user_profile = get_object_or_404(UserProfile, user=request.user)
         username = user_profile.user.username
         pages_completed = user_profile.pages_completed
-        return Response({'username': username, 'pages_completed': pages_completed})
+        return Response({'username': username, 'pages_completed': pages_completed, 'myid' : myid})
 
     
     def post(self, request):
