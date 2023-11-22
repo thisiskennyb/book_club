@@ -418,3 +418,16 @@ export const getMemberClubs = async (memberPK) =>{
   return apiJSON
 } 
 
+export const getLeaderboard = async (userID) =>{
+  const payload = {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": `Token ${localStorage.getItem("token")}`
+    },}
+  let url = `${base_url}accounts/leaderboard/`;
+  const apiData = await fetch(url,payload);
+  const apiJSON = await apiData.json();
+  return apiJSON
+} 
+
