@@ -1,0 +1,20 @@
+#clubPage{
+    text-align: center;
+    background-color: hsl(90, 1%, 36%);
+    color: #d5d2d0;
+    display:flex;
+    flex-direction: column;
+    
+}
+.genericBox{
+    background-color: #E3F0FF;
+    color: #b47548;
+    /* padding: 10pt; */
+    margin:10px;
+ 
+    border-radius: 10pt;
+    font-family: 'Alegreya SC', serif;
+    background-color: #ffffff; /* Background color of the element */
+    box-shadow: 5px 5px 10px 0px rgba(0, 0, 0, 0.5);
+    
+}

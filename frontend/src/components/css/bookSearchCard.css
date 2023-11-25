@@ -1,0 +1,63 @@
+#searchBookCard{
+    background-color: #E3F0FF;
+    color: #b47548;
+    /* padding: 10pt; */
+    margin:10px;
+    display: inline-block;
+    text-align: left;
+    border-radius: 10pt;
+    transition: transform 0.3s ease;
+    font-family: 'Alegreya SC', serif;
+    background-color: #ffffff; /* Background color of the element */
+    box-shadow: 5px 5px 10px 0px rgba(0, 0, 0, 0.5);
+    
+}
+#searchBookCard:hover{
+    transform: translateY(-10px); /* Move the element 10px up */
+  }
+#searchBookCardDiv {
+    padding: 10pt;
+    
+    max-width:150px;
+}
+.bookImage{
+    height: 230px;
+    max-width: 150px;
+}
+.atpContainer{
+    display: flex;
+    flex-wrap: wrap;
+    align-content: space-around;
+   
+}
+.atpItemTitle{
+    display: flex;
+    align-items: center; 
+    margin-right: 10pt;
+    flex-basis: 30px;
+}
+.atpItem{
+    display: flex;
+    align-items: center; 
+    margin-top: 0;
+    flex-basis: 85px;
+}
+.bookCardLine{
+    width: 1400px;
+    margin: 0;
+}
+.atpIcon{
+    height: 35pt;
+    margin-right: 10pt;
+}
+/* #d5d2d0
+#2a2e39
+#b47548
+#5c5d5b 
+#E3F0FF*/
+
+
+
+
+
+
