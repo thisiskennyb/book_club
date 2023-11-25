@@ -2,6 +2,8 @@ import { useState, useEffect } from "react"
 import { createBookClub, profilePage, getAllBookClubs, getAllMyClubs } from "../api/backend_calls"
 import CreateBookClubComponent from "../components/CreateBookClub";
 import SelectedBookClub from "../components/SelectedBookClub";
+import ClubComponent from "../components/ClubComponent";
+import './css/bookClub.css'
 export default function BookClub() {
   const [bookClubs, setBookClubs] = useState(false)
   const [bookClubSelected, setBookClubSelected] = useState(false)
@@ -42,35 +44,47 @@ export default function BookClub() {
 }, [bookClubSelected, creatingBookClub])
 
 return (
-  <>
+  <div id="clubPage">
     {bookClubSelected ? (
       <SelectedBookClub myID={myID} bookClubSelected={bookClubSelected} setBookClubSelected={setBookClubSelected}/>
     ) : (
       <>
-        <div>Welcome to your Book Club</div>
+      <div className="genericBox" id="welcome">
+
+        <div>Welcome to your Book Clubs</div>
         <button onClick={() => toggleCreatingBookClub()}>
           Create Book Club
         </button>
+      </div>
         
         {creatingBookClub ? <CreateBookClubComponent toggleCreatingBookClub={toggleCreatingBookClub}/>:(<>
+        
+        <div className="genericBox" id="clubLeader">
         <h3>
           books clubs i made
         </h3>
         {bookClubs && bookClubs.result &&
           bookClubs.result.filter(club=>club['user']===myID).map((club, index) => (
             <div onClick={() => handleClubClick(club)} key={index}>
-              Club name: {club['name']} // // book name: {club['book']['title']}
+              <ClubComponent clubName={club['name']} bookTitle={club['book']['title']} />
+              
         </div>
         ))}
+      </div>
+
+      <div className="genericBox" id="clubMember">
         <h3>
           book clubs im a member of
         </h3>
         {myClubs &&
           myClubs.result.map((club, index) => (
             <div onClick={() => handleClubClick(club)} key={index}>
-              Club name: {club['name']} // // book name: {club['book']['title']}
+              <ClubComponent clubName={club['name']} bookTitle={club['book']['title']} />
         </div>
         ))}
+        </div>
+        <div className="genericBox" id="allClubs">
+
         <h3>
           all books clubs
         </h3>
@@ -99,16 +113,17 @@ return (
 
         {bookClubs && bookClubs.result &&
           bookClubs.result.filter((club)=>
-            (searchType==="name"? club["name"]:club['book']['title']).toLowerCase()
-            .includes(searchAllClubs.toLowerCase()))
-            .map((club, index) => (
-              <div onClick={() => handleClubClick(club)} key={index}>
-                Club name: {club['name']} // // book name: {club['book']['title']}
+          (searchType==="name"? club["name"]:club['book']['title']).toLowerCase()
+          .includes(searchAllClubs.toLowerCase()))
+          .map((club, index) => (
+            <div onClick={() => handleClubClick(club)} key={index}>
+                <ClubComponent clubName={club['name']} bookTitle={club['book']['title']} />
               </div>
           ))}
         <button onClick={() => console.log(myClubs)}>Print</button>
+          </div>
       </>
     )}
           </>)}
-  </>
+  </div>
 )}

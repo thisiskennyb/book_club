@@ -1,5 +1,5 @@
 import { useState } from "react";
-
+import './css/bookSearch.css'
 import { fetchBooks } from "../api/backend_calls";
 import DetailedBookView from "../components/DetailedBookView";
 import SearchBookCard from "../components/SearchBookCard"
@@ -75,6 +75,7 @@ export default function Search() {
 
     const context = { title };
     const results = await fetchBooks(context, searchType, 1);
+  
     const useableBooks = filterResults(results)
     const tenBooks = useableBooks.slice(0)
     console.log(tenBooks, "search")
@@ -86,9 +87,9 @@ export default function Search() {
   };
 
 console.log(clickedBook)
-    return(<>
+    return(<div id="searchPage">
     <DetailedBookView open={open} buttons={true} setOpen={setOpen} bookInfo={clickedBook} onClose={() => setOpen(false)}/>
-        <h1>Find your next literary adventure</h1>
+        <h1>Find Your Next Literary Adventure</h1>
   
       <form onSubmit={handleSubmit}>
         <div id="title">
@@ -106,24 +107,24 @@ console.log(clickedBook)
             onChange={handleInputChange}
             required
           />
-        </div>
-        {searchType=="subject"?<p>space between terms. connected words by underscore. eg. outer_space pirate</p>:null}
         <button type="submit">Search</button>
+        </div>
+        {searchType=="subject"?<p>Space between terms. Connected words by underscore. Ex. outer_space pirate</p>:null}
       </form>
       <div>
-    {resultPage > 1 ? <button onClick={handlePrevPage}>prev page</button>:null}
-    {!lastPage && isSearchPressed? <button onClick={handleNextPage}>next page</button>:null}
     {isSearchPressed?(<><h2>Search Results: </h2>
     <h3>Page: {resultPage}</h3></>):null}
+    {resultPage > 1 ? <button onClick={handlePrevPage}>Prev Page</button>:null}
+    {!lastPage && isSearchPressed? <button onClick={handleNextPage}>Next Page</button>:null}
   {lastPage ? "no more results":null}
   {noResults ? "no results matching your query":null}
-  <ul>
+  <ul id="bookCardContainer">
     {booksLoaded ? searchResults.map((result, index) => (
       <SearchBookCard key={index} result={result} index={index} handleOpen={handleOpen}/>
-    )):<CircularProgress/>}
+    )):<div id="loadingCircle"><CircularProgress/></div>}
   </ul>
 </div>
    
-    </>
+    </div>
     )
 }
