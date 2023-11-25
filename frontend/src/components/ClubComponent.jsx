@@ -2,13 +2,19 @@ export default function ClubComponent({clubName, bookTitle}){
 
 
     return(<>
-    <div>
-    <div>
-    Club name: {clubName} // // 
-    </div>
-    <div>
-    book name: {bookTitle}
-    </div>
+    <div className="clubContainer">
+        <div className="clubItemTitle">
+            Club name: 
+        </div>
+        <div className="clubItemName">
+            {clubName} 
+        </div>
+        <div className="clubItemTitle">
+            book name: 
+        </div>
+        <div className="clubItemName">
+            {bookTitle}
+        </div>
     </div>
     </>)
 }
