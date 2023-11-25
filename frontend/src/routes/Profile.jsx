@@ -5,6 +5,8 @@ import ChangeRating from "../components/ChangeRating"
 import RecommendIcon from '@mui/icons-material/Recommend';
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import DetailedBookView from "../components/DetailedBookView";
+import './css/profile.css';
+
 
 export default function Profile() {
     const [profileInfo, setProfileInfo] = useState('')
@@ -86,15 +88,22 @@ useEffect(() => {
 }, [jankyToggle, open]);
 
 
-    return(<>
-    <DetailedBookView open={open} setOpen={setOpen}  buttons={false} onClose={() => setOpen(false)} bookInfo={clickedBook}/>
+    return(
+    <div className='container'>
+      <DetailedBookView open={open} setOpen={setOpen}  buttons={false} onClose={() => setOpen(false)} bookInfo={clickedBook}/>
 
         {selectedBook &&<ChangeRating handleClose={handleClose} open={open} book_pk={selectedBook} setOpen={setOpen}/>}
-        <div>This is profile</div>
+        <div className="profileTitle">Welcome to your Profile</div>
         {/* {totalPages ? (<div>Total Pages{totalPages.pages_completed}</div>) : (<div></div>)} */}
-        <div>Total Pages: {totalPages !== null ? totalPages : 'Loading...'}</div>
+        <div className="totalPages">Total Pages Read: <br /> {totalPages !== null ? totalPages : 'Loading...'}</div>
+
+        <div className="recommended">
+            Recommended
+        {profileInfo && profileInfo['recommended'].map((book,index)=><p key={index}>{book['book']['title']}</p>)}
+        </div>
+
         {typeof profileInfo == "object" ?(<>
-        <div className="profileBorders">
+        <div className="completed">
             completed
 
          {profileInfo["completed_books"].map((book, index) => (
@@ -124,7 +133,7 @@ useEffect(() => {
             ))}
           </div>
 
-        <div className="profileBorders">
+        <div className="tbr">
             tbr
         {profileInfo['tbr'].map((book,index)=> (
         <div key={index}>  
@@ -146,12 +155,9 @@ useEffect(() => {
           ))}
         </div>
 
-        <div className="profileBorders">
-            recommended
-        {profileInfo['recommended'].map((book,index)=><p key={index}>{book['book']['title']}</p>)}
-        </div>
+       
         </>):null}
-        <button onClick={()=>{console.log(profileInfo.completed_books)}}>print</button>
-    </>
+        {/* <button onClick={()=>{console.log(profileInfo.completed_books)}}>print</button> */}
+    </div>
     )
 }
