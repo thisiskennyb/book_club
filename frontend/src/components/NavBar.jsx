@@ -1,21 +1,6 @@
-
-// import { Link } from 'react-router-dom';
-
-// export default function Navbar({ userToken }) {
-//     return (
-//         <ul className="navbar">
-//             <li className="nav-item"><Link to="/">Home</Link></li>
-//             {userToken ? <li className="nav-item"><Link to="/profile">Profile</Link></li> : null}
-//             <li className="nav-item"><Link to="/search">Search</Link></li>
-//             <li className="nav-item"><Link to="/BookClub">Book Club</Link></li>
-
-//             {!userToken ?<li className="nav-item"><Link to="/login">Login</Link></li>:
-//             <li className="nav-item"><Link to="/logout">Logout</Link></li>}
-//         </ul>
-//     );
-// }
-
 import { Link, useNavigate } from 'react-router-dom';
+import './css/nav_bar.css'
+import logo from '../assets/chapter-chat-high-resolution-logo-transparent.png';
 
 export default function Navbar({ userToken }) {
   const navigate = useNavigate();
@@ -33,6 +18,7 @@ export default function Navbar({ userToken }) {
 
   return (
     <ul className="navbar">
+      <img src={logo} className="logo" id="main-logo"/>
       <li className="nav-item" onClick={() => handleLinkClick('/')}>
         <Link to="/">Home</Link>
       </li>
