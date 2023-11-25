@@ -1,0 +1,28 @@
+#searchPage{
+    text-align: center;
+    background-color: #5c5d5b;
+    color: #d5d2d0;
+    
+}
+input{
+    text-align: left;
+}
+h1{
+    margin: 0;
+}
+#bookCardContainer{
+    display: flex;
+    flex-wrap: wrap;
+}
+#loadingCircle{
+    display: flex;
+    justify-content: center;
+    margin-left: auto;
+    margin-right: auto;
+  
+}
+/* #d5d2d0
+#2a2e39
+#b47548
+#5c5d5b 
+#E3F0FF*/
