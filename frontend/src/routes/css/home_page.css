@@ -1,0 +1,46 @@
+.page-container {
+
+    background-color: #5c5d5b;
+    height: 100%
+}
+
+.page-item {
+    border: solid;
+    border-color: #2a2e39;
+    border-radius: 10pt;
+    margin: 20px;
+    background-color: #E3F0FF;
+    
+}
+
+.feature {
+    margin: 15px;
+}
+
+.welcome {
+    text-align: center;
+}
+
+.feature-text {
+    margin: 10px;
+}
+
+.start-here-container {
+    display: flex;
+    justify-content: space-around;
+}
+
+.start-here-item {
+    border: solid;
+    border-color: #2a2e39;
+    width: 450px;
+    border-radius: 10pt;
+    background-color: #E3F0FF;
+    margin: 20px;
+    text-align: center;
+    padding: 10px
+}
+
+
+
+/* b47548 */
