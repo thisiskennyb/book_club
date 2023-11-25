@@ -8,6 +8,13 @@ import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import {Link} from 'react-router-dom';
 import { getLeaderboard} from '../api/backend_calls';
+import './css/home_page.css'
+import mglass from '../assets/magnifying-glass.png';
+import list from '../assets/list.png';
+import leaders from '../assets/leaderboard.png';
+import networking from '../assets/networking.png';
+import rate from '../assets/rate.png';
+import tally from '../assets/tally-marks.png';
 
 export default function Home({ userToken }) {
     const [totalPages, setTotalPages] = useState(null)
@@ -37,69 +44,12 @@ export default function Home({ userToken }) {
   }, [])
 
   return (
-    <React.Fragment>
-      <CssBaseline />
-      <Container maxWidth="md">
-        <Grid container spacing={2}>
-          {/* Horizontal container on top */}
-          <Grid item xs={12}>
-            <Box sx={{ bgcolor: '#cfe8fc', height: '10vh', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
-              {/* Text in the top horizontal container */}
-              <Typography variant="h5" align="center">
-                Welcome to Chapter Chat
-              </Typography>
-            </Box>
-          </Grid>
+    <div className="page-container">
 
-          {/* Left container with text */}
-          <Grid item xs={6}>
-            <Box sx={{ bgcolor: '#cfe8fc', height: '30vh', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
-              {/* Text in the left vertical container */}
-              <Typography variant="body1" align="center">
-                Features
-              </Typography>
-              {/* Divider under "Features" */}
-              <Divider sx={{ width: '80%', mt: 1, mb: 1 }} />
-            </Box>
-          </Grid>
 
-          {/* Right container */}
-          <Grid item xs={6}>
-            <Box sx={{ bgcolor: '#cfe8fc', height: '30vh', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
-              {/* Text in the right vertical container */}
-              <Typography variant="body1" align="center">
-                Start Here
-              </Typography>
-              {/* Divider under "Start Here" */}
-              <Divider sx={{ width: '80%', mt: 1, mb: 1 }} />
-              
-              <ul>
-                {/* <button>Search</button> */}
-                {userToken? (
-                <>
-                  <li className="nav-item">
-                    <Link to="/search">Search</Link>
-                  </li>
-                </>
-                ) : (
-                <>
-                  <li className="nav-item">
-                    <Link to="/login">Search</Link>
-                  </li>
-                </>
-                  )}
-              </ul>
-                  {/* <div>
-                  <h3>Leaderboard</h3>
-                
-                  <div>
-                    {/* <p>{`${userName} : ${totalPages}`}</p> */}
-                    {/* {leaderboard.map((name, index) => (
-                      <p key={index}>{`${name.username}: ${name.pages_completed}`}</p>))} */}
-                  {/* </div> */}
-
-                  <div>
-                  <h3>Leaderboard</h3>
+        <div className="start-here-container">
+          <div className="start-here-item">
+          <h3>Leaderboard</h3>
                   {leaderboard !== null && leaderboard.length > 0 ? (
                     <ol>
                       {leaderboard
@@ -112,13 +62,50 @@ export default function Home({ userToken }) {
                   ) : (
                     'Log in to view Leaders'
                   )}
-                </div>
+          
+          
+          </div>
+          <div className="start-here-item">
+            <b>Begin your literary journey by clicking down below</b>
+            <div><button>Sign Up</button></div>
+          </div>
+        </div>
+
+
+        <div className="page-item">
+          <h2 className="welcome">Welcome to Chapter Chat!</h2>
+            <div className='feature'>
+              <img src={mglass} />
+                <span className="feature-text">Seamlessly search for books by title, author, or subject</span>
+            </div>
+            <div className='feature'>
+              <img src={list} />
+                <span className="feature-text">manage your reading journey by adding books to your "To Be Read" or "Completed" lists</span>
+            </div>
+            <div className='feature'>
+              <img src={rate} />
+                <span className="feature-text">Rate, recommend, and explore user ratings and suggestions for books</span>
+            </div>
+            <div className='feature'>
+              <img src={leaders} />
+                <span className="feature-text">earn a spot on the leaderboard for most pages read</span>
+            </div>
+            <div className='feature'>
+              <img src={tally} />
+                <span className="feature-text">Keep a running tally of your total pages read</span>
+            </div>
+            <div className='feature'>
+              <img src={networking} />
+                <span className="feature-text">Engage with fellow readers through the book club feature</span>
+            </div>
+        </div>
+
+               
+                <div> Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik"> Freepik </a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com'</a></div>
+
+  </div>
               
-            </Box>
-          </Grid>
-        </Grid>
-      </Container>
-    </React.Fragment>
+
   );
 }
 
