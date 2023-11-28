@@ -1,6 +1,7 @@
 import './css/bookSearchCard.css'
 import author from '../assets/author.png'
 import title from '../assets/title.png'
+import page from '../assets/page-counter.png'
 export default function SearchBookCard({result, index, handleOpen}){
 
 
@@ -13,9 +14,11 @@ export default function SearchBookCard({result, index, handleOpen}){
                     
                 />
                 <div className='atpContainer'>
+                    <img src={title} className="atpIcon"/><p className='atpItem'>{result.title}</p>
+                    <hr className='bookCardLine' />
                     <img src={author} className="atpIcon"/> <p className='atpItem'>{result.author_name[0]}</p>
                     <hr className='bookCardLine' />
-                    <img src={title} className="atpIcon"/><p className='atpItem'>{result.title}</p>
+                    <img src={page} className="atpIcon"/><p className='atpItem'>{result.number_of_pages_median} pages</p>
                     
                    
                 </div>

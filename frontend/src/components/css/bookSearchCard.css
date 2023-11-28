@@ -8,7 +8,7 @@
     border-radius: 10pt;
     transition: transform 0.3s ease;
     font-family: 'Alegreya SC', serif;
-   
+    
     box-shadow: 5px 5px 10px 0px rgba(0, 0, 0, 0.5);
     
 }
@@ -30,12 +30,12 @@
     align-content: space-around;
    
 }
-.atpItemTitle{
+/* .atpItemTitle{
     display: flex;
     align-items: center; 
     margin-right: 10pt;
     flex-basis: 30px;
-}
+} */
 .atpItem{
     display: flex;
     align-items: center; 

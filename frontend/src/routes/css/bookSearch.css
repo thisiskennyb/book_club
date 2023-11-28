@@ -2,6 +2,8 @@
     text-align: center;
     background-color: #5c5d5b;
     color: #d5d2d0;
+   
+    
     
 }
 input{
@@ -13,6 +15,7 @@ h1{
 #bookCardContainer{
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
 }
 #loadingCircle{
     display: flex;
@@ -21,6 +24,7 @@ h1{
     margin-right: auto;
   
 }
+
 /* #d5d2d0
 #2a2e39
 #b47548

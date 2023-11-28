@@ -40,6 +40,7 @@ export default function BasicRating({ handleClose, book_pk }) {
           />
         </Box>
       )}
+      <button onClick={handleClose}>close</button>
     </>
   );
 }
