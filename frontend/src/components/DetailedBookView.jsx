@@ -7,7 +7,7 @@ import { useEffect, useState } from 'react';
 import { fetchDetailedBook, fetchOtherUsersSameBook, updatePagesCompleted } from '../api/backend_calls';
 import BasicRating from './Rating';
 import ReadOnlyRating from './readOnlyRating';
-
+import './css/detailedBookView.css'
 import { Link } from 'react-router-dom';
 
 export default function DetailedBookView({ open, setOpen, bookInfo, onClose, buttons }) {
@@ -23,7 +23,7 @@ export default function DetailedBookView({ open, setOpen, bookInfo, onClose, but
     left: '50%',
     transform: 'translate(-50%, -50%)',
     width: 400,
-    bgcolor: 'background.paper',
+    bgcolor: 'hsl(90, 1%, 36%)',
     border: '2px solid #FFFF',
     boxShadow: 24,
     p: 4,
@@ -80,38 +80,40 @@ export default function DetailedBookView({ open, setOpen, bookInfo, onClose, but
   }, [open]);
 
 return (
-    <>
-      <Modal open={open} onClose={handleClose} aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description">
+  <>
+  
+  <Modal open={open} onClose={handleClose} aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description">
         <Box sx={style}>
+        <div id="detailedBookPage">
           {bookDetails ? (
             <>
               {isAdded && !isRatingsOpen ? (
                 <div>Successfully Added</div>
-              ) : (
-                <>
+                ) : (
+                  <>
                   {isRatingsOpen ? (
                     
                     <BasicRating handleClose={handleClose} book_pk={saveResponse.pk}/>
-                  ) : (
-                    <>
+                    ) : (
+                      <>
                       <h2>{bookInfo.title}</h2>
                       <h4>{bookInfo.author}</h4>
                       <p>
                         {bookDetails.description
                           ? bookDetails.description.value
-                            ? bookDetails.description.value
-                            : bookDetails.description
+                          ? bookDetails.description.value
+                          : bookDetails.description
                           : "no description available"}
                       </p>
                       <div className='detailedBookButtons'>
                         {buttons ? (
-                        <>                        
+                          <>                        
                         <button onClick={() => handleSave("to-be-read", bookInfo)}>to-be-read</button>
                         <button onClick={() => handleSave("completed", bookInfo)}>completed</button>
                         </>
                         ):(
                           <></>
-                        )}
+                          )}
 
                         <button onClick={handleClose}>close</button>
                       </div>
@@ -119,10 +121,12 @@ return (
                       {otherUsersSameBook ?
                         typeof otherUsersSameBook === "string" ? (
                           <p>{otherUsersSameBook}</p>
-                        ) : (
-                          otherUsersSameBook.map((others, index) => (
-                            <p key={index}><Link to={`/othersProfile/${others.user.pk}`}>{others.user.username}</Link><ReadOnlyRating value={others.user_rating} /></p>
-                          ))
+                          ) : (<div className='nameBubbles'>
+
+                          {otherUsersSameBook.map((others, index) => (
+                            <p className='nameLinkP' key={index}><Link className='nameLink' to={`/othersProfile/${others.user.pk}`}>{others.user.username}</Link><ReadOnlyRating value={others.user_rating} /></p>
+                            ))}
+                        </div>
                         )
                         : null}
                     </>
@@ -132,7 +136,8 @@ return (
             </>
           ) : (
             <div id="loading"><CircularProgress /> Loading Book Info</div>
-          )}
+            )}
+            </div>
         </Box>
       </Modal>
     </>

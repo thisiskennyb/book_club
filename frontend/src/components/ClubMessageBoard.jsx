@@ -41,8 +41,8 @@ export default function ClubMessageBoard({clubPk, myID, isOwner, isMember}){
     {/* display all messages */}
     {allMessages && typeof allMessages==="string"?<p>{allMessages}</p>:
     allMessages && allMessages.map((message, index)=>(
-    <div className="message-container">
-        <p  key={index}>              
+    <div key={index} className="message-container">
+        <p>              
             <span>{message.user.username}:</span>{" "}
             <span className="message-text">{message.message}</span>
             {/* only shows delete button if owner or your message */}

@@ -51,11 +51,12 @@ export default function SelectedBookClub({myID, bookClubSelected, setBookClubSel
     {clubInfo && 
     <>
         <div className="genericBox">
-
-        <h4>BOOKCLUB NAME: {clubInfo.result.name}</h4> 
-        <h4>BOOK: {clubInfo.result.book.title}</h4>
-        <h4>AUTHOR: {clubInfo.result.book.author}</h4>
-        <h4>MEMBERS:</h4>
+            <h4>BOOKCLUB NAME: {clubInfo.result.name}</h4> 
+            <h4>BOOK: {clubInfo.result.book.title}</h4>
+            <h4>AUTHOR: {clubInfo.result.book.author}</h4>
+        </div>
+        <div className="genericBox">
+            <h4>MEMBERS:</h4>
         </div>
     
         <div id="nameBubbles">
