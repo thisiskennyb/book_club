@@ -1,26 +1,4 @@
-/* ul.navbar {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    background-color: #333;
-    overflow: hidden;
-  }
-  
-  li.nav-item {
-    float: left;
-  }
-  
-  li.nav-item a {
-    display: block;
-    color: white;
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
-  }
-  
-  li.nav-item a:hover {
-    background-color: #2a2e39;
-  } */
+
 
   ul.navbar {
     list-style-type: none;
@@ -31,6 +9,7 @@
     display: flex; /* Use flexbox */
     width: 100%; /* Take up the full width of the page */
     height: 150px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 1.0);
 }
 
 li.nav-item {

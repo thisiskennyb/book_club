@@ -16,6 +16,7 @@ import networking from '../assets/networking.png';
 import rate from '../assets/rate.png';
 import tally from '../assets/tally-marks.png';
 
+
 export default function Home({ userToken }) {
     const [totalPages, setTotalPages] = useState(null)
     const [userName, setUserName] = useState(null)
@@ -67,7 +68,7 @@ export default function Home({ userToken }) {
           </div>
           <div className="start-here-item">
             <b>Begin your literary journey by clicking down below</b>
-            <div><button>Sign Up</button></div>
+            <div><Link to={'/signup'}><button>Sign Up</button></Link></div>
           </div>
         </div>
 

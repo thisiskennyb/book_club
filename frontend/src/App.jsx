@@ -10,6 +10,7 @@ import NavBar from './components/NavBar'
 import Logout from './components/Logout'
 import OthersProfile from './routes/OthersProfile'
 import TopFive from './routes/TopFive'
+import SignUp from './routes/SignUp'
 function App() {
   
   const [bookClubSelected, setBookClubSelected] = useState(false)
@@ -51,6 +52,7 @@ function App() {
       <Route path="/logout" element={<Logout setUserToken={setUserToken}/>} />
       <Route path="/othersProfile/:userPK" element={<OthersProfile />} />
       <Route path="/testtopfive" element={<TopFive />} />
+      <Route path="/signup" element={<SignUp />} />
      </Routes>
      </Router>
      </div>
