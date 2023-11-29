@@ -17,6 +17,10 @@ export default function Search() {
   const [noResults, setNoResults] = useState(false)
   const [clickedBook, setClickedBook] = useState({})
   const [isSearchPressed, setIsSearchPressed] = useState(false)
+  const [resultsShowing, setResultsShowing] = useState([0,10])
+  const [pagesOfBooks, setPagesOfBooks] = useState(false)
+
+  const [allResults, setAllResults] =useState(false)
   const handleOpen = (Book) => {
     setClickedBook(Book)
     setOpen(true);
@@ -41,43 +45,39 @@ export default function Search() {
     });
   }
 
-  const handleNextPage = async () =>{
-    const nextPage=resultPage+1
-    const context = { title };
-    const results = await fetchBooks(context, searchType, nextPage);
-    const useableBooks = filterResults(results)
-    const tenBooks = useableBooks.slice(0)
+  const handleNextPage = () =>{
+    const nextPage = [resultsShowing[0]+10,resultsShowing[1]+10]
+    const tenBooks = allResults.slice(nextPage[0],nextPage[1])
     if(tenBooks.length===0){setLastPage(true)}
     setSearchResults(tenBooks)
-    setResultPage(nextPage)
-    return results
+    setResultsShowing(nextPage)
+    setResultPage(resultPage+1)
   }
   const handlePrevPage = async () =>{
-    const prevPage=resultPage-1
-    const context = { title };
-    const results = await fetchBooks(context, searchType, prevPage);
-    const useableBooks = filterResults(results)
-    const tenBooks = useableBooks.slice(0)
+    const prevPage = [resultsShowing[0]-10,resultsShowing[1]-10]
+    const tenBooks = allResults.slice(prevPage[0],prevPage[1])
     setSearchResults(tenBooks)
-    setResultPage(prevPage)
+    setResultsShowing(prevPage)
+    setResultPage(resultPage-1)
     setLastPage(false)
-    return results
   }
   const handleSubmit = async (e) => {
+    e.preventDefault();
     setLastPage(false)
     setNoResults(false)
     setBooksLoaded(false)
     setIsSearchPressed(false)
-    e.preventDefault();
-
     const context = { title };
-    const results = await fetchBooks(context, searchType, 1);
-  
+    const results = await fetchBooks(context, searchType);
     const useableBooks = filterResults(results)
-    const tenBooks = useableBooks.slice(0)
+    setAllResults(useableBooks)
+    const tempPages = useableBooks%10 
+    setPagesOfBooks(tempPages)
+    const tenBooks = useableBooks.slice(resultsShowing[0],resultsShowing[1])
     if(tenBooks.length===0){setNoResults(true)}
     setSearchResults(tenBooks)
     setResultPage(1)
+    setResultsShowing([0,10])
     setIsSearchPressed(true)
     setBooksLoaded(true)
   };

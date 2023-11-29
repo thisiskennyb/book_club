@@ -1,5 +1,7 @@
 // const base_url = import.meta.env.VITE_BASE_URL
-const base_url = "http://localhost:8000/api/"
+// const base_url = "http://localhost:8000/api/"
+const base_url = import.meta.env.VITE_BASE_URL || "http://localhost:8000/api/";
+
 async function basicFetch(url, payload) {
     const res = await fetch(url, payload)
     const body = await res.json()
@@ -59,9 +61,9 @@ async function basicFetch(url, payload) {
     try {
       let url;
       if (searchType === "author") {
-        url = `${base_url}search/author/?author=${useableContext}&resultpage=${result_page}`;
+        url = `${base_url}search/author/?author=${useableContext}`;
       } else if (searchType === "title") {
-        url = `${base_url}search/title/?title=${useableContext}&resultpage=${result_page}`;
+        url = `${base_url}search/title/?title=${useableContext}}`;
       }
       else {
         const subjects = context.title.split(' ');
