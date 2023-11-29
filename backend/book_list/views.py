@@ -76,9 +76,7 @@ class CompletedView(APIView):
     
     def patch(self, request, pk):
         user = request.user
-        print(pk)
         completed_book = get_object_or_404(CompletedBook, user_profile__user=user, pk=pk)
-        print(request.data)
         completed_book.user_rating = request.data.get('rating')
         completed_book.save()
         

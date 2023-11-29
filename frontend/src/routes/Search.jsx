@@ -48,7 +48,6 @@ export default function Search() {
     const results = await fetchBooks(context, searchType, nextPage);
     const useableBooks = filterResults(results)
     const tenBooks = useableBooks.slice(0)
-    console.log(tenBooks, "nextPage")
     if(tenBooks.length===0){setLastPage(true)}
     setSearchResults(tenBooks)
     setResultPage(nextPage)
@@ -60,7 +59,6 @@ export default function Search() {
     const results = await fetchBooks(context, searchType, prevPage);
     const useableBooks = filterResults(results)
     const tenBooks = useableBooks.slice(0)
-    console.log(tenBooks, "nextPage")
     setSearchResults(tenBooks)
     setResultPage(prevPage)
     setLastPage(false)
@@ -78,7 +76,6 @@ export default function Search() {
   
     const useableBooks = filterResults(results)
     const tenBooks = useableBooks.slice(0)
-    console.log(tenBooks, "search")
     if(tenBooks.length===0){setNoResults(true)}
     setSearchResults(tenBooks)
     setResultPage(1)
@@ -86,7 +83,6 @@ export default function Search() {
     setBooksLoaded(true)
   };
 
-console.log(clickedBook)
     return(<div id="searchPage">
     <DetailedBookView open={open} buttons={true} setOpen={setOpen} bookInfo={clickedBook} onClose={() => setOpen(false)}/>
       

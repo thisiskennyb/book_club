@@ -42,7 +42,6 @@ export default function SelectedBookClub({myID, bookClubSelected, setBookClubSel
 
         fetchBookClubs();
     }, [memberChange, isMember, isOwner]);
-    console.log(clubInfo)
     useEffect(() => {
         if(clubInfo){
             checkPermissions()}
