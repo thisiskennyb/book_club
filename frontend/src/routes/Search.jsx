@@ -36,8 +36,7 @@ export default function Search() {
         item.hasOwnProperty('author_name') &&
         item.hasOwnProperty('title') &&
         item.hasOwnProperty('number_of_pages_median') &&
-        item.hasOwnProperty('key') &&
-        item.hasOwnProperty('cover_i')
+        item.hasOwnProperty('key') 
       );
     });
   }
