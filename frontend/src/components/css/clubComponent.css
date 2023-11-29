@@ -1,0 +1,76 @@
+.lineItemStyles{
+    background-color: #E3F0FF;
+    color: #b47548;
+    /* padding: 10pt; */
+    margin:10px;
+    display: inline-block;
+    text-align: left;
+    border-radius: 10pt;
+    transition: transform 0.3s ease;
+    font-family: 'Alegreya SC', serif;
+   
+    box-shadow: 5px 5px 10px 0px rgba(0, 0, 0, 0.5);
+}
+.lineItemStyles:hover{
+    transform: translateY(-10px); /* Move the element 10px up */
+  }
+.clubContainer{
+    padding: 10pt;
+    max-width:150px;
+}
+.clubInfoContainer{
+    display: flex;
+    flex-wrap: wrap;
+    align-content: space-around;
+}
+.clubItemName{
+    display: flex;
+    align-items: center; 
+    margin-top: 0;
+    flex-basis: 85px;
+}
+.clubItemIcon{
+    height: 35pt;
+    margin-right: 10pt;
+  
+}
+
+.bookCardLine{
+    width: 1400px;
+    margin: 0;
+}
+#nameBubbles{
+    display: flex;
+    align-self: center;
+}
+.nameLinkP{
+    background-color: #E3F0FF;
+    display: flex;
+    align-self: center;
+    border-radius: 10pt;
+    transition: transform 0.3s ease;
+    box-shadow: 5px 5px 10px 0px rgba(0, 0, 0, 0.5);
+    margin: 10pt;
+}
+.nameLinkP:hover{
+    transform: translateY(-10px);
+    
+}
+.nameLink{
+    color: #b47548;
+    margin:10px;
+    display: flex;
+    font-family: 'Alegreya SC', serif; 
+}
+.message-container {
+    margin-bottom: 8px;
+  }
+  
+  .message-container p {
+    word-wrap: break-word;
+    max-width: 100%; 
+  }
+  
+  .message-container p span {
+    display: block;
+  }

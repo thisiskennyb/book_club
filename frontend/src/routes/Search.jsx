@@ -36,8 +36,7 @@ export default function Search() {
         item.hasOwnProperty('author_name') &&
         item.hasOwnProperty('title') &&
         item.hasOwnProperty('number_of_pages_median') &&
-        item.hasOwnProperty('key') &&
-        item.hasOwnProperty('cover_i')
+        item.hasOwnProperty('key') 
       );
     });
   }
@@ -48,7 +47,6 @@ export default function Search() {
     const results = await fetchBooks(context, searchType, nextPage);
     const useableBooks = filterResults(results)
     const tenBooks = useableBooks.slice(0)
-    console.log(tenBooks, "nextPage")
     if(tenBooks.length===0){setLastPage(true)}
     setSearchResults(tenBooks)
     setResultPage(nextPage)
@@ -60,7 +58,6 @@ export default function Search() {
     const results = await fetchBooks(context, searchType, prevPage);
     const useableBooks = filterResults(results)
     const tenBooks = useableBooks.slice(0)
-    console.log(tenBooks, "nextPage")
     setSearchResults(tenBooks)
     setResultPage(prevPage)
     setLastPage(false)
@@ -78,7 +75,6 @@ export default function Search() {
   
     const useableBooks = filterResults(results)
     const tenBooks = useableBooks.slice(0)
-    console.log(tenBooks, "search")
     if(tenBooks.length===0){setNoResults(true)}
     setSearchResults(tenBooks)
     setResultPage(1)
@@ -86,12 +82,12 @@ export default function Search() {
     setBooksLoaded(true)
   };
 
-console.log(clickedBook)
     return(<div id="searchPage">
     <DetailedBookView open={open} buttons={true} setOpen={setOpen} bookInfo={clickedBook} onClose={() => setOpen(false)}/>
+      
         <h1>Find Your Next Literary Adventure</h1>
-  
-      <form onSubmit={handleSubmit}>
+      
+      <form id="searchForm" onSubmit={handleSubmit}>
         <div id="title">
           <label htmlFor="title">Search by:</label>
           <select value={searchType} onChange={handleSearchTypeChange}>
@@ -106,11 +102,13 @@ console.log(clickedBook)
             value={title}
             onChange={handleInputChange}
             required
-          />
+            />
         <button type="submit">Search</button>
         </div>
         {searchType=="subject"?<p>Space between terms. Connected words by underscore. Ex. outer_space pirate</p>:null}
       </form>
+
+
       <div>
     {isSearchPressed?(<><h2>Search Results: </h2>
     <h3>Page: {resultPage}</h3></>):null}

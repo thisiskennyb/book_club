@@ -2,7 +2,9 @@
     text-align: center;
     background-color: #5c5d5b;
     color: #d5d2d0;
-    
+    display: flex;
+    flex-direction: column;
+   
 }
 input{
     text-align: left;
@@ -13,6 +15,7 @@ h1{
 #bookCardContainer{
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
 }
 #loadingCircle{
     display: flex;
@@ -20,6 +23,11 @@ h1{
     margin-left: auto;
     margin-right: auto;
   
+}
+#searchForm{
+    background-color: #E3F0FF;
+    align-self: center;
+    color: #b47548;
 }
 /* #d5d2d0
 #2a2e39

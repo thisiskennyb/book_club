@@ -4,17 +4,24 @@
     color: #d5d2d0;
     display:flex;
     flex-direction: column;
+    justify-content: center;
+    margin-right: auto;
+    margin-left: auto;
     
 }
 .genericBox{
     background-color: #E3F0FF;
     color: #b47548;
-    /* padding: 10pt; */
+    align-self: center;
     margin:10px;
- 
+    width:50%;
     border-radius: 10pt;
-    font-family: 'Alegreya SC', serif;
-    background-color: #ffffff; /* Background color of the element */
+    font-family: 'Rowdies', serif;
+    
     box-shadow: 5px 5px 10px 0px rgba(0, 0, 0, 0.5);
     
+}
+.clubCardsContainer{
+    display: flex;
+    flex-wrap: wrap;
 }

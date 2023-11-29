@@ -7,7 +7,7 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import {Link} from 'react-router-dom';
-import { getLeaderboard} from '../api/backend_calls';
+import { getLeaderboard, getPagesCompleted} from '../api/backend_calls';
 import './css/home_page.css'
 import mglass from '../assets/magnifying-glass.png';
 import list from '../assets/list.png';
@@ -16,17 +16,20 @@ import networking from '../assets/networking.png';
 import rate from '../assets/rate.png';
 import tally from '../assets/tally-marks.png';
 
+
 export default function Home({ userToken }) {
     const [totalPages, setTotalPages] = useState(null)
     const [userName, setUserName] = useState(null)
     const [leaderboard, setLeaderBoard] = useState([])
+    
 
   useEffect(() => {
     const fetchLeaderBoard = async () => {
       try {
         const pagesRead = await getLeaderboard();
+        const appUser = await getPagesCompleted();
         setLeaderBoard(pagesRead)
-        console.log(pagesRead)
+        setUserName(appUser.username)
         // pagesRead.forEach((item) => {
         //   const { username, pages_completed} = item
         //   setTotalPages(item.pages_completed);
@@ -42,7 +45,7 @@ export default function Home({ userToken }) {
 
     fetchLeaderBoard();
   }, [])
-
+console.log(userName)
   return (
     <div className="page-container">
 
@@ -66,8 +69,13 @@ export default function Home({ userToken }) {
           
           </div>
           <div className="start-here-item">
+            {userName ? (<div>Welcome {userName}!</div>) : (
+            <>
             <b>Begin your literary journey by clicking down below</b>
-            <div><button>Sign Up</button></div>
+            <div><Link to={'/signup'}><button>Sign Up</button></Link></div>
+              </>
+            )}
+
           </div>
         </div>
 

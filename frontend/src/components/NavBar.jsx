@@ -2,11 +2,13 @@ import { Link, useNavigate } from 'react-router-dom';
 import './css/nav_bar.css'
 import logo from '../assets/chapter-chat-high-resolution-logo-transparent.png';
 
-export default function Navbar({ userToken }) {
+export default function Navbar({ userToken, setBookClubSelected}) {
   const navigate = useNavigate();
 
   const handleLinkClick = (path) => {
-    
+    if (path === '/BookClub'){
+      setBookClubSelected(false)
+    }
     if (path === '/') {
       navigate('/')
     } else if (!userToken) {

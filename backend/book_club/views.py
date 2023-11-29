@@ -27,11 +27,11 @@ class BookClubView(APIView):
             return Response({"result": serializer.data, "member":member, "myid":userid})
         
     def post(self, request):
-        print(request.data)
+  
         user_id = request.user.id
         book_club_data = request.data
         book_club_data['user'] = user_id
-        print(book_club_data)
+
         serializer = BookClubPostSerializer(data=book_club_data)
         if serializer.is_valid():
             book_club_saved = serializer.save()
@@ -41,7 +41,7 @@ class BookClubView(APIView):
             return Response(errors, status=status.HTTP_400_BAD_REQUEST)
         
     def patch(self, request, pk):
-        print(request.data)
+
         userInstance = request.user
         club = BookClub.objects.get(pk=pk)
         if request.data['modifier'] == "join":
