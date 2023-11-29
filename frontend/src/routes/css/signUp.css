@@ -1,0 +1,71 @@
+
+
+  form {
+    background-color: 'rgba(255, 255, 255, 1.0)';
+    padding: 20px;
+    border-radius: 8px;
+    border-color: #2a2e39;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    text-align: center;
+    font-family: 'Alegreya SC', serif;
+  }
+
+  label {
+    display: block;
+    margin-bottom: 8px;
+  }
+
+  input {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 16px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+
+  input[type="submit"] {
+    background-color: #5c5d5b;
+    font-family: "Rowdies";
+    color: #fff;
+    cursor: pointer;
+    text-align: center;
+  }
+
+  input[type="submit"]:hover {
+    background-color: #45a049;
+  }
+
+  .signup-container {
+    position: relative;
+    height: 100vh; /* Set the container to full viewport height */
+  }
+  
+  .background-image {
+    width: 500pt;
+    height: 500pt;
+    object-fit: cover;
+    position: fixed;
+    top: 60%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: -1;
+  }
+  
+  .signup-form {
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 20px;
+    border-radius: 8px;
+    border-color: #2a2e39;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    text-align: center;
+    position: fixed;
+    top: 60%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+    
+  }
+  
