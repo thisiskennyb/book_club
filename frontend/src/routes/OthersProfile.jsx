@@ -24,16 +24,10 @@ export default function OthersProfile() {
             setProfileInfo(profile);
             setClubInfo(clubs)
             setUserInfo(userData)
-            console.log(userData.pages_completed)
-            console.log(userData.username)
-            // console.log(profile.tbr[0]["book"]["title"]); 
-            console.log(clubs.result[0]["book"]["title"])
-            console.log(clubs.result[0]["name"])
         };
 
         fetchProfileInfo();
     }, [clubSelected]);
-    console.log(userInfo)
     if(clubSelected){
         return <SelectedBookClub myID={myID} bookClubSelected={clubSelected} setBookClubSelected={setClubSelected}/>
     }

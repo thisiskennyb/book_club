@@ -30,7 +30,6 @@ export default function Home({ userToken }) {
         const appUser = await getPagesCompleted();
         setLeaderBoard(pagesRead)
         setUserName(appUser.username)
-        console.log(pagesRead)
         // pagesRead.forEach((item) => {
         //   const { username, pages_completed} = item
         //   setTotalPages(item.pages_completed);

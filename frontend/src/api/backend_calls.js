@@ -64,7 +64,6 @@ async function basicFetch(url, payload) {
         url = `${base_url}search/title/?title=${useableContext}&resultpage=${result_page}`;
       }
       else {
-        console.log(context)
         const subjects = context.title.split(' ');
         const formattedSubjects = subjects.map(subject => `subject:${subject}`);
         const subjectContext = formattedSubjects.join('+');
@@ -158,7 +157,6 @@ async function basicFetch(url, payload) {
   };
 
   export const fetchOtherUsersSameBook = async (OLID) => {
-    console.log(OLID)
     const payload = {
       method: "GET",
       headers: {
@@ -172,7 +170,6 @@ async function basicFetch(url, payload) {
   };
 
   export const createBookClub = async (bookPk, bookClubName) =>{
-    console.log(bookClubName)
     const context= {"book":bookPk, "name":bookClubName}
     const payload = {
       method: "POST",
@@ -301,13 +298,10 @@ export const deleteFromList = async (completedBookId) => {
 
     let url=`${base_url}book-list/completed/${completedBookId}/`
     const response = await fetch(url, payload);
-    // console.log(bookInfo.open_library_id)
-
     if (response.status === 204) {
-        console.log("Book deleted")
-    profilePage()
-    } else {
-        console.error("Not deleted")
+      profilePage()
+      } else {
+          console.error("Not deleted")
     }
 }
 
@@ -444,7 +438,7 @@ export const toggleRecommend = async (bookID) => {
   }
 
   let url=`${base_url}book-list/completed/${bookID}/`
-  console.log(url)
+ 
   const response = await fetch(url, payload);
 }
 

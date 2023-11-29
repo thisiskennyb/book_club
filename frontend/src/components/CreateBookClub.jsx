@@ -66,6 +66,6 @@ export default function CreateBookClubComponent({toggleCreatingBookClub}){
           <input onChange={handleBookClubNameChange}/>
         </label>
       <button onClick={()=>{handleCreateBookClub()}}>create club</button>
-      <button onClick={()=>console.log(bookClubName)}>print</button>
+      
     </>)
 }

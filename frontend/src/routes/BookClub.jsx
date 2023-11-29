@@ -15,7 +15,6 @@ export default function BookClub({bookClubSelected, setBookClubSelected}) {
 
   const handleClubClick = (club) =>{
     setBookClubSelected(club)
-    console.log(club)
   }
 
   const toggleCreatingBookClub = () =>{
