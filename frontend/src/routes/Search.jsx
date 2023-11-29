@@ -89,6 +89,7 @@ export default function Search() {
 console.log(clickedBook)
     return(<div id="searchPage">
     <DetailedBookView open={open} buttons={true} setOpen={setOpen} bookInfo={clickedBook} onClose={() => setOpen(false)}/>
+      
         <h1>Find Your Next Literary Adventure</h1>
   
       <form onSubmit={handleSubmit}>

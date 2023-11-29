@@ -17,7 +17,7 @@ export default function ChangeRating({ handleClose, book_pk, open, setOpen }) {
     bgcolor: 'background.paper',
     border: '2px solid #FFFF',
     boxShadow: 24,
-    p: 4,
+    p: 7,
   };
 
   const handleRatingClick = async (newValue) => {
@@ -54,6 +54,7 @@ export default function ChangeRating({ handleClose, book_pk, open, setOpen }) {
           />
         </Box>
       )}
+      <button onClick={handleClose}>close</button>
       </Box>
       </Modal>
     </>

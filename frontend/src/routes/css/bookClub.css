@@ -12,36 +12,16 @@
 .genericBox{
     background-color: #E3F0FF;
     color: #b47548;
-
+    align-self: center;
     margin:10px;
-    max-width:75%;
+    width:50%;
     border-radius: 10pt;
-    font-family: 'Alegreya SC', serif;
-
+    font-family: 'Rowdies', serif;
+    
     box-shadow: 5px 5px 10px 0px rgba(0, 0, 0, 0.5);
     
 }
-.clubContainer{
+.clubCardsContainer{
     display: flex;
     flex-wrap: wrap;
-    align-content: space-around;
-    border-radius: 10pt;
-    border: 1px solid black;
-    box-shadow: 5px 5px 10px 0px rgba(0, 0, 0, 0.5);
-    transition: transform 0.3s ease;
-}
-.clubContainer:hover{
-    transform: translateY(-10px); /* Move the element 10px up */
-  }
-.clubItemTitle{
-    display: flex;
-    align-items: center; 
-    margin-right: 10pt;
-    flex-basis: 30px;
-}
-.clubItemName{
-    display: flex;
-    align-items: center; 
-    margin-top: 0;
-    flex-basis: 85px;
 }

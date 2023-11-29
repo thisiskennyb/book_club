@@ -1,20 +1,20 @@
-export default function ClubComponent({clubName, bookTitle}){
+import './css/clubComponent.css'
+import title from '../assets/title.png'
+import bookClub from '../assets/book-club.png'
+export default function ClubComponent({click, cover, clubName, bookTitle}){
 
 
     return(<>
-    <div className="clubContainer">
-        <div className="clubItemTitle">
-            Club name: 
-        </div>
-        <div className="clubItemName">
-            {clubName} 
-        </div>
-        <div className="clubItemTitle">
-            book name: 
-        </div>
-        <div className="clubItemName">
-            {bookTitle}
-        </div>
-    </div>
+        <li onClick={click} className="lineItemStyles">
+            <div className="clubContainer">
+                <img className='bookImage' src={cover ? `https://covers.openlibrary.org/b/id/${cover}-M.jpg` : '/default_book.png'} alt="Book Cover"/>
+                <div className='clubInfoContainer'>
+
+                <img src={bookClub} className="clubItemIcon"/><p className='clubItemName'>{clubName}</p>
+                <hr className='bookCardLine' />
+                <img src={title} className="clubItemIcon"/><p className='clubItemName'>{bookTitle}</p>
+                </div>
+            </div>
+        </li>
     </>)
 }

@@ -33,7 +33,7 @@ export default function ClubMessageBoard({clubPk, myID, isOwner, isMember}){
     {/* newpost  */}
     {/* only shows if member or owner */}
     {isMember ? (<>
-    <label>new post: 
+    <label>NEW POST: {" "}
         <input type="text" value={message} onChange={handleInputChange}></input>
     </label>
     <button onClick={handlePost}>post</button></>): null}
@@ -41,10 +41,14 @@ export default function ClubMessageBoard({clubPk, myID, isOwner, isMember}){
     {/* display all messages */}
     {allMessages && typeof allMessages==="string"?<p>{allMessages}</p>:
     allMessages && allMessages.map((message, index)=>(
-    <p key={index}>{message.user.username}: {message.message} 
-    {/* only shows delete button if owner or your message */}
-    {isOwner || message.user.id===myID ? <button onClick={()=>{handleDelete(message.id)}}>delete</button>: null}
-    </p>
+    <div key={index} className="message-container">
+        <p>              
+            <span>{message.user.username}:</span>{" "}
+            <span className="message-text">{message.message}</span>
+            {/* only shows delete button if owner or your message */}
+            {isOwner || message.user.id===myID ? <button onClick={()=>{handleDelete(message.id)}}>delete</button>: null}
+        </p>
+    </div>
     ))
     }
     

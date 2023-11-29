@@ -3,6 +3,7 @@ import {useState, useEffect} from "react"
 import { modifyClub, deleteMyClub} from "../api/backend_calls"
 import ClubMessageBoard from "./ClubMessageBoard"
 import { Link } from 'react-router-dom';
+import './css/clubComponent.css'
 export default function SelectedBookClub({myID, bookClubSelected, setBookClubSelected}){
     const [clubInfo, setClubInfo] = useState(false)
     const [memberChange, setMemberChange] = useState(false)
@@ -47,30 +48,35 @@ export default function SelectedBookClub({myID, bookClubSelected, setBookClubSel
             checkPermissions()}
     }, [clubInfo]);
     return(<>
-    {clubInfo && <div>
+    {clubInfo && 
+    <>
+        <div className="genericBox">
+            <h4>BOOKCLUB NAME: {clubInfo.result.name}</h4> 
+            <h4>BOOK: {clubInfo.result.book.title}</h4>
+            <h4>AUTHOR: {clubInfo.result.book.author}</h4>
+        </div>
+        <div className="genericBox">
+            <h4>MEMBERS:</h4>
+        </div>
+    
+        <div id="nameBubbles">
+        {clubInfo.result.members.map((member, index)=><p className="nameLinkP" onClick={()=>{setBookClubSelected(false)}} key={index}><Link className="nameLink" to={`/othersProfile/${member['id']}`}>{member['username']}</Link></p>)}
+        </div>
+ 
 
-    <h4>bookClub name:</h4> 
-     {clubInfo.result.name}
-    
-    <br />
-    <h4>Book:</h4>
-    {clubInfo.result.book.title}
-    <br />
-    <h4>Author:</h4>
-    {clubInfo.result.book.author}
-    <br />
-    <h4>members:</h4>
-    {clubInfo.result.members.map((member, index)=><p onClick={()=>{setBookClubSelected(false)}} key={index}><Link to={`/othersProfile/${member['id']}`}>{member['username']}</Link></p>)}
-    <br />
-    {clubInfo && clubInfo['member'] ? 
-    <button onClick={()=>sendModifyClubRequest("leave")}>leave club</button>
-    :
-    <button onClick={()=>sendModifyClubRequest("join")}>join club</button>
-    }
-    {clubInfo&&isOwner?<button onClick={deleteClub}>delete club</button>:null}
-    <button onClick={()=>{setBookClubSelected(false)}}>back</button>
-    </div>}
-    
+        <div className="genericBox">
+            {clubInfo && clubInfo['member'] ? 
+            <button onClick={()=>sendModifyClubRequest("leave")}>leave club</button>
+            :
+            <button onClick={()=>sendModifyClubRequest("join")}>join club</button>
+        }
+            {clubInfo&&isOwner?<button onClick={deleteClub}>delete club</button>:null}
+            <button onClick={()=>{setBookClubSelected(false)}}>back</button>
+        </div>
+
+    </>}
+    <div className="genericBox">
     <ClubMessageBoard isMember={isMember} myID={myID} isOwner={isOwner} clubPk={bookClubSelected.id} />
+    </div>
     </>)
 }
