@@ -20,12 +20,16 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-l-d%n8!jz^$1c@&47e8--m6!@7n6e$p_=y&05922^eib1g=7&5'
+# SECRET_KEY = 'django-insecure-l-d%n8!jz^$1c@&47e8--m6!@7n6e$p_=y&05922^eib1g=7&5'
 # SECRET_KEY = os.getenv("SECRET_KEY") 
-
+if "SECRET_KEY" in os.environ:
+    SECRET_KEY = os.getenv("SECRET_KEY")
+else:
+    # Use a default value if the environment variable is not set
+    SECRET_KEY = 'django-insecure-l-d%n8!jz^$1c@&47e8--m6!@7n6e$p_=y&05922^eib1g=7&5'
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-# DEBUG =  True if os.getenv("DEBUG") == "True" else False
+DEBUG =  True if os.getenv("DEBUG") == "True" else False
+# DEBUG = True
 
 
 
@@ -84,22 +88,33 @@ WSGI_APPLICATION = 'chapter_chat.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-DATABASES = {
-"default": {
-"ENGINE": "django.db.backends.postgresql",
-# "NAME": os.getenv('DB_NAME'),
-# "USER": os.getenv('DB_USER'),
-# "PASSWORD": os.getenv('DB_PASS'),
-# "HOST": "db",
-# "PORT": 5432, 
-"NAME": "book_db",
-"USER": "postgres",
-"PASSWORD": "postgres",
-"HOST": "localhost",
-"PORT": 5454, 
-}
-}
+# DATABASES = {
+# "default": {
+# "ENGINE": "django.db.backends.postgresql",
+# # "NAME": os.getenv('DB_NAME'),
+# # "USER": os.getenv('DB_USER'),
+# # "PASSWORD": os.getenv('DB_PASS'),
+# # "HOST": "db",
+# # "PORT": 5432, 
+# "NAME": "book_db",
+# "USER": "postgres",
+# "PASSWORD": "postgres",
+# "HOST": "localhost",
+# "PORT": 5454, 
+# }
+# }
 
+
+DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": os.getenv("DB_NAME", "book_db"),
+        "USER": os.getenv("DB_USER", "postgres"),
+        "PASSWORD": os.getenv("DB_PASS", "postgres"),
+        "HOST": "db" if os.getenv("DB_NAME") else "localhost",
+        "PORT": 5432 if os.getenv("DB_NAME") else 5454
+    }
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
