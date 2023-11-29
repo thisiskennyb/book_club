@@ -39,7 +39,6 @@ export default function DetailedBookView({ open, setOpen, bookInfo, onClose, but
   };
 
   const handleSave = async (list, context) => {
-    console.log(context)
     const info = { "book": context };
     const response = await saveToList(info, list);
     
@@ -69,7 +68,6 @@ export default function DetailedBookView({ open, setOpen, bookInfo, onClose, but
   const getOtherUsers = async () => {
     if (open) {
       const apiJSON = await fetchOtherUsersSameBook(bookInfo.open_library_id);
-      console.log(apiJSON);
       setOtherUsersSameBook(apiJSON.other_readers);
     }
   };

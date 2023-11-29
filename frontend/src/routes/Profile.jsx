@@ -30,7 +30,6 @@ export default function Profile() {
         }
 
   const handleListChange = async (book, bookId) => {
-          console.log(book.book.pages)
           const updatePagesRead = await updatePagesCompleted({"pages_completed": parseInt(book.book.pages)});
           const moveBook = await saveToList(book, "completed");
           handleCompletedBookClick(moveBook.pk)
@@ -58,7 +57,6 @@ export default function Profile() {
   }
 
   const handleRecommend = async (bookID) => {
-    console.log("balls")
     const recommendBook = await toggleRecommend(bookID)
     setJankyToggle(!jankyToggle)
   }
@@ -157,7 +155,7 @@ useEffect(() => {
 
        
         </>):null}
-        {/* <button onClick={()=>{console.log(profileInfo.completed_books)}}>print</button> */}
+       
     </div>
     )
 }
