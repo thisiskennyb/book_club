@@ -84,11 +84,12 @@ export default function Search() {
 
     return(<div id="searchPage">
     <DetailedBookView open={open} buttons={true} setOpen={setOpen} bookInfo={clickedBook} onClose={() => setOpen(false)}/>
-      
+      <div className="genericBox">
         <h1>Find Your Next Literary Adventure</h1>
+      </div>
       
       <form id="searchForm" onSubmit={handleSubmit}>
-        <div id="title">
+        <div className="custom-select" id="title">
           <label htmlFor="title">Search by:</label>
           <select value={searchType} onChange={handleSearchTypeChange}>
             <option value="title">Title</option>
@@ -97,13 +98,13 @@ export default function Search() {
           </select>
           <input
             id="title"
-            type="text"
+            type="search"
             name="title"
             value={title}
             onChange={handleInputChange}
             required
             />
-        <button type="submit">Search</button>
+        <button className="myButton" type="submit">Search</button>
         </div>
         {searchType=="subject"?<p>Space between terms. Connected words by underscore. Ex. outer_space pirate</p>:null}
       </form>
