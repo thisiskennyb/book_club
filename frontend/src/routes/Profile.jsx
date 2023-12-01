@@ -89,28 +89,42 @@ useEffect(() => {
 
 
     return(
-      <>
+      <div className="page-container">
         <DetailedBookView open={open} setOpen={setOpen}  buttons={false} onClose={() => setOpen(false)} bookInfo={clickedBook}/>
 
           {selectedBook &&<ChangeRating handleClose={handleClose} open={open} book_pk={selectedBook} setOpen={setOpen}/>}
-          <div className="profileTitle">Welcome to your Profile</div>
+          <div className="profileTitle">
+          <h2>Welcome to your Profile</h2>
+          </div>
           {/* {totalPages ? (<div>Total Pages{totalPages.pages_completed}</div>) : (<div></div>)} */}
           <div className="headerContainer">
-            <div className="totalPages">Total Pages Read: <br /> {totalPages !== null ? totalPages : 'Loading...'}</div>
+            <div className="totalPages">
+              <h3>Total Pages Read:</h3> <br /> {totalPages !== null ? totalPages : 'Loading...'}
+            </div>
 
             <div className="recommended">
-                Recommended
-            {profileInfo && profileInfo['recommended'].map((book,index)=><p key={index}>{book['book']['title']}</p>)}
+                <h3>Recommended</h3>
+              {profileInfo && profileInfo['recommended'].length > 0 ? (
+                <div className="scrollable-container">
+                  <div className="bookList">
+                    {profileInfo && profileInfo['recommended'].map((book,index)=> (<p key={index}>{book['book']['title']}</p>
+              ))}
+                  </div>
+                </div>
+              ) : (
+              <p>No recommend books available</p>
+             )}
             </div>
           </div>
 
+          <div className="bottomContainer"></div>
           {typeof profileInfo == "object" ?(
           <div className="bottomContainer">
             <div className="completed">
-                Completed
+                <h3>Completed</h3>
               {profileInfo["completed_books"].map((book, index) => (
                   <div className="book-info-container" key={index}>
-                    <div onClick={() => handleOpen(book.book)}>
+                    <div className='comp-book-title' onClick={() => handleOpen(book.book)}>
                     {/* setOpen={setOpen} onClose={() => setOpen(false)} */}
                       {/* book list pk: {book["id"]}  */}
                       Title: {book["book"]["title"]} 
@@ -143,27 +157,27 @@ useEffect(() => {
               </div>
 
             <div className="tbr">
-                To-Be-Read
-            {profileInfo['tbr'].map((book,index)=> (
-            <div key={index}>  
-              <p> title: {book['book']['title']}</p>
-              <span className="feature">
-                <button onClick={() => handleTBRDelete(book["id"])}>
-                  <img src={trashCan} />
-                </button>
-                {" "}
-                <button onClick={() => 
-                  handleListChange({"book": {
-                        "author": book['book']["author"],
-                        "book_cover_id": book['book']["book_cover_id"],
-                        "open_library_id": book['book']["open_library_id"],
-                        "pages": book['book']["pages"],
-                        "title": book['book']["title"]
-                  }}, book["id"])}>
-                      completed
+                <h3>To-Be-Read</h3>
+              {profileInfo['tbr'].map((book,index)=> (
+              <div key={index}>  
+                <p>Title: {book['book']['title']}</p>
+                <span className="feature">
+                  <button onClick={() => handleTBRDelete(book["id"])}>
+                    <img src={trashCan} />
                   </button>
-                </span>
-            </div>
+                  {" "}
+                  <button onClick={() => 
+                    handleListChange({"book": {
+                          "author": book['book']["author"],
+                          "book_cover_id": book['book']["book_cover_id"],
+                          "open_library_id": book['book']["open_library_id"],
+                          "pages": book['book']["pages"],
+                          "title": book['book']["title"]
+                    }}, book["id"])}>
+                        completed
+                    </button>
+                  </span>
+              </div>
               ))}
             </div>
 
@@ -171,7 +185,7 @@ useEffect(() => {
           </div>
           ):null}
           {/* <button onClick={()=>{console.log(profileInfo.completed_books)}}>print</button> */}
-      </>
+      </div>
     )
     
 }

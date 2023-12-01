@@ -1,14 +1,12 @@
-/* .container {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-  align-items: center;
-} */
+.page-container {
+  background-color: #5c5d5b;
+  height: 100%
+}
 
 .profileTitle {
   text-align: center;
   font-weight: bold;
-  font-family: sans-serif;
+  /* font-family: sans-serif; */
   /* color:  */
 }
 
@@ -24,8 +22,8 @@
   border: 5px solid #b47548;
   text-align: center;
   font-weight: bold;
-  width: 300px;
-  height: 100px;
+  min-width: 300px;
+  min-height: 100px;
   border-radius: 15px;
   margin: 10px;
   background-color: #E3F0FF;
@@ -37,11 +35,21 @@
   border: 5px solid #b47548;
   text-align: center;
   font-weight: bold;
-  /* width: 300px;
-  height: 100px; */
+  min-width: 300px;
+  min-height: 100px;
   border-radius: 15px;
   margin: 10px;
   background-color: #E3F0FF;
+  overflow-y: auto;
+}
+
+.scrollable-container {
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.bookList {
+  overflow-y: auto;
 }
 
 .bottomContainer {
@@ -55,8 +63,9 @@
   padding: 10px;
   border: 5px solid #b47548;
   margin-bottom: 20px;
-  /* width: 90%; */
-  font-weight: bold;
+  min-width: 1000px;
+  min-height: 300px;
+  /* font-weight: bold; */
   border-radius: 15px;
   margin: 10px;
   background-color: #E3F0FF;
@@ -70,13 +79,20 @@
   margin-bottom: 10px;
 }
 
+.comp-book-title:hover {
+  transform: translateY(-10px);
+  cursor: pointer;
+  font-weight: bolder;
+}
+
 
 .tbr {
   align-self: flex-start;
   padding: 10px;
   border: 5px solid #b47548;
-  font-weight: bold;
-  /* width: 90%; */
+  /* font-weight: bold; */
+  min-width: 1000px;
+  min-height: 300px;
   border-radius: 15px;
   margin: 10px;
   background-color: #E3F0FF;
