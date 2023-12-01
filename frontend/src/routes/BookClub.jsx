@@ -52,9 +52,6 @@ return (
         {creatingBookClub ? <CreateBookClubComponent toggleCreatingBookClub={toggleCreatingBookClub}/>:(<>
           <div className="genericBox" id="welcome">
             <h1>WELCOME TO YOUR BOOK CLUBS</h1>
-            <button onClick={() => toggleCreatingBookClub()}>
-              Create Book Club
-            </button>
           </div>
 
           {bookClubs && bookClubs.result ?(<>
@@ -63,6 +60,9 @@ return (
                 <h3>
                   BOOK CLUBS I MADE
                 </h3>
+            <button className="myButton" onClick={() => toggleCreatingBookClub()}>
+              Create Book Club
+            </button>
               </div>
 
               <ul id="clubCardsContainer">

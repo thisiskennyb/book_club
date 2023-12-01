@@ -122,7 +122,7 @@ return (
                           ) : (<div className='nameBubbles'>
 
                           {otherUsersSameBook.map((others, index) => (
-                            <p className='nameLinkP' key={index}><Link className='nameLink' to={`/othersProfile/${others.user.pk}`}>{others.user.username}</Link><ReadOnlyRating value={others.user_rating} /></p>
+                            <Link className='nameLink nameLinkP' to={`/othersProfile/${others.user.pk}`}>{others.user.username} <ReadOnlyRating value={others.user_rating} /></Link>
                             ))}
                         </div>
                         )
