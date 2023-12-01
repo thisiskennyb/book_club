@@ -34,7 +34,7 @@ export default function Navbar({ userToken, setBookClubSelected}) {
           <Link to="/search">Search</Link>
         </li>
         <li className="nav-item" onClick={() => handleLinkClick('/BookClub')}>
-          <Link to="/BookClub">Book Club</Link>
+          <Link to="/BookClub">Clubs</Link>
         </li>
         {userToken ? 
             <li className="nav-item" onClick={() => handleLinkClick('/logout')}>
