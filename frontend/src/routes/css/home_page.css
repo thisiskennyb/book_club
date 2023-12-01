@@ -7,6 +7,7 @@
 .page-item {
     border: solid;
     border-color: #2a2e39;
+    border-width: 2px;
     border-radius: 10pt;
     margin: 20px;
     background-color: #E3F0FF;
@@ -15,19 +16,25 @@
 
 .feature {
     margin: 15px;
+  
 }
 
 .welcome {
     text-align: center;
+    font-family: 'Rowdies';
+
 }
 
 .feature-text {
     margin: 10px;
+    font-family: 'Alegreya SC';
 }
 
 .start-here-container {
     display: flex;
     justify-content: space-around;
+    font-family: 'Rowdies';
+ 
 }
 
 .start-here-item {
@@ -35,10 +42,16 @@
     border-color: #2a2e39;
     width: 450px;
     border-radius: 10pt;
+    border-width: 2px;
     background-color: #E3F0FF;
     margin: 20px;
     text-align: center;
     padding: 10px
+}
+
+.welcome-user {
+    margin-top: 60pt;
+
 }
 
 

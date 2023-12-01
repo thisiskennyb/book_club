@@ -69,7 +69,7 @@ console.log(userName)
           
           </div>
           <div className="start-here-item">
-            {userName ? (<div>Welcome {userName}!</div>) : (
+            {userName ? (<div className="welcome-user">Welcome {userName}!</div>) : (
             <>
             <b>Begin your literary journey by clicking down below</b>
             <div><Link to={'/signup'}><button>Sign Up</button></Link></div>
