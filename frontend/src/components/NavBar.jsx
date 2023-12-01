@@ -9,6 +9,7 @@ export default function Navbar({ userToken, setBookClubSelected}) {
     if (path === '/') {
       navigate('/')
     } else if (!userToken) {
+      alert("you must be logged in")
       navigate('/login')
     } else {
       if (path === '/BookClub'){

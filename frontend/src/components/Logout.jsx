@@ -1,4 +1,5 @@
 import { useNavigate } from 'react-router-dom';
+import './css/logout.css'
 
 
 export default function Logout({setUserToken}){
@@ -13,8 +14,14 @@ export default function Logout({setUserToken}){
     }
 
 
-    return (<>
+    return (
+    <div className="logout-container">
     <h2>Are you sure you want to logout?</h2>
-    <button className='myButton' onClick={handleLogout}>Yes</button>
-    </>)
+
+    <button className="logout-button" onClick={handleLogout}>Yes</button>
+    </div>
+  
+  
+    )
+
 }
