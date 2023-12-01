@@ -30,8 +30,23 @@ h1{
     color: #b47548;
     border: 2pt solid black;
 }
+
+.genericBox{
+    background-color: #E3F0FF;
+    color: #b47548;
+    align-self: center;
+    margin:10px;
+    width:50%;
+    border-radius: 10pt;
+    font-family: 'Rowdies', serif;
+    
+    box-shadow: 5px 5px 10px 0px rgba(0, 0, 0, 0.5);
+    
+}
 /* #d5d2d0
 #2a2e39
 #b47548
 #5c5d5b 
 #E3F0FF*/
+/* Button Styles */
+

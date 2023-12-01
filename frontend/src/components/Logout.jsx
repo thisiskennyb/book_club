@@ -17,7 +17,11 @@ export default function Logout({setUserToken}){
     return (
     <div className="logout-container">
     <h2>Are you sure you want to logout?</h2>
+
     <button className="logout-button" onClick={handleLogout}>Yes</button>
     </div>
+  
+  
     )
+
 }
