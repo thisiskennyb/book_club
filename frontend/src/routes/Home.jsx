@@ -72,7 +72,7 @@ console.log(userName)
             {userName ? (<div className="welcome-user">Welcome {userName}!</div>) : (
             <>
             <b>Begin your literary journey by clicking down below</b>
-            <div><Link to={'/signup'}><button>Sign Up</button></Link></div>
+            <div><Link to={'/signup'}><button className="sign-up-butt">Sign Up</button></Link></div>
               </>
             )}
 

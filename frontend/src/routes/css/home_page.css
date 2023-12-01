@@ -28,6 +28,9 @@
 .feature-text {
     margin: 10px;
     font-family: 'Alegreya SC';
+    padding: 20pt;
+    font-size: 20px;
+    margin-bottom: 10pt;
 }
 
 .start-here-container {
@@ -50,8 +53,13 @@
 }
 
 .welcome-user {
-    margin-top: 60pt;
+    margin-top: 50pt;
+    font-size: 30px;
 
+}
+
+.sign-up-butt {
+    margin-top: 20pt;
 }
 
 
