@@ -102,6 +102,7 @@ export default function Search() {
             name="title"
             value={title}
             onChange={handleInputChange}
+            placeholder="Search"
             required
             />
         <button className="myButton" type="submit">Search</button>
