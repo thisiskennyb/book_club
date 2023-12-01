@@ -106,14 +106,14 @@ return (
                       <div className='detailedBookButtons'>
                         {buttons ? (
                           <>                        
-                        <button onClick={() => handleSave("to-be-read", bookInfo)}>to-be-read</button>
-                        <button onClick={() => handleSave("completed", bookInfo)}>completed</button>
+                        <button className="myButton" onClick={() => handleSave("to-be-read", bookInfo)}>to-be-read</button>
+                        <button className="myButton" onClick={() => handleSave("completed", bookInfo)}>completed</button>
                         </>
                         ):(
                           <></>
                           )}
 
-                        <button onClick={handleClose}>close</button>
+                        <button className="myButton" onClick={handleClose}>close</button>
                       </div>
   
                       {otherUsersSameBook ?

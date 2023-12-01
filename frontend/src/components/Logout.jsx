@@ -15,6 +15,6 @@ export default function Logout({setUserToken}){
 
     return (<>
     <h2>Are you sure you want to logout?</h2>
-    <button onClick={handleLogout}>Yes</button>
+    <button className='myButton' onClick={handleLogout}>Yes</button>
     </>)
 }
