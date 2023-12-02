@@ -5,6 +5,7 @@ import ReadOnlyRating from '../components/readOnlyRating';
 import SelectedBookClub from '../components/SelectedBookClub';
 import { getAllBookClubs } from '../api/backend_calls';
 import DetailedBookView from "../components/DetailedBookView";
+
 import './css/othersProfile.css';
 export default function OthersProfile() {
     const [profileInfo, setProfileInfo] = useState(null);
@@ -14,10 +15,20 @@ export default function OthersProfile() {
     const [clubSelected, setClubSelected] = useState(false)
     const { userPK } = useParams();
     const [open, setOpen] = useState(false);
-
+    const [clickedBook, setClickedBook] = useState({})
+ 
     const handleClubClick =(club) =>{
         setClubSelected(club)
     }
+
+
+
+    const handleOpen = (book) => {
+    
+        setClickedBook(book)
+        setOpen(true);
+      }
+
     useEffect(() => {
        
         const fetchProfileInfo = async () => {
@@ -36,13 +47,13 @@ export default function OthersProfile() {
     }, [clubSelected]);
     if(clubSelected){
         return <div className='clubPage'>
-            <SelectedBookClub myID={myID} bookClubSelected={clubSelected} setBookClubSelected={setClubSelected}/>
+            <SelectedBookClub  myID={myID} bookClubSelected={clubSelected} setBookClubSelected={setClubSelected}/>
             </div>
     }
     else
         return (
     <div className="othersPage">
-                <DetailedBookView open={open} buttons={true} setOpen={setOpen} bookInfo={clickedBook} onClose={() => setOpen(false)}/>
+                <DetailedBookView open={open} setOpen={setOpen}  buttons={true} onClose={() => setOpen(false)} bookInfo={clickedBook}/>
             {userInfo ? (
                 <>    
                 <div className="otherTitle">
@@ -55,7 +66,7 @@ export default function OthersProfile() {
                     <div className="othersRecommended">
                         <h3>Recommended</h3>
                         {profileInfo && profileInfo.recommended.length >0 ? profileInfo.recommended.map((book, index) => (
-                        <p key={index}>{book.book.title}</p>
+                        <p onClick={() => handleOpen(book.book)} key={index}>{book.book.title}</p>
                         )):<p>No recommended books available</p>} 
                     </div>
                 </div>
@@ -69,7 +80,7 @@ export default function OthersProfile() {
                     <div className='bookListBlock'>
                         <h3>Completed</h3>
                         {profileInfo && profileInfo.completed_books.map((book, index) => (
-                            <div className="book-info-container">
+                            <div key={index} className="book-info-container" onClick={() => handleOpen(book.book)}>
                                 <div  key={index}>{book.book.title} <ReadOnlyRating value={book.user_rating}/></div>
                             </div>
                         ))}
@@ -77,7 +88,7 @@ export default function OthersProfile() {
                     <div className='bookListBlock'>
                         <h3>To Be Read</h3>
                         {profileInfo && profileInfo.tbr.map((book, index) => (
-                        <p key={index}>{book.book.title}</p>
+                        <p onClick={() => handleOpen(book.book)} key={index}>{book.book.title}</p>
                         ))}
                     </div>
                 </div>
