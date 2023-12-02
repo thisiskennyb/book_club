@@ -121,7 +121,7 @@ useEffect(() => {
               {profileInfo && profileInfo['recommended'].length > 0 ? (
                 <div className="scrollable-container">
                   <div className="bookList">
-                    {profileInfo && profileInfo['recommended'].map((book,index)=> (<p key={index}>{book['book']['title']}</p>
+                    {profileInfo && profileInfo['recommended'].map((book,index)=> (<p className="makeItHover" onClick={() => handleOpen(book.book)} key={index}>{book['book']['title']}</p>
               ))}
                   </div>
                 </div>
@@ -150,7 +150,7 @@ useEffect(() => {
                       {/* Rating:{" "} */}
                     </div>
                     <span className="contentText">
-                      <button onClick={()=>{handleCompletedBookClick(book["id"]) }}>
+                      <button className="makeItHover" onClick={()=>{handleCompletedBookClick(book["id"]) }}>
                       {/* Rating: {" "}   */}
                       {book["user_rating"] ? <ReadOnlyRating value={book["user_rating"]}/> : "not yet rated"}
                       </button>
@@ -160,11 +160,11 @@ useEffect(() => {
                       {" "}
                     {book.recommended ? (
                     <>
-                    <ThumbUpIcon onClick={() => handleRecommend(book["id"])}/>
+                    <ThumbUpIcon className="makeItHover" onClick={() => handleRecommend(book["id"])}/>
                     </>
                     ):(
                     <>
-                    <RecommendIcon onClick={() => handleRecommend(book["id"])}/>
+                    <RecommendIcon className="makeItHover" onClick={() => handleRecommend(book["id"])}/>
                     
                     </>
                     )}
@@ -184,8 +184,8 @@ useEffect(() => {
                 <h4>What books would you like to read next?</h4>
               ) : (
               profileInfo['tbr'].map((book,index)=> (
-              <div className='book-info-container' key={index}>  
-                <p>Title: {book['book']['title']}</p>
+              <div  onClick={() => handleOpen(book.book)} className='book-info-container' key={index}>  
+                <p className="makeItHover">Title: {book['book']['title']}</p>
                 <span className="contentText">
                   <button onClick={() => handleTBRDelete(book["id"])}>
                     <img src={trashCan} />
