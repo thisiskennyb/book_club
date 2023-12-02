@@ -1,0 +1,67 @@
+.page-container {
+    background-color: #5c5d5b;
+    height: 100%
+  }
+  .profileTitle {
+    text-align: center;
+    font-weight: bold;
+  }
+  .headerContainer {
+    display: flex;
+    justify-content: space-around;
+  
+  }
+  .totalPages {
+    align-self: flex-start;
+    padding: 10px;
+    border: 5px solid #b47548;
+    text-align: center;
+    font-weight: bold;
+    min-width: 300px;
+    min-height: 100px;
+    border-radius: 15px;
+    margin: 10px;
+    background-color: #E3F0FF;
+  }
+  .recommended {
+    align-self: flex-end;
+    padding: 10px;
+    border: 5px solid #b47548;
+    text-align: center;
+    font-weight: bold;
+    min-width: 300px;
+    min-height: 100px;
+    border-radius: 15px;
+    margin: 10px;
+    background-color: #E3F0FF;
+    overflow-y: auto;
+}
+.bottomContainer {
+    display: flex;
+    flex-direction: column;
+    
+}
+.completedAndTbr{
+  display: flex;
+  flex-direction: row;
+}
+  .bookListBlock {
+    width: 50%;   
+    padding: 10px;
+    border: 5px solid #b47548;
+    margin-bottom: 20px;
+    border-radius: 15px;
+    margin: 10px;
+    background-color: #E3F0FF;
+    text-align: center;
+  }
+.othersClubsBlock{
+   
+    padding: 10px;
+    border: 5px solid #b47548;
+    margin-bottom: 20px;
+    border-radius: 15px;
+    margin: 10px;
+    background-color: #E3F0FF;
+    text-align: center;
+}
