@@ -104,7 +104,7 @@ useEffect(() => {
 
           {selectedBookForRating &&<ChangeRating handleClose={handleRatingsClose} open={ratingsOpen} book_pk={selectedBookForRating} setOpen={setRatingsOpen}/>}
           <div className="profileTitle">
-          <h2 className="titleText">Welcome to your Profile {customerName}</h2>
+            <h2 className="titleText">Welcome to your Profile {customerName}</h2>
 
           </div>
           {/* {totalPages ? (<div>Total Pages{totalPages.pages_completed}</div>) : (<div></div>)} */}
