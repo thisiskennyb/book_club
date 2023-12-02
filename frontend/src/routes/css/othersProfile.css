@@ -37,6 +37,12 @@
     overflow-y: auto;
     
 }
+.othersScroll {
+  max-height: 100px;
+  width: 300px;
+  overflow: auto;
+  /* border: 1px solid; */
+}
 .othersBottomContainer {
     display: flex;
     flex-direction: column;
