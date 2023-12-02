@@ -4,10 +4,10 @@ import CreateBookClubComponent from "../components/CreateBookClub";
 import SelectedBookClub from "../components/SelectedBookClub";
 import ClubComponent from "../components/ClubComponent";
 import './css/bookClub.css'
-export default function BookClub({bookClubSelected, setBookClubSelected}) {
+export default function BookClub({creatingBookClub, setCreatingBookClub, bookClubSelected, setBookClubSelected}) {
   const [bookClubs, setBookClubs] = useState(false)
   
-  const [creatingBookClub, setCreatingBookClub] = useState(false)
+  
   const [myClubs, setMyClubs] = useState(false)
   const [searchAllClubs, setSearchAllClubs] = useState('')
   const [searchType, setSearchType] = useState('name')
@@ -95,7 +95,7 @@ return (
             <h3>
               SEARCH CLUBS: <input type="search" value={searchAllClubs} onChange={handleSearchClubsChange} placeholder="Enter club name"/>
             </h3>
-            <p id="custom-radio">SEARCH BY: 
+            <p className="custom-radio">SEARCH BY: 
               <label>
                 <input type="radio" 
                 name="searchtype" 

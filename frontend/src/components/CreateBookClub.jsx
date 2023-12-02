@@ -7,8 +7,12 @@ export default function CreateBookClubComponent({toggleCreatingBookClub}){
     const [selectedOption, setSelectedOption] = useState('completed_books')
     const [bookPk, setBookPk] = useState(false)
     const [bookClubName, setBookClubName] = useState('')
-    
+    const [errorMessage, setErrorMessage] = useState('');
     const handleCreateBookClub = async ()=>{
+      if (!bookPk || !bookClubName) {
+        setErrorMessage('Please select a book and provide a club name.');
+        return;
+      }
         const createdClub = await createBookClub(bookPk, bookClubName)
         toggleCreatingBookClub()
         return createdClub
@@ -32,9 +36,10 @@ export default function CreateBookClubComponent({toggleCreatingBookClub}){
           fetchProfileInfo();
       }, []);
 
-    return(<>
-         <h3>create a book club</h3>
-      <p>from list
+    return(<div className="genericBox">
+
+         <h3>Create a Book Club</h3>
+      <p className="custom-radio">From List
         <label>
           <input type="radio" 
           name="clubStatus" 
@@ -49,23 +54,29 @@ export default function CreateBookClubComponent({toggleCreatingBookClub}){
           value="tbr" 
           checked={selectedOption === 'tbr'} 
           onChange={handleOptionChange}/>
-          TBR
+          To-Be-Read
         </label>
         </p>
+        <br />
+        <div className="custom-select">
+
         <label>
-        book: 
-        <select onChange={handleSelectChange}>
-        <option value="" >- Select a book -</option>
+        Book
+        <select onChange={handleSelectChange} required value={bookPk}>
+        <option value="" >- Select A Book -</option>
         {profileInfo && profileInfo[selectedOption].map((book,index)=>(
           <option value={book.book.id} key={index}>{book['book']['title']}</option>
           ))}
         </select>
           </label>
           <br />
-        <label>book club name
-          <input onChange={handleBookClubNameChange}/>
+        <label>Book Club Name
+          <input onChange={handleBookClubNameChange} required/>
         </label>
-      <button onClick={()=>{handleCreateBookClub()}}>create club</button>
-      
-    </>)
-}
+          </div>
+          <br />
+      <button className="myButton" onClick={()=>{handleCreateBookClub()}}>Create Club</button>
+      {errorMessage && <p className="errorMessage">{errorMessage}</p>}
+      </div>
+    )
+  }
