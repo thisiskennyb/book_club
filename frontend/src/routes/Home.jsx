@@ -72,7 +72,7 @@ console.log(userName)
             {userName ? (<div className="welcome-user">Welcome {userName}!</div>) : (
             <>
             <b>Begin your literary journey by clicking down below</b>
-            <div><Link to={'/signup'}><button className="sign-up-butt">Sign Up</button></Link></div>
+            <div><Link to={'/signup'}><button className="myButton" id="signup-butt">Sign Up</button></Link></div>
               </>
             )}
 
@@ -109,7 +109,7 @@ console.log(userName)
         </div>
 
                
-                <div> Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik"> Freepik </a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com'</a></div>
+                <div className="icon-ref"> Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik"> Freepik </a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com'</a></div>
 
   </div>
               
