@@ -1,0 +1,25 @@
+.message-container {
+    margin-bottom: 8px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .message-content {
+    display: flex;
+    flex-direction: row;
+    
+  }
+  
+  .messagePostUsername {
+    margin-right: 10pt; 
+    margin-left: 10pt;
+  }
+  
+  .message-text {
+    word-wrap: break-word;
+    overflow-wrap: break-word; 
+    width: 78%;
+  }
+  

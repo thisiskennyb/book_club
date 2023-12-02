@@ -70,16 +70,16 @@ const checkPermissions = () => {
         </div>
     
         <div id="nameBubbles">
-        {clubInfo.result.members.map((member, index)=><p className="nameLinkP" onClick={()=>{setBookClubSelected(false)}} key={index}><Link className="nameLink" to={`/othersProfile/${member['id']}`}>{member['username']}</Link></p>)}
+        {clubInfo.result.members.map((member, index)=><p  onClick={()=>{setBookClubSelected(false)}} key={index}><Link className="nameLink nameLinkP" to={`/othersProfile/${member['id']}`}>{member['username']}</Link></p>)}
         </div>
  
 
         <div className="genericBox">
             {clubInfo && clubInfo['member'] ? 
 
-            <button className="myButton" id="club-button" onClick={()=>sendModifyClubRequest("leave")}>leave club</button>
+            <button className="myButton" id="club-button" onClick={()=>sendModifyClubRequest("leave")}>Leave Club</button>
             :
-            <button className="myButton" id="club-button" onClick={()=>sendModifyClubRequest("join")}>join club</button>
+            <button className="myButton" id="club-button" onClick={()=>sendModifyClubRequest("join")}>Join Club</button>
 
 
 
