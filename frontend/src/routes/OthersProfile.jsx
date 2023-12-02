@@ -82,7 +82,7 @@ export default function OthersProfile() {
                     <div className='bookListBlock'>
                         <h3>Completed</h3>
                         {profileInfo && profileInfo.completed_books.map((book, index) => (
-                            <div key={index} className="book-info-container" onClick={() => handleOpen(book.book)}>
+                            <div key={index} className="othersCompleted" onClick={() => handleOpen(book.book)}>
                                 <div  key={index}>{book.book.title} <ReadOnlyRating value={book.user_rating}/></div>
                             </div>
                         ))}
