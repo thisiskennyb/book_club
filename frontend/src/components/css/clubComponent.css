@@ -62,19 +62,4 @@
     display: flex;
     font-family: 'Alegreya SC', serif; 
 }
-.message-container {
-    margin-bottom: 8px;
-  }
-  
-  .message-container p {
-    word-wrap: break-word;
-    max-width: 100%; 
-  }
-  
-  .message-container p span {
-    display: block;
-  }
 
-  #club-button {
-    margin: 5px;
-  }

@@ -28,29 +28,42 @@ export default function ClubMessageBoard({clubPk, myID, isOwner, isMember}){
         fetchAllMessages()
     }, [refresh]);
    
-    return(<>
+    return(
+    <div className="genericBox">
 
     {/* newpost  */}
     {/* only shows if member or owner */}
     {isMember ? (<>
-    <label>NEW POST: {" "}
-        <input type="text" value={message} onChange={handleInputChange}></input>
-    </label>
-    <button onClick={handlePost}>post</button></>): null}
+        <div >
+            <label className="messagePost">NEW POST: {" "}
+            
+                <input className="postText" type="text" value={message} onChange={handleInputChange}></input>
+                <button className="myButton postButton" onClick={handlePost}>Post</button>
+            </label>
+        </div>
+    </>): null}
+    
 
     {/* display all messages */}
-    {allMessages && typeof allMessages==="string"?<p>{allMessages}</p>:
-    allMessages && allMessages.map((message, index)=>(
+    {allMessages && typeof allMessages === "string" ? (
+  <p>{allMessages}</p>
+) : (
+  allMessages &&
+  allMessages.map((message, index) => (
     <div key={index} className="message-container">
-        <p>              
-            <span>{message.user.username}:</span>{" "}
-            <span className="message-text">{message.message}</span>
-            {/* only shows delete button if owner or your message */}
-            {isOwner || message.user.id===myID ? <button onClick={()=>{handleDelete(message.id)}}>delete</button>: null}
-        </p>
+      
+        <span className="messagePostUsername">{message.user.username}:</span>{" "}
+        <span className="message-text">{message.message}</span>
+      
+      {/* Show delete button if owner or your message */}
+      {isOwner || message.user.id === myID ? (
+        <button className="myButton" onClick={() => { handleDelete(message.id) }}>Delete</button>
+      ) : null}
     </div>
-    ))
-    }
+  ))
+)}
+
     
-    </>)
+</div>
+    )
 }

@@ -13,15 +13,21 @@
     border-radius: 10pt;
     transition: transform 0.3s ease;
     box-shadow: 5px 5px 10px 0px rgba(0, 0, 0, 0.5);
-    margin: 10pt;
+    align-items: center;
 }
 .nameLinkP:hover{
     transform: translateY(-10px);
-    
 }
 .nameLink{
     color: #b47548;
     margin:10px;
     display: flex;
     font-family: 'Alegreya SC', serif; 
+    text-decoration: none;
+    padding: 3pt;
+    padding-left: 10pt;
+}
+
+.notRatedSpan{
+    padding-left: 10pt;
 }
