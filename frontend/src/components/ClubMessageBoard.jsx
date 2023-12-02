@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react"
 import { addClubMessage } from "../api/backend_calls"
 import { getBookClubMessageBoard, deleteMessage } from "../api/backend_calls"
+import "./css/messageBoard.css"
+import trashCan from "../assets/trashCan.png"
 export default function ClubMessageBoard({clubPk, myID, isOwner, isMember}){
     const [allMessages, setAllMessages] = useState(false)
     const [message, setMessage] = useState("")
@@ -57,7 +59,9 @@ export default function ClubMessageBoard({clubPk, myID, isOwner, isMember}){
       
       {/* Show delete button if owner or your message */}
       {isOwner || message.user.id === myID ? (
-        <button className="myButton" onClick={() => { handleDelete(message.id) }}>Delete</button>
+       
+        <button onClick={() => { handleDelete(message.id) }}> <img src={trashCan} /> 
+        </button>
       ) : null}
     </div>
   ))

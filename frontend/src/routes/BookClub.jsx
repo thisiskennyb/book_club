@@ -61,7 +61,7 @@ return (
             {bookClubs.result.filter(club=>club['user']===myID).length>0 && <>
               <div className="genericBox" id="clubLeader">
                 <h3>
-                  BOOK CLUBS I MADE
+                  MY CREATED BOOKS CLUBS
                 </h3>
               </div>
 
@@ -76,7 +76,7 @@ return (
           {myClubs.result.length>0 &&<>
             <div className="genericBox" id="clubMember">
               <h3>
-                BOOK CLUBS IM A MEMBER OF
+                MY BOOK CLUBS
               </h3>
             </div>
             <ul id="clubCardsContainer">
