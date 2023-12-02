@@ -24,7 +24,7 @@ export default function DetailedBookView({ open, setOpen, bookInfo, onClose, but
     left: '50%',
     transform: 'translate(-50%, -50%)',
     width: 400,
-    bgcolor: 'hsl(90, 1%, 36%)',
+    bgcolor: '#A89F9F',
     border: '2px solid #FFFF',
     boxShadow: 24,
     p: 4,

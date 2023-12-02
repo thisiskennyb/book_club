@@ -4,10 +4,26 @@
 }
 
 .profileTitle {
-  text-align: center;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-direction: column;
   font-weight: bold;
-  /* font-family: sans-serif; */
-  /* color:  */
+  border: 2px solid #2a2e39;
+  border-radius: 15px;
+  width:50%;
+  margin-top: 10pt ;
+  background-color: #E3F0FF;
+  margin-left: auto;
+  margin-right: auto;
+
+}
+
+
+.titleText {
+  font-family: 'Rowdies';
+  text-align: center;
+ 
 }
 
 .headerContainer {
@@ -15,11 +31,6 @@
   justify-content: space-around;
 
 }
-
-.titleText {
-  font-family: 'Rowdies';
-}
-
 .contentText {
   font-family: 'Alegreya SC';
   font-size: 20px;
