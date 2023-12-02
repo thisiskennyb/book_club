@@ -102,7 +102,7 @@ return (
                       <>
                       <h1>{bookInfo.title}</h1>
                       <h4>{bookInfo.author}</h4>
-                      <p>
+                      <p className='detailedDescription'>
                         {bookDetails.description
                           ? bookDetails.description.value
                           ? bookDetails.description.value

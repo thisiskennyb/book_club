@@ -31,3 +31,16 @@
 .notRatedSpan{
     padding-left: 10pt;
 }
+
+.detailedDescription{
+    max-height: 275px;
+   
+    overflow: auto;
+}
+
+.scrollable-container {
+    max-height: 100px;
+    width: 300px;
+    overflow: auto;
+    /* border: 1px solid; */
+  }
