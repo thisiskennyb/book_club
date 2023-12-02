@@ -73,7 +73,7 @@ return (
               </ul>
             </>}
           
-          {myClubs.result.length>0 &&<>
+          {myClubs&& myClubs.result && myClubs.result.length>0 &&<>
             <div className="genericBox" id="clubMember">
               <h3>
                 MY BOOK CLUBS
