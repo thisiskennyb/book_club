@@ -17,6 +17,7 @@ export default function Profile() {
     const [open, setOpen] = useState(false)
     const [selectedBook, setSelectedBook] = useState(false)
     const [clickedBook, setClickedBook] = useState({})
+    const [customerName, setCustomerName] = useState(null)
     // const base_url = import.meta.env.VITE_BASE_URL
     const base_url = "http://localhost:8000/api/"
   
@@ -68,7 +69,9 @@ export default function Profile() {
       try {
         // If userPK is available, use it for fetching a specific user's pages
         const pagesRead = await getPagesCompleted();
+        console.log(pagesRead)
         setTotalPages(pagesRead.pages_completed);
+        setCustomerName(pagesRead.username)
       } catch (error) {
         console.error('Error fetching pages read:', error);
       }
@@ -94,14 +97,15 @@ useEffect(() => {
 
           {selectedBook &&<ChangeRating handleClose={handleClose} open={open} book_pk={selectedBook} setOpen={setOpen}/>}
           <div className="profileTitle">
-          <h2>Welcome to your Profile</h2>
+          <h2>Welcome to your Profile {customerName}</h2>
+
           </div>
           {/* {totalPages ? (<div>Total Pages{totalPages.pages_completed}</div>) : (<div></div>)} */}
           <div className="headerContainer">
             <div className="totalPages">
               <h3>Total Pages Read:</h3> <br /> {totalPages !== null ? totalPages : 'Loading...'}
             </div>
-
+            
             <div className="recommended">
                 <h3>Recommended</h3>
               {profileInfo && profileInfo['recommended'].length > 0 ? (
@@ -117,12 +121,15 @@ useEffect(() => {
             </div>
           </div>
 
-          <div className="bottomContainer"></div>
+          
           {typeof profileInfo == "object" ?(
           <div className="bottomContainer">
             <div className="completed">
                 <h3>Completed</h3>
-              {profileInfo["completed_books"].map((book, index) => (
+              {profileInfo["completed_books"].length === 0 ? (
+                <h4>You have no completed books</h4>
+              ) : (
+              profileInfo["completed_books"].map((book, index) => (
                   <div className="book-info-container" key={index}>
                     <div className='comp-book-title' onClick={() => handleOpen(book.book)}>
                     {/* setOpen={setOpen} onClose={() => setOpen(false)} */}
@@ -151,14 +158,17 @@ useEffect(() => {
                     </>
                     )}
                     </span>
-                    
                   </div>
-                ))}
+                ))
+                )}
               </div>
 
             <div className="tbr">
                 <h3>To-Be-Read</h3>
-              {profileInfo['tbr'].map((book,index)=> (
+              {profileInfo['tbr'].length === 0 ? (
+                <h4>What books would you like to read next?</h4>
+              ) : (
+              profileInfo['tbr'].map((book,index)=> (
               <div key={index}>  
                 <p>Title: {book['book']['title']}</p>
                 <span className="feature">
@@ -178,7 +188,8 @@ useEffect(() => {
                     </button>
                   </span>
               </div>
-              ))}
+              ))
+              )}
             </div>
 
         
