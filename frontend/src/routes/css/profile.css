@@ -16,6 +16,15 @@
 
 }
 
+.titleText {
+  font-family: 'Rowdies';
+}
+
+.contentText {
+  font-family: 'Alegreya SC';
+  font-size: 20px;
+}
+
 .totalPages {
   align-self: flex-start;
   padding: 10px;
@@ -52,11 +61,12 @@
 
 .bookList {
   overflow-y: auto;
+  font-family: 'Alegreya SC';
 }
 
 .bottomContainer {
   display: flex;
-  /* flex-direction: column; */
+  flex-direction: column;
   justify-content: space-around;
 
 }
@@ -102,18 +112,6 @@
   text-align: center;
 }
 
-.tbr div {
-  /* height: 40px; */
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 10px;
-}
 
 
 
-
-
-/* .feature {
-  align-self: flex-start
-} */
