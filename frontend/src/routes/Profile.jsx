@@ -126,7 +126,7 @@ useEffect(() => {
                   </div>
                 </div>
               ) : (
-              <p>No recommend books available</p>
+              <p className="contentText">No recommend books available</p>
              )}
             </div>
           </div>
