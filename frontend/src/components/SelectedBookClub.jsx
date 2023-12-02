@@ -65,9 +65,9 @@ export default function SelectedBookClub({myID, bookClubSelected, setBookClubSel
 
         <div className="genericBox">
             {clubInfo && clubInfo['member'] ? 
-            <button className="myButton" onClick={()=>sendModifyClubRequest("leave")}>leave club</button>
+            <button className="myButton" id="club-button" onClick={()=>sendModifyClubRequest("leave")}>leave club</button>
             :
-            <button className="myButton" onClick={()=>sendModifyClubRequest("join")}>join club</button>
+            <button className="myButton" id="club-button" onClick={()=>sendModifyClubRequest("join")}>join club</button>
         }
             {clubInfo&&isOwner?<button className="myButton" onClick={deleteClub}>delete club</button>:null}
             <button className="myButton"  onClick={()=>{setBookClubSelected(false)}}>back</button>

@@ -17,6 +17,7 @@
     width:50%;
     border-radius: 10pt;
     font-family: 'Rowdies', serif;
+
     
     box-shadow: 5px 5px 10px 0px rgba(0, 0, 0, 0.5);
     
@@ -31,6 +32,7 @@
     display: flex;
     align-items: center;
     margin: 10px 0; 
+    justify-content: center;
   }
   
   #custom-radio label {
@@ -66,3 +68,9 @@
     background-color: #3498db;
     align-items: center;
 } 
+
+
+.club-input {
+    margin-left: 10px;
+    width: 400px;
+}

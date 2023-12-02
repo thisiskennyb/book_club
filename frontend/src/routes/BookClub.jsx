@@ -93,7 +93,7 @@ return (
               ALL BOOK CLUBS
             </h3>
             <h3>
-              SEARCH CLUBS: <input type="search" value={searchAllClubs} onChange={handleSearchClubsChange} placeholder="Enter club name"/>
+              SEARCH CLUBS: <input className="club-input" type="search" value={searchAllClubs} onChange={handleSearchClubsChange} placeholder="Enter club name"/>
             </h3>
             <p id="custom-radio">SEARCH BY: 
               <label>
