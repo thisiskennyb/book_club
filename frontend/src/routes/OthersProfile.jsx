@@ -62,7 +62,7 @@ export default function OthersProfile() {
             
             <div className='bottomContainer'>
        
-                <div classname="completedAndTbr">
+                <div className="completedAndTbr">
                     <div className='bookListBlock'>
                         <h3>Completed</h3>
                         {profileInfo && profileInfo.completed_books.map((book, index) => (
