@@ -66,3 +66,14 @@
     background-color: #E3F0FF;
     text-align: center;
 }
+.othersCompleted{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+.othersCompleted:hover {
+  transform: translateY(-5px);
+  cursor: pointer;
+  font-weight: bolder;
+}
