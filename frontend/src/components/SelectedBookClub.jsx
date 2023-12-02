@@ -4,6 +4,8 @@ import { modifyClub, deleteMyClub} from "../api/backend_calls"
 import ClubMessageBoard from "./ClubMessageBoard"
 import { Link } from 'react-router-dom';
 import './css/clubComponent.css'
+import '../routes/css/bookClub.css'
+
 export default function SelectedBookClub({myID, bookClubSelected, setBookClubSelected}){
     const [clubInfo, setClubInfo] = useState(false)
     const [memberChange, setMemberChange] = useState(false)
@@ -21,18 +23,27 @@ export default function SelectedBookClub({myID, bookClubSelected, setBookClubSel
         setBookClubSelected(false)
         return result
     }
-    const checkPermissions = () =>{
-        setIsMember(false)
-        setIsOwner(false)
-        const equalMyID = (element) => element['id']===myID
-        if(clubInfo['result']['user']===myID){
-            setIsOwner(true)
-            setIsMember(true)
-        }
-        else if(clubInfo['result']['members'].some(equalMyID)){
-            setIsMember(true)
-        }
+const checkPermissions = () => {
+  setIsMember(false);
+  setIsOwner(false);
+
+  // Check if the user is the owner of the club
+  if (clubInfo['result']['user'] === myID) {
+    setIsOwner(true);
+    setIsMember(true);
+  } else {
+    // Check if the user is a member of the club
+    console.log(clubInfo['result']['members'])
+    console.log(myID)
+    const isMember = clubInfo['result']['members'].find(
+      (member) => member['id'] === myID
+    );
+
+    if (isMember) {
+      setIsMember(true);
     }
+  }
+};
     useEffect(() => {
         const fetchBookClubs = async () => {
             const bookClubEntries = await getAllBookClubs(bookClubSelected.id);
@@ -55,7 +66,7 @@ export default function SelectedBookClub({myID, bookClubSelected, setBookClubSel
             <h4>AUTHOR: {clubInfo.result.book.author}</h4>
         </div>
         <div className="genericBox">
-            <h4>MEMBERS:</h4>
+            <h4>MEMBERS</h4>
         </div>
     
         <div id="nameBubbles">

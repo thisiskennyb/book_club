@@ -43,7 +43,7 @@ export default function BookClub({bookClubSelected, setBookClubSelected}) {
 }, [bookClubSelected, creatingBookClub])
 
 return (
-  <div id="clubPage">
+  <div className="clubPage">
     {bookClubSelected ? (
       <SelectedBookClub myID={myID} bookClubSelected={bookClubSelected} setBookClubSelected={setBookClubSelected}/>
     ) : (
