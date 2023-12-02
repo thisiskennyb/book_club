@@ -28,6 +28,7 @@ export default function DetailedBookView({ open, setOpen, bookInfo, onClose, but
     border: '2px solid #FFFF',
     boxShadow: 24,
     p: 4,
+    textAlign: 'center',
   };
 
   const handleClose = () => {

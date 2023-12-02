@@ -18,6 +18,8 @@ export default function Profile() {
     const [selectedBook, setSelectedBook] = useState(false)
     const [clickedBook, setClickedBook] = useState({})
     const [customerName, setCustomerName] = useState(null)
+    const [selectedBookForRating, setSelectedBookForRating] = useState(false)
+    const [ratingsOpen, setRatingsOpen] = useState(false)
     // const base_url = import.meta.env.VITE_BASE_URL
     const base_url = "http://localhost:8000/api/"
   
@@ -48,9 +50,14 @@ export default function Profile() {
     setSelectedBook(false)
   }
 
+  const handleRatingsClose = () =>{
+    setRatingsOpen(false)
+    setSelectedBookForRating(false)
+  }
+
   const handleCompletedBookClick = (book_pk) =>{
-      setSelectedBook(book_pk)
-      setOpen(true)
+      setSelectedBookForRating(book_pk)
+      setRatingsOpen(true)
   }
 
   const handleOpen = (book) => {
@@ -88,14 +95,14 @@ useEffect(() => {
   }
 
     getProfile()
-}, [jankyToggle, open]);
+}, [jankyToggle, open, ratingsOpen]);
 
 
     return(
       <div className="page-container">
         <DetailedBookView open={open} setOpen={setOpen}  buttons={false} onClose={() => setOpen(false)} bookInfo={clickedBook}/>
 
-          {selectedBook &&<ChangeRating handleClose={handleClose} open={open} book_pk={selectedBook} setOpen={setOpen}/>}
+          {selectedBookForRating &&<ChangeRating handleClose={handleRatingsClose} open={ratingsOpen} book_pk={selectedBookForRating} setOpen={setRatingsOpen}/>}
           <div className="profileTitle">
           <h2 className="titleText">Welcome to your Profile {customerName}</h2>
 

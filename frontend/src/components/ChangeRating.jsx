@@ -14,10 +14,12 @@ export default function ChangeRating({ handleClose, book_pk, open, setOpen }) {
     left: '50%',
     transform: 'translate(-50%, -50%)',
     width: 400,
-    bgcolor: 'background.paper',
+    bgcolor: 'hsl(90, 1%, 36%)',
     border: '2px solid #FFFF',
     boxShadow: 24,
-    p: 7,
+    p: 4,
+    textAlign: 'center',
+    
   };
 
   const handleRatingClick = async (newValue) => {
@@ -54,7 +56,7 @@ export default function ChangeRating({ handleClose, book_pk, open, setOpen }) {
           />
         </Box>
       )}
-      <button className='myButton' onClick={handleClose}>close</button>
+      <button className='myButton' onClick={handleClose}>Close</button>
       </Box>
       </Modal>
     </>
