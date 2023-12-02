@@ -54,7 +54,7 @@ export default function ChangeRating({ handleClose, book_pk, open, setOpen }) {
           />
         </Box>
       )}
-      <button onClick={handleClose}>close</button>
+      <button className='myButton' onClick={handleClose}>close</button>
       </Box>
       </Modal>
     </>
