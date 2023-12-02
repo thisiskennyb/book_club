@@ -67,7 +67,7 @@ export default function OthersProfile() {
                         <h3>Recommended</h3>
                         <div className="othersScroll">
                             {profileInfo && profileInfo.recommended.length >0 ? profileInfo.recommended.map((book, index) => (
-                                <p onClick={() => handleOpen(book.book)} key={index}>{book.book.title}</p>
+                                <p className='othersBookClubs' onClick={() => handleOpen(book.book)} key={index}>{book.book.title}</p>
                                 )):<p>No recommended books available</p>} 
                         </div>
                     </div>
@@ -90,14 +90,14 @@ export default function OthersProfile() {
                     <div className='bookListBlock'>
                         <h3>To Be Read</h3>
                         {profileInfo && profileInfo.tbr.map((book, index) => (
-                        <p onClick={() => handleOpen(book.book)} key={index}>{book.book.title}</p>
+                        <p className='othersBookClubs' onClick={() => handleOpen(book.book)} key={index}>{book.book.title}</p>
                         ))}
                     </div>
                 </div>
                 <div className='othersClubsBlock'>
                     <h3>Clubs</h3> 
                     {clubInfo && clubInfo.result.map((club, index) => (
-                    <div onClick={()=>{handleClubClick(club)}} key={index}>{club.name}</div>
+                    <div className='othersBookClubs' onClick={()=>{handleClubClick(club)}} key={index}>{club.name}</div>
                     ))}
                 </div>
             </div>
