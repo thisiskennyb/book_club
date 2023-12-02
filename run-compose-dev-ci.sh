@@ -7,7 +7,7 @@ export POSTGRES_DB=book_db
 export POSTGRES_USER=postgres
 export POSTGRES_PASSWORD=postgres
 
-docker-compose -f docker-compose.dev.yml up -d --build
+COMPOSE_DOCKER_CLI_BUILD=0 DOCKER_BUILDKIT=0 docker-compose -f docker-compose.dev.yml up -d --build
 
 # make sure the postgres container is ready, then run migrations
 sleep 10
