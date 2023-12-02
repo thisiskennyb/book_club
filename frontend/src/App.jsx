@@ -14,6 +14,7 @@ import SignUp from './routes/SignUp'
 function App() {
   
   const [bookClubSelected, setBookClubSelected] = useState(false)
+  const [creatingBookClub, setCreatingBookClub] = useState(false)
   const [formData, setFormData] = useState({ username: '', password: '' });
   const [userToken, setUserToken] = useState(null)
   useEffect( () => {
@@ -42,13 +43,13 @@ function App() {
     <div className="app-container">
       
     <Router>
-      <NavBar setBookClubSelected={setBookClubSelected} userToken={userToken}/>
+      <NavBar setCreatingBookClub={setCreatingBookClub} setBookClubSelected={setBookClubSelected} userToken={userToken}/>
      <Routes>
       <Route path="/login" element={<Login handleInputChange={handleInputChange} formData={formData} handleToken={handleToken}/>} />
       <Route path="/" element={<Home userToken={userToken}/>} />
       <Route path="/profile" element={<Profile />} />
       <Route path="/search" element={<Search />} />
-      <Route path="/BookClub" element={<BookClub bookClubSelected={bookClubSelected} setBookClubSelected={setBookClubSelected}/>} />
+      <Route path="/BookClub" element={<BookClub creatingBookClub={creatingBookClub} setCreatingBookClub={setCreatingBookClub} bookClubSelected={bookClubSelected} setBookClubSelected={setBookClubSelected}/>} />
       <Route path="/logout" element={<Logout setUserToken={setUserToken}/>} />
       <Route path="/othersProfile/:userPK" element={<OthersProfile />} />
       <Route path="/testtopfive" element={<TopFive />} />

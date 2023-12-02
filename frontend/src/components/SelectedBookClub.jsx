@@ -76,17 +76,17 @@ const checkPermissions = () => {
 
         <div className="genericBox">
             {clubInfo && clubInfo['member'] ? 
-            <button className="myButton" onClick={()=>sendModifyClubRequest("leave")}>leave club</button>
+            <button className="myButton" onClick={()=>sendModifyClubRequest("leave")}>Leave Club</button>
             :
-            <button className="myButton" onClick={()=>sendModifyClubRequest("join")}>join club</button>
+            <button className="myButton" onClick={()=>sendModifyClubRequest("join")}>Join Club</button>
         }
-            {clubInfo&&isOwner?<button className="myButton" onClick={deleteClub}>delete club</button>:null}
-            <button className="myButton"  onClick={()=>{setBookClubSelected(false)}}>back</button>
+            {clubInfo&&isOwner?<button className="myButton" onClick={deleteClub}>Delete Club</button>:null}
+            <button className="myButton"  onClick={()=>{setBookClubSelected(false)}}>Back</button>
         </div>
 
     </>}
-    <div className="genericBox">
+    
     <ClubMessageBoard isMember={isMember} myID={myID} isOwner={isOwner} clubPk={bookClubSelected.id} />
-    </div>
+    
     </>)
 }

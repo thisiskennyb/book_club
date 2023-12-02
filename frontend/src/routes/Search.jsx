@@ -102,6 +102,7 @@ export default function Search() {
             name="title"
             value={title}
             onChange={handleInputChange}
+            placeholder="Search"
             required
             />
         <button className="myButton" type="submit">Search</button>
@@ -113,8 +114,8 @@ export default function Search() {
       <div>
     {isSearchPressed?(<><h2>Search Results: </h2>
     <h3>Page: {resultPage}</h3></>):null}
-    {resultPage > 1 ? <button onClick={handlePrevPage}>Prev Page</button>:null}
-    {!lastPage && isSearchPressed? <button onClick={handleNextPage}>Next Page</button>:null}
+    {resultPage > 1 ? <button className="myButton" onClick={handlePrevPage}>Prev Page</button>:null}
+    {!lastPage && isSearchPressed? <button className="myButton" onClick={handleNextPage}>Next Page</button>:null}
   {lastPage ? "no more results":null}
   {noResults ? "no results matching your query":null}
   <ul id="bookCardContainer">

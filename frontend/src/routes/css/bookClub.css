@@ -66,3 +66,40 @@
     background-color: #3498db;
     align-items: center;
 } 
+.messagePost{
+    display:flex;
+   flex-direction: row;
+    margin-top: 5pt;
+  }
+.postText{
+margin-top: 5pt;
+}
+.postButton{
+margin-top: -1pt;
+
+}
+.message-container {
+    margin-bottom: 8px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .message-content {
+    display: flex;
+    flex-direction: row;
+    
+  }
+  
+  .messagePostUsername {
+    margin-right: 10pt; 
+    margin-left: 10pt;
+  }
+  
+  .message-text {
+    word-wrap: break-word;
+    overflow-wrap: break-word; 
+    width: 50%;
+  }
+  

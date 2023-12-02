@@ -94,26 +94,26 @@ return (
                     <BasicRating handleClose={handleClose} book_pk={saveResponse.pk}/>
                     ) : (
                       <>
-                      <h2>{bookInfo.title}</h2>
+                      <h1>{bookInfo.title}</h1>
                       <h4>{bookInfo.author}</h4>
                       <p>
                         {bookDetails.description
                           ? bookDetails.description.value
                           ? bookDetails.description.value
                           : bookDetails.description
-                          : "no description available"}
+                          : "No Description Available"}
                       </p>
                       <div className='detailedBookButtons'>
                         {buttons ? (
                           <>                        
-                        <button className="myButton" onClick={() => handleSave("to-be-read", bookInfo)}>to-be-read</button>
-                        <button className="myButton" onClick={() => handleSave("completed", bookInfo)}>completed</button>
+                        <button className="myButton" onClick={() => handleSave("to-be-read", bookInfo)}>To-Be-Read</button>
+                        <button className="myButton" onClick={() => handleSave("completed", bookInfo)}>Completed</button>
                         </>
                         ):(
                           <></>
                           )}
 
-                        <button className="myButton" onClick={handleClose}>close</button>
+                        <button className="myButton" onClick={handleClose}>Close</button>
                       </div>
   
                       {otherUsersSameBook ?
@@ -122,7 +122,7 @@ return (
                           ) : (<div className='nameBubbles'>
 
                           {otherUsersSameBook.map((others, index) => (
-                            <p className='nameLinkP' key={index}><Link className='nameLink' to={`/othersProfile/${others.user.pk}`}>{others.user.username}</Link><ReadOnlyRating value={others.user_rating} /></p>
+                            <Link className='nameLink nameLinkP' to={`/othersProfile/${others.user.pk}`}>{others.user.username} <ReadOnlyRating value={others.user_rating} /></Link>
                             ))}
                         </div>
                         )
