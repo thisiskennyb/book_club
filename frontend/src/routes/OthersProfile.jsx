@@ -39,7 +39,7 @@ export default function OthersProfile() {
     }
     else
         return (
-            <div className="page-container">
+            <div className="othersPage">
             {userInfo ? (
                 <>    
                 <div className="profileTitle">
