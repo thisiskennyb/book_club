@@ -19,7 +19,7 @@
 .totalPages {
   align-self: flex-start;
   padding: 10px;
-  border: 5px solid #b47548;
+  border: 2px solid #2a2e39;
   text-align: center;
   font-weight: bold;
   min-width: 300px;
@@ -32,7 +32,7 @@
 .recommended {
   align-self: flex-end;
   padding: 10px;
-  border: 5px solid #b47548;
+  border: 2px solid #2a2e39;
   text-align: center;
   font-weight: bold;
   min-width: 300px;
@@ -44,8 +44,10 @@
 }
 
 .scrollable-container {
-  max-height: 300px;
-  overflow-y: auto;
+  max-height: 100px;
+  width: 300px;
+  overflow: auto;
+  /* border: 1px solid; */
 }
 
 .bookList {
@@ -54,16 +56,17 @@
 
 .bottomContainer {
   display: flex;
-  flex-direction: column;
+  /* flex-direction: column; */
+  justify-content: space-around;
 
 }
 
 .completed {
-  align-self: flex-start;
+  align-self: center;
   padding: 10px;
-  border: 5px solid #b47548;
+  border: 2px solid #2a2e39;
   margin-bottom: 20px;
-  min-width: 1000px;
+  width: 80%;
   min-height: 300px;
   /* font-weight: bold; */
   border-radius: 15px;
@@ -87,11 +90,11 @@
 
 
 .tbr {
-  align-self: flex-start;
+  align-self: center;
   padding: 10px;
-  border: 5px solid #b47548;
+  border: 2px solid #2a2e39;
   /* font-weight: bold; */
-  min-width: 1000px;
+  width: 80%;
   min-height: 300px;
   border-radius: 15px;
   margin: 10px;
