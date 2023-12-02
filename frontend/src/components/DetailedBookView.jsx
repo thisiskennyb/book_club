@@ -9,7 +9,7 @@ import BasicRating from './Rating';
 import ReadOnlyRating from './readOnlyRating';
 import './css/detailedBookView.css'
 import { Link } from 'react-router-dom';
-
+import { useNavigate } from 'react-router-dom';
 export default function DetailedBookView({ open, setOpen, bookInfo, onClose, buttons }) {
 
   const [saveResponse, setSaveResponse] = useState({ result: null });
@@ -17,6 +17,7 @@ export default function DetailedBookView({ open, setOpen, bookInfo, onClose, but
   const [otherUsersSameBook, setOtherUsersSameBook] = useState(false);
   const [isAdded, setIsAdded] = useState(false);
   const [isRatingsOpen, setIsRatingsOpen] = useState(false);
+  const navigate = useNavigate();
   const style = {
     position: 'absolute',
     top: '50%',
@@ -57,7 +58,11 @@ export default function DetailedBookView({ open, setOpen, bookInfo, onClose, but
         setIsRatingsOpen(true); // Open ratings only if the list is "completed"
       }
   };
-
+  const handleNavigate = (otherProfilePk) =>{
+    // handleClose()
+    navigate(`/othersProfile/${otherProfilePk}`)
+    window.location.reload(true);
+  }
   const getDescription = async () => {
     if (open) {
       const apiJSON = await fetchDetailedBook(bookInfo.open_library_id);
@@ -122,7 +127,7 @@ return (
                           ) : (<div className='nameBubbles'>
 
                           {otherUsersSameBook.map((others, index) => (
-                            <Link className='nameLink nameLinkP' to={`/othersProfile/${others.user.pk}`}>{others.user.username} <ReadOnlyRating value={others.user_rating} /></Link>
+                            <button key={index} onClick={()=>{handleNavigate(others.user.pk)}} className='nameLink nameLinkP'>{others.user.username} <ReadOnlyRating value={others.user_rating} /></button>
                             ))}
                         </div>
                         )
