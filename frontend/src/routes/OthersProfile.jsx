@@ -13,7 +13,7 @@ export default function OthersProfile() {
     const [myID, setMyId] = useState(false)
     const [clubSelected, setClubSelected] = useState(false)
     const { userPK } = useParams();
-   
+    const [open, setOpen] = useState(false);
 
     const handleClubClick =(club) =>{
         setClubSelected(club)
@@ -24,6 +24,7 @@ export default function OthersProfile() {
             const profile = await profilePage(userPK);
             const clubs = await getMemberClubs(userPK)
             const userData = await getUserPagesCompleted(userPK)
+            console.log(profile)
             const userID = await getAllBookClubs()
             setMyId(userID.myid)
             setProfileInfo(profile);
@@ -40,7 +41,8 @@ export default function OthersProfile() {
     }
     else
         return (
-            <div className="othersPage">
+    <div className="othersPage">
+                <DetailedBookView open={open} buttons={true} setOpen={setOpen} bookInfo={clickedBook} onClose={() => setOpen(false)}/>
             {userInfo ? (
                 <>    
                 <div className="otherTitle">
