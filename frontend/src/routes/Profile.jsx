@@ -97,17 +97,20 @@ useEffect(() => {
 
           {selectedBook &&<ChangeRating handleClose={handleClose} open={open} book_pk={selectedBook} setOpen={setOpen}/>}
           <div className="profileTitle">
-          <h2>Welcome to your Profile {customerName}</h2>
+          <h2 className="titleText">Welcome to your Profile {customerName}</h2>
 
           </div>
           {/* {totalPages ? (<div>Total Pages{totalPages.pages_completed}</div>) : (<div></div>)} */}
           <div className="headerContainer">
             <div className="totalPages">
-              <h3>Total Pages Read:</h3> <br /> {totalPages !== null ? totalPages : 'Loading...'}
+              <h3 className="titleText">Total Pages Read:</h3> <br /> 
+                <div className="contentText">
+                {totalPages !== null ? totalPages : 'Loading...'}
+                </div>
             </div>
             
             <div className="recommended">
-                <h3>Recommended</h3>
+                <h3 className="titleText">Recommended</h3>
               {profileInfo && profileInfo['recommended'].length > 0 ? (
                 <div className="scrollable-container">
                   <div className="bookList">
@@ -125,7 +128,8 @@ useEffect(() => {
           {typeof profileInfo == "object" ?(
           <div className="bottomContainer">
             <div className="completed">
-                <h3>Completed</h3>
+                <h3 className="titleText">Completed</h3>
+              <div className="contentText">
               {profileInfo["completed_books"].length === 0 ? (
                 <h4>You have no completed books</h4>
               ) : (
@@ -138,7 +142,7 @@ useEffect(() => {
                       <br></br>
                       {/* Rating:{" "} */}
                     </div>
-                    <span className="feature">
+                    <span className="contentText">
                       <button onClick={()=>{handleCompletedBookClick(book["id"]) }}>
                       {/* Rating: {" "}   */}
                       {book["user_rating"] ? <ReadOnlyRating value={book["user_rating"]}/> : "not yet rated"}
@@ -158,20 +162,24 @@ useEffect(() => {
                     </>
                     )}
                     </span>
+                    
                   </div>
                 ))
+                
                 )}
+                </div>
               </div>
 
             <div className="tbr">
-                <h3>To-Be-Read</h3>
+                <h3 className="titleText">To-Be-Read</h3>
+              <div className="contentText">
               {profileInfo['tbr'].length === 0 ? (
                 <h4>What books would you like to read next?</h4>
               ) : (
               profileInfo['tbr'].map((book,index)=> (
-              <div key={index}>  
+              <div className='book-info-container' key={index}>  
                 <p>Title: {book['book']['title']}</p>
-                <span className="feature">
+                <span className="contentText">
                   <button onClick={() => handleTBRDelete(book["id"])}>
                     <img src={trashCan} />
                   </button>
@@ -190,6 +198,8 @@ useEffect(() => {
               </div>
               ))
               )}
+              
+              </div>
             </div>
 
         
