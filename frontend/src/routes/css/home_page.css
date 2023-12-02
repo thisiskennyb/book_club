@@ -58,8 +58,12 @@
 
 }
 
-.sign-up-butt {
+#signup-butt {
     margin-top: 20pt;
+}
+
+.icon-ref {
+    text-align: center;
 }
 
 

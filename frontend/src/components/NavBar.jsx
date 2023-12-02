@@ -8,7 +8,7 @@ export default function Navbar({ userToken, setCreatingBookClub, setBookClubSele
   const handleLinkClick = (path) => {
     if (path === '/') {
       navigate('/')
-    } else if (!userToken) {
+    } else if (!userToken && path != '/login') {
       alert("you must be logged in")
       navigate('/login')
     } else {
