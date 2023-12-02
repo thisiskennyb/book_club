@@ -51,6 +51,7 @@
     transition: transform 0.3s ease;
     box-shadow: 5px 5px 10px 0px rgba(0, 0, 0, 0.5);
     margin: 10pt;
+    padding: 5pt;
 }
 .nameLinkP:hover{
     transform: translateY(-10px);

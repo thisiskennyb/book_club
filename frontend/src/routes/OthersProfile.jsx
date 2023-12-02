@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import ReadOnlyRating from '../components/readOnlyRating';
 import SelectedBookClub from '../components/SelectedBookClub';
 import { getAllBookClubs } from '../api/backend_calls';
+import DetailedBookView from "../components/DetailedBookView";
 import './css/othersProfile.css';
 export default function OthersProfile() {
     const [profileInfo, setProfileInfo] = useState(null);
@@ -39,17 +40,17 @@ export default function OthersProfile() {
     }
     else
         return (
-            <div className="page-container">
+            <div className="othersPage">
             {userInfo ? (
                 <>    
-                <div className="profileTitle">
+                <div className="otherTitle">
                     <h2>{userInfo.username}'s profile</h2>
                 </div>
-                <div className="headerContainer">
+                <div className="otherHeaderContainer">
                     <div className="totalPages">
                         <h3>Total Pages Read:{userInfo.pages_completed}</h3>
                     </div>
-                    <div className="recommended">
+                    <div className="othersRecommended">
                         <h3>Recommended</h3>
                         {profileInfo && profileInfo.recommended.length >0 ? profileInfo.recommended.map((book, index) => (
                         <p key={index}>{book.book.title}</p>
@@ -60,7 +61,7 @@ export default function OthersProfile() {
 
 
             
-            <div className='bottomContainer'>
+            <div className='othersBottomContainer'>
        
                 <div className="completedAndTbr">
                     <div className='bookListBlock'>
