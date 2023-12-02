@@ -65,9 +65,11 @@ export default function OthersProfile() {
                     </div>
                     <div className="othersRecommended">
                         <h3>Recommended</h3>
-                        {profileInfo && profileInfo.recommended.length >0 ? profileInfo.recommended.map((book, index) => (
-                        <p onClick={() => handleOpen(book.book)} key={index}>{book.book.title}</p>
-                        )):<p>No recommended books available</p>} 
+                        <div className="othersScroll">
+                            {profileInfo && profileInfo.recommended.length >0 ? profileInfo.recommended.map((book, index) => (
+                                <p onClick={() => handleOpen(book.book)} key={index}>{book.book.title}</p>
+                                )):<p>No recommended books available</p>} 
+                        </div>
                     </div>
                 </div>
             </>) : (<p>Loading...</p>)}
