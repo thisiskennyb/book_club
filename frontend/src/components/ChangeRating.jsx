@@ -29,7 +29,7 @@ export default function ChangeRating({ handleClose, book_pk, open, setOpen }) {
       setTimeout(() => {
         setIsRatingAdded(false);
         handleClose();
-      }, 2000);
+      }, 1350);
     } catch (error) {
       console.error('Error:', error);
     }

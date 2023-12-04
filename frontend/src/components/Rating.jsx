@@ -15,7 +15,7 @@ export default function BasicRating({ handleClose, book_pk }) {
       setTimeout(() => {
         setIsRatingAdded(false);
         handleClose();
-      }, 2000);
+      }, 1350);
     } catch (error) {
       console.error('Error:', error);
     }

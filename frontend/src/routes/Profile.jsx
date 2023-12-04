@@ -142,10 +142,10 @@ useEffect(() => {
               ) : (
               profileInfo["completed_books"].map((book, index) => (
                   <div className="book-info-container" key={index}>
-                    <div className='comp-book-title' onClick={() => handleOpen(book.book)}>
+                    <div className='comp-book-title' >
                     {/* setOpen={setOpen} onClose={() => setOpen(false)} */}
                       {/* book list pk: {book["id"]}  */}
-                      Title: {book["book"]["title"]} 
+                      <p onClick={() => handleOpen(book.book)}>Title: {book["book"]["title"]} </p>
                       <br></br>
                       {/* Rating:{" "} */}
                     </div>
@@ -184,14 +184,14 @@ useEffect(() => {
                 <h4>What books would you like to read next?</h4>
               ) : (
               profileInfo['tbr'].map((book,index)=> (
-              <div  onClick={() => handleOpen(book.book)} className='book-info-container' key={index}>  
-                <p className="makeItHover">Title: {book['book']['title']}</p>
+              <div className='book-info-container' key={index}>  
+                <p onClick={() => handleOpen(book.book)} className="makeItHover">Title: {book['book']['title']}</p>
                 <span className="contentText">
                   <button onClick={() => handleTBRDelete(book["id"])}>
                     <img src={trashCan} />
                   </button>
                   {" "}
-                  <button onClick={() => 
+                  <button className="myButton" onClick={() => 
                     handleListChange({"book": {
                           "author": book['book']["author"],
                           "book_cover_id": book['book']["book_cover_id"],
@@ -199,7 +199,7 @@ useEffect(() => {
                           "pages": book['book']["pages"],
                           "title": book['book']["title"]
                     }}, book["id"])}>
-                        completed
+                        Completed
                     </button>
                   </span>
               </div>
