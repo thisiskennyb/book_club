@@ -12,7 +12,7 @@ class Book(models.Model):
     @classmethod
     def get_or_create_book(cls, book_data):
         open_library_id = book_data['book']['open_library_id']
-        book_cover_id = book_data.get('book_cover_id', None)
+        book_cover_id = book_data['book'].get('book_cover_id', None)
         book, created = cls.objects.get_or_create(open_library_id=open_library_id, defaults={
             'author': book_data['book']['author'],
             'title': book_data['book']['title'],
