@@ -107,7 +107,7 @@ export default function Search() {
             />
         <button className="myButton" type="submit">Search</button>
         </div>
-        {searchType=="subject"?<p>Space between terms. Connected words by underscore. Ex. outer_space pirate</p>:null}
+        {searchType=="subject"?<p>Put a space between search terms. If your search term is two words connect them with a space. For Example "outer_space pirate" will get you results about outer space and pirates</p>:null}
       </form>
 
 
