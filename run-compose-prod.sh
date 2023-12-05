@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # The Dockerhub account where the images are stored
-export DOCKERHUB_UNAME=thisiskennyb
+export DOCKERHUB_UNAME=$7
 
 # These environment variables come from command line arguments.
 # They are consumed by the docker-compose file.
