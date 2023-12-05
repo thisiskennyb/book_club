@@ -6,9 +6,6 @@ import { useNavigate } from 'react-router-dom';
 
 export default function SignUp() {
   const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
-    email: '',
     username: '',
     password: '',
   });
@@ -34,8 +31,8 @@ export default function SignUp() {
 
     const response = await signup(context);
     setResponseMsg(response.username);
-    console.log('css sucks');
-    alert("succussfully registered")
+ 
+    alert("successfully registered")
     navigate('/login')
   
   };
@@ -44,35 +41,6 @@ export default function SignUp() {
     <div className="signup-container">
       <img src={bookshelf} alt="Background" className="background-image" />
       <form className="signup-form">
-        <label htmlFor="firstName">First Name</label>
-        <input
-          type="text"
-          id="firstName"
-          name="firstName"
-          value={formData.firstName}
-          onChange={handleInputChange}
-          required
-        />
-
-        <label htmlFor="lastName">Last Name</label>
-        <input
-          type="text"
-          id="lastName"
-          name="lastName"
-          value={formData.lastName}
-          onChange={handleInputChange}
-          required
-        />
-
-        <label htmlFor="email">Email</label>
-        <input
-          type="email"
-          id="email"
-          name="email"
-          value={formData.email}
-          onChange={handleInputChange}
-          required
-        />
 
         <label htmlFor="username">Username</label>
         <input
