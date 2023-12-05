@@ -48,7 +48,7 @@ export default function Search() {
   const handleNextPage = () =>{
     const nextPage = [resultsShowing[0]+10,resultsShowing[1]+10]
     const tenBooks = allResults.slice(nextPage[0],nextPage[1])
-    if(tenBooks.length===0){setLastPage(true)}
+    if(resultPage +1 == pagesOfBooks){setLastPage(true)}
     setSearchResults(tenBooks)
     setResultsShowing(nextPage)
     setResultPage(resultPage+1)
@@ -63,6 +63,7 @@ export default function Search() {
   }
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setResultPage(1)
     setLastPage(false)
     setNoResults(false)
     setBooksLoaded(false)
@@ -71,12 +72,15 @@ export default function Search() {
     const results = await fetchBooks(context, searchType);
     const useableBooks = filterResults(results)
     setAllResults(useableBooks)
-    const tempPages = useableBooks%10 
+    const tempPages = Math.floor(useableBooks.length / 10)+1
+    if(tempPages===1){
+      setLastPage(true)
+    }
+    console.log(useableBooks) 
     setPagesOfBooks(tempPages)
     const tenBooks = useableBooks.slice(resultsShowing[0],resultsShowing[1])
     if(tenBooks.length===0){setNoResults(true)}
     setSearchResults(tenBooks)
-    setResultPage(1)
     setResultsShowing([0,10])
     setIsSearchPressed(true)
     setBooksLoaded(true)
@@ -113,11 +117,11 @@ export default function Search() {
 
       <div>
     {isSearchPressed?(<><h2>Search Results: </h2>
-    <h3>Page: {resultPage}</h3></>):null}
+    <h3>Page: {resultPage} of {pagesOfBooks}</h3></>):null}
     {resultPage > 1 ? <button className="myButton" onClick={handlePrevPage}>Prev Page</button>:null}
     {!lastPage && isSearchPressed? <button className="myButton" onClick={handleNextPage}>Next Page</button>:null}
-  {lastPage ? "no more results":null}
-  {noResults ? "no results matching your query":null}
+
+  {noResults ? "No results matching your query":null}
   <ul id="bookCardContainer">
     {booksLoaded ? searchResults.map((result, index) => (
       <SearchBookCard key={index} result={result} index={index} handleOpen={handleOpen}/>
