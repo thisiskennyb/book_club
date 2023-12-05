@@ -57,11 +57,12 @@ export default function OthersProfile() {
             {userInfo ? (
                 <>    
                 <div className="otherTitle">
-                    <h2>{userInfo.username}'s profile</h2>
+                    <h2>{userInfo.username}'s Profile</h2>
                 </div>
                 <div className="otherHeaderContainer">
                     <div className="totalPages">
-                        <h3>Total Pages Read:{userInfo.pages_completed}</h3>
+                        <h3>Total Pages Read:</h3>
+                        <h3>{userInfo.pages_completed}</h3>
                     </div>
                     <div className="othersRecommended">
                         <h3>Recommended</h3>
