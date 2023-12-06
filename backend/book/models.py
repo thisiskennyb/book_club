@@ -2,11 +2,11 @@ from django.db import models
 
 
 class Book(models.Model):
-    author = models.CharField()
-    title = models.CharField()
+    author = models.CharField(max_length=255)
+    title = models.CharField(max_length=255)
     pages = models.IntegerField()
-    book_cover_id = models.CharField(null=True, default=None, blank=True)
-    open_library_id = models.CharField(default=None)
+    book_cover_id = models.CharField(null=True, default=None, blank=True, max_length=255)
+    open_library_id = models.CharField(default=None, max_length=255)
 
 
     @classmethod
